@@ -15,6 +15,8 @@ extension ContentTypeX on ContentType {
         return context.l10n.contentTypeSource;
       case ContentType.country:
         return context.l10n.contentTypeCountry;
+      case ContentType.person:
+        return context.l10n.contentTypePerson;
     }
   }
 }

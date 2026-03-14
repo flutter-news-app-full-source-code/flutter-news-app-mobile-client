@@ -16,6 +16,8 @@ extension ContentActionExtension on ContentAction {
         return LimitedAction.followSource;
       case ContentAction.followCountry:
         return LimitedAction.followCountry;
+      case ContentAction.followPerson:
+        return LimitedAction.followPerson;
       case ContentAction.saveFilter:
         return LimitedAction.saveFilter;
       case ContentAction.pinFilter:
@@ -43,6 +45,7 @@ extension ContentActionExtension on ContentAction {
       case ContentAction.followTopic:
       case ContentAction.followSource:
       case ContentAction.followCountry:
+      case ContentAction.followPerson:
         return l10n.limitReachedBodyFollow;
       case ContentAction.postComment:
         return l10n.limitReachedBodyComments;

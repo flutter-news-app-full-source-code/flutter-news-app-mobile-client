@@ -22,6 +22,9 @@ enum ContentAction {
   /// The action of following a country.
   followCountry,
 
+  /// The action of following a person.
+  followPerson,
+
   /// The action of saving a filter.
   saveFilter,
 
@@ -339,6 +342,7 @@ class ContentLimitationService {
       case ContentAction.followTopic:
       case ContentAction.followSource:
       case ContentAction.followCountry:
+      case ContentAction.followPerson:
         final limit = limits.followedItems[tier];
         _logger.finer(
           'Follow limit check for tier "$tier" and action "${action.name}"',
@@ -348,6 +352,7 @@ class ContentLimitationService {
           ContentAction.followTopic => preferences.followedTopics.length,
           ContentAction.followSource => preferences.followedSources.length,
           ContentAction.followCountry => preferences.followedCountries.length,
+          ContentAction.followPerson => preferences.followedPersons.length,
           _ => 0,
         };
         _logger.finer('Current count: $count, Limit: $limit');

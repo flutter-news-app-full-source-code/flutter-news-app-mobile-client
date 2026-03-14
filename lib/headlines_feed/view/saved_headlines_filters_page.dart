@@ -64,6 +64,7 @@ class SavedHeadlinesFiltersView extends StatelessWidget {
                 topics: [],
                 sources: [],
                 countries: [],
+                persons: [],
               ),
             },
           );
