@@ -3,11 +3,11 @@ import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/app/models/initialization_result.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/app/models/initialization_result.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
 
 class MockAppBloc extends Mock implements AppBloc {}
 

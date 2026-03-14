@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/user_content/app_review/services/native_review_service.dart';
-import 'package:verity_mobile/user_content/app_review/view/provide_feedback_bottom_sheet.dart';
-import 'package:verity_mobile/user_content/app_review/view/rate_app_bottom_sheet.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/user_content/app_review/services/native_review_service.dart';
+import 'package:veritai_mobile/user_content/app_review/view/provide_feedback_bottom_sheet.dart';
+import 'package:veritai_mobile/user_content/app_review/view/rate_app_bottom_sheet.dart';
 
 /// {@template app_review_service}
 /// A service that encapsulates the business logic for the app review funnel.

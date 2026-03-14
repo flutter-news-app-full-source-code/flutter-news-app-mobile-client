@@ -4,12 +4,12 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/widgets/user_avatar.dart';
-import 'package:verity_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/widgets/user_avatar.dart';
+import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
 /// {@template comments_bottom_sheet}
 /// A bottom sheet that displays comments for a headline and allows users

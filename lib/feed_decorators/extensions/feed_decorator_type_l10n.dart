@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:core/core.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
 
 /// An extension on [FeedDecoratorType] to provide randomized, localized
 /// strings for decorator titles, descriptions, and calls to action.

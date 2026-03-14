@@ -1,4 +1,4 @@
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
 
 /// Extension on [AppLifeCycleStatus] to provide a convenient way to check
 /// for "running" states.

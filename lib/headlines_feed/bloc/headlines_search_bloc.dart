@@ -5,7 +5,7 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 import 'package:stream_transform/stream_transform.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 
 part 'headlines_search_event.dart';
 part 'headlines_search_state.dart';

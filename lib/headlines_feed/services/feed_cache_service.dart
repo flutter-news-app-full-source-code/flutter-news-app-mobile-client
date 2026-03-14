@@ -1,5 +1,5 @@
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/headlines_feed/models/cached_feed.dart';
+import 'package:veritai_mobile/headlines_feed/models/cached_feed.dart';
 
 /// {@template feed_cache_service}
 /// A service class responsible for all in-memory caching operations for the

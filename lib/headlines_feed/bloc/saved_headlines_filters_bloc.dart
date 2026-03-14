@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 // Import AppBloc with an alias to resolve the name collision between
 // the local `SavedHeadlineFiltersReordered` event and the one in AppBloc.
-import 'package:verity_mobile/app/bloc/app_bloc.dart' as app_bloc;
+import 'package:veritai_mobile/app/bloc/app_bloc.dart' as app_bloc;
 
 part 'saved_headlines_filters_event.dart';
 part 'saved_headlines_filters_state.dart';

@@ -1,8 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
 
 /// {@template entity_list_tile}
 /// A reusable list tile for displaying a [FeedItem] entity (Topic, Source,

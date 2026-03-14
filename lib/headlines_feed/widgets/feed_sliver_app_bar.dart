@@ -3,14 +3,14 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_search_bloc.dart';
-import 'package:verity_mobile/headlines_feed/view/headline_search_delegate.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/widgets/notification_indicator.dart';
-import 'package:verity_mobile/shared/widgets/user_avatar.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_search_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/view/headline_search_delegate.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/widgets/notification_indicator.dart';
+import 'package:veritai_mobile/shared/widgets/user_avatar.dart';
 
 /// {@template feed_sliver_app_bar}
 /// A sliver app bar for the feed page that includes a custom search bar.

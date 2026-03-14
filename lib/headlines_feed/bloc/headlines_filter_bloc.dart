@@ -5,7 +5,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 
 part 'headlines_filter_event.dart';
 part 'headlines_filter_state.dart';

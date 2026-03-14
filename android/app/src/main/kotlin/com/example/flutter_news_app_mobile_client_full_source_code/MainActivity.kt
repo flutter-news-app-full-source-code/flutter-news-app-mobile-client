@@ -1,4 +1,4 @@
-package com.example.verity_mobile
+package com.example.veritai_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

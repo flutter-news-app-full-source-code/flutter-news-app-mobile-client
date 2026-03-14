@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
 
 /// Defines the specific onboarding flow that is required.
 enum OnboardingStatus { preAuthTour, postAuthPersonalization }

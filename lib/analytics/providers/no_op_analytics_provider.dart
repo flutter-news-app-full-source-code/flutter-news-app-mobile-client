@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/analytics/providers/analytics_provider.dart';
+import 'package:veritai_mobile/analytics/providers/analytics_provider.dart';
 
 /// A no-operation implementation of [AnalyticsProvider].
 ///

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:core/core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/push_notification/providers/push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/push_notification_provider.dart';
 
 /// A concrete implementation of [PushNotificationProvider] for Firebase Cloud
 /// Messaging (FCM).

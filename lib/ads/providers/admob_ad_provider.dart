@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/models/banner_ad.dart';
-import 'package:verity_mobile/ads/models/interstitial_ad.dart';
-import 'package:verity_mobile/ads/models/native_ad.dart';
-import 'package:verity_mobile/ads/models/rewarded_ad.dart';
-import 'package:verity_mobile/ads/providers/ad_provider.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/models/banner_ad.dart';
+import 'package:veritai_mobile/ads/models/interstitial_ad.dart';
+import 'package:veritai_mobile/ads/models/native_ad.dart';
+import 'package:veritai_mobile/ads/models/rewarded_ad.dart';
+import 'package:veritai_mobile/ads/providers/ad_provider.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 
 /// A wrapper around [admob.MobileAds] and ad constructors to facilitate testing.
 @visibleForTesting

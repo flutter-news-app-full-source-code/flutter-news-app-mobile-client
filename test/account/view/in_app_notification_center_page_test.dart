@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/account/bloc/in_app_notification_center_bloc.dart';
-import 'package:verity_mobile/account/view/in_app_notification_center_page.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/account/bloc/in_app_notification_center_bloc.dart';
+import 'package:veritai_mobile/account/view/in_app_notification_center_page.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
 
 class MockInAppNotificationCenterBloc
     extends MockBloc<InAppNotificationCenterEvent, InAppNotificationCenterState>
