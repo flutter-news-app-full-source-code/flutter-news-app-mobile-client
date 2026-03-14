@@ -12,6 +12,7 @@ class HeadlinesFeedState extends Equatable {
       topics: [],
       sources: [],
       countries: [],
+      persons: [],
     ),
     this.savedHeadlineFilters = const [],
     this.activeFilterId = 'all',

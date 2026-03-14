@@ -228,8 +228,13 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       };
     }
     if (filter.countries.isNotEmpty) {
-      queryFilter['eventCountry.id'] = {
+      queryFilter['mentionedCountries.id'] = {
         r'$in': filter.countries.map((c) => c.id).toList(),
+      };
+    }
+    if (filter.persons.isNotEmpty) {
+      queryFilter['mentionedPersons.id'] = {
+        r'$in': filter.persons.map((p) => p.id).toList(),
       };
     }
     // Always filter for active content.
@@ -768,6 +773,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
             topics: [],
             sources: [],
             countries: [],
+            persons: [],
           ),
           activeFilterId: _allFilterId,
         ),
@@ -787,6 +793,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       topics: [],
       sources: [],
       countries: [],
+      persons: [],
     );
     emit(
       state.copyWith(
@@ -967,6 +974,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
             topics: [],
             sources: [],
             countries: [],
+            persons: [],
           ),
           adThemeStyle: event.adThemeStyle,
         ),
@@ -984,6 +992,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
           topics: [],
           sources: [],
           countries: [],
+          persons: [],
         ),
       ),
     );
@@ -1007,6 +1016,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       topics: userPreferences.followedTopics,
       sources: userPreferences.followedSources,
       countries: userPreferences.followedCountries,
+      persons: userPreferences.followedPersons,
     );
 
     if (cachedFeed != null) {
