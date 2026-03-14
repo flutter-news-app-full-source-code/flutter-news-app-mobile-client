@@ -225,6 +225,7 @@ Future<Widget> bootstrap(
   late final DataClient<Topic> topicsClient;
   late final DataClient<Country> countriesClient;
   late final DataClient<Source> sourcesClient;
+  late final DataClient<Person> personsClient;
   late final DataClient<UserContentPreferences> userContentPreferencesClient;
   late final DataClient<AppSettings> appSettingsClient;
   late final DataClient<User> userClient;
@@ -263,6 +264,13 @@ Future<Widget> bootstrap(
     modelName: 'source',
     fromJson: Source.fromJson,
     toJson: (source) => source.toJson(),
+    logger: logger,
+  );
+  personsClient = DataApi<Person>(
+    httpClient: httpClient,
+    modelName: 'person',
+    fromJson: Person.fromJson,
+    toJson: (person) => person.toJson(),
     logger: logger,
   );
   userContentPreferencesClient = DataApi<UserContentPreferences>(
@@ -346,6 +354,7 @@ Future<Widget> bootstrap(
     dataClient: countriesClient,
   );
   final sourcesRepository = DataRepository<Source>(dataClient: sourcesClient);
+  final personsRepository = DataRepository<Person>(dataClient: personsClient);
   final userContentPreferencesRepository =
       DataRepository<UserContentPreferences>(
         dataClient: userContentPreferencesClient,
@@ -483,6 +492,7 @@ Future<Widget> bootstrap(
       userRepository: userRepository,
       countriesRepository: countriesRepository,
       sourcesRepository: sourcesRepository,
+      personsRepository: personsRepository,
       remoteConfigRepository: remoteConfigRepository,
       appSettingsRepository: appSettingsRepository,
       userContentPreferencesRepository: userContentPreferencesRepository,
