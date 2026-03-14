@@ -28,10 +28,12 @@ class HeadlinesFilterBloc
     required DataRepository<Topic> topicsRepository,
     required DataRepository<Source> sourcesRepository,
     required DataRepository<Country> countriesRepository,
+    required DataRepository<Person> personsRepository,
     required AppBloc appBloc,
   }) : _topicsRepository = topicsRepository,
        _sourcesRepository = sourcesRepository,
        _countriesRepository = countriesRepository,
+       _personsRepository = personsRepository,
        _appBloc = appBloc,
        _logger = Logger('HeadlinesFilterBloc'),
        super(const HeadlinesFilterState()) {
@@ -50,6 +52,8 @@ class HeadlinesFilterBloc
     on<FilterSourceToggled>(_onFilterSourceToggled);
     on<FilterSourcesChanged>(_onFilterSourcesChanged);
     on<FilterCountryToggled>(_onFilterCountryToggled);
+    on<FilterPersonToggled>(_onFilterPersonToggled);
+    on<FilterPersonsChanged>(_onFilterPersonsChanged);
     on<FilterSelectionsCleared>(_onFilterSelectionsCleared);
     on<FilterCountriesChanged>(_onFilterCountriesChanged);
     on<FilterSourceCriteriaChanged>(_onFilterSourceCriteriaChanged);
@@ -58,6 +62,7 @@ class HeadlinesFilterBloc
   final DataRepository<Topic> _topicsRepository;
   final DataRepository<Source> _sourcesRepository;
   final DataRepository<Country> _countriesRepository;
+  final DataRepository<Person> _personsRepository;
   final AppBloc _appBloc;
   late final StreamSubscription<AppState> _appBlocSubscription;
   AppSettings? _lastAppSettings;
@@ -88,6 +93,7 @@ class HeadlinesFilterBloc
         allSourcesResponse,
         allEventCountriesResponse,
         allHeadquarterCountriesResponse,
+        allPersonsResponse,
       ] = await Future.wait([
         _topicsRepository.readAll(
           filter: {'status': ContentStatus.active.name},
@@ -106,6 +112,10 @@ class HeadlinesFilterBloc
         _countriesRepository.readAll(
           sort: [const SortOption('name', SortOrder.asc)],
         ),
+        _personsRepository.readAll(
+          filter: {'status': ContentStatus.active.name},
+          sort: [const SortOption('name', SortOrder.asc)],
+        ),
       ]);
 
       final allTopics = (allTopicsResponse as PaginatedResponse<Topic>).items;
@@ -113,6 +123,8 @@ class HeadlinesFilterBloc
           (allSourcesResponse as PaginatedResponse<Source>).items;
       final allCountries =
           (allEventCountriesResponse as PaginatedResponse<Country>).items;
+      final allPersons =
+          (allPersonsResponse as PaginatedResponse<Person>).items;
 
       // If forcing refresh (e.g. language change), we want to preserve the
       // current selection IDs but map them to the NEW objects (which have
@@ -121,6 +133,7 @@ class HeadlinesFilterBloc
       Set<Topic> selectedTopics;
       Set<Source> selectedSources;
       Set<Country> selectedCountries;
+      Set<Person> selectedPersons;
 
       if (event.forceRefresh) {
         final selectedTopicIds = state.selectedTopics.map((e) => e.id).toSet();
@@ -128,6 +141,9 @@ class HeadlinesFilterBloc
             .map((e) => e.id)
             .toSet();
         final selectedCountryIds = state.selectedCountries
+            .map((e) => e.id)
+            .toSet();
+        final selectedPersonIds = state.selectedPersons
             .map((e) => e.id)
             .toSet();
 
@@ -140,10 +156,14 @@ class HeadlinesFilterBloc
         selectedCountries = allCountries
             .where((e) => selectedCountryIds.contains(e.id))
             .toSet();
+        selectedPersons = allPersons
+            .where((e) => selectedPersonIds.contains(e.id))
+            .toSet();
       } else {
         selectedTopics = Set.from(event.initialSelectedTopics);
         selectedSources = Set.from(event.initialSelectedSources);
         selectedCountries = Set.from(event.initialSelectedCountries);
+        selectedPersons = Set.from(event.initialSelectedPersons);
       }
 
       emit(
@@ -152,6 +172,7 @@ class HeadlinesFilterBloc
           allTopics: allTopics,
           allSources: allSources,
           allCountries: allCountries,
+          allPersons: allPersons,
           allHeadquarterCountries:
               (allHeadquarterCountriesResponse as PaginatedResponse<Country>)
                   .items,
@@ -159,6 +180,7 @@ class HeadlinesFilterBloc
           selectedTopics: selectedTopics,
           selectedSources: selectedSources,
           selectedCountries: selectedCountries,
+          selectedPersons: selectedPersons,
           clearError: true,
         ),
       );
@@ -264,6 +286,32 @@ class HeadlinesFilterBloc
     emit(state.copyWith(selectedCountries: event.countries));
   }
 
+  void _onFilterPersonToggled(
+    FilterPersonToggled event,
+    Emitter<HeadlinesFilterState> emit,
+  ) {
+    final updatedSelectedPersons = Set<Person>.from(state.selectedPersons);
+    _logger.finer(
+      'Toggling person "${event.person.name}" to ${event.isSelected}.',
+    );
+    if (event.isSelected) {
+      updatedSelectedPersons.add(event.person);
+    } else {
+      updatedSelectedPersons.remove(event.person);
+    }
+    emit(state.copyWith(selectedPersons: updatedSelectedPersons));
+  }
+
+  void _onFilterPersonsChanged(
+    FilterPersonsChanged event,
+    Emitter<HeadlinesFilterState> emit,
+  ) {
+    _logger.finer(
+      'Replacing selected persons with a new set of ${event.persons.length} items.',
+    );
+    emit(state.copyWith(selectedPersons: event.persons));
+  }
+
   /// Handles the [FilterSelectionsCleared] event, clearing all filter selections.
   void _onFilterSelectionsCleared(
     FilterSelectionsCleared event,
@@ -275,6 +323,7 @@ class HeadlinesFilterBloc
         selectedTopics: {},
         selectedSources: {},
         selectedCountries: {},
+        selectedPersons: {},
       ),
     );
   }

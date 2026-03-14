@@ -22,6 +22,7 @@ final class FilterDataLoaded extends HeadlinesFilterEvent {
     this.initialSelectedTopics = const [],
     this.initialSelectedSources = const [],
     this.initialSelectedCountries = const [],
+    this.initialSelectedPersons = const [],
     this.forceRefresh = false,
   });
 
@@ -34,6 +35,9 @@ final class FilterDataLoaded extends HeadlinesFilterEvent {
   /// The countries that were initially selected on the previous page.
   final List<Country> initialSelectedCountries;
 
+  /// The persons that were initially selected on the previous page.
+  final List<Person> initialSelectedPersons;
+
   /// Whether to force a refresh of the data even if it's already loaded.
   final bool forceRefresh;
 
@@ -42,6 +46,7 @@ final class FilterDataLoaded extends HeadlinesFilterEvent {
     initialSelectedTopics,
     initialSelectedSources,
     initialSelectedCountries,
+    initialSelectedPersons,
     forceRefresh,
   ];
 }
@@ -137,6 +142,29 @@ final class FilterCountriesChanged extends HeadlinesFilterEvent {
 
   @override
   List<Object> get props => [countries];
+}
+
+final class FilterPersonToggled extends HeadlinesFilterEvent {
+  const FilterPersonToggled({required this.person, required this.isSelected});
+
+  /// The [Person] that was toggled.
+  final Person person;
+
+  /// The new selection state of the person.
+  final bool isSelected;
+
+  @override
+  List<Object> get props => [person, isSelected];
+}
+
+final class FilterPersonsChanged extends HeadlinesFilterEvent {
+  const FilterPersonsChanged({required this.persons});
+
+  /// The new set of selected persons.
+  final Set<Person> persons;
+
+  @override
+  List<Object> get props => [persons];
 }
 
 /// {@template filter_selections_cleared}

@@ -28,11 +28,13 @@ final class HeadlinesFilterState extends Equatable {
     this.allTopics = const [],
     this.allSources = const [],
     this.allCountries = const [],
+    this.allPersons = const [],
     this.allHeadquarterCountries = const [],
     this.allSourceTypes = const [],
     this.selectedTopics = const {},
     this.selectedSources = const {},
     this.selectedCountries = const {},
+    this.selectedPersons = const {},
     this.selectedSourceHeadquarterCountries = const {},
     this.selectedSourceTypes = const {},
     this.error,
@@ -50,6 +52,9 @@ final class HeadlinesFilterState extends Equatable {
   /// All available [Country] objects that can be used for filtering.
   final List<Country> allCountries;
 
+  /// All available [Person] objects that can be used for filtering.
+  final List<Person> allPersons;
+
   /// All available [Country] objects for filtering sources by headquarters.
   final List<Country> allHeadquarterCountries;
 
@@ -64,6 +69,9 @@ final class HeadlinesFilterState extends Equatable {
 
   /// The set of [Country] objects currently selected by the user.
   final Set<Country> selectedCountries;
+
+  /// The set of [Person] objects currently selected by the user.
+  final Set<Person> selectedPersons;
 
   /// The set of [Country] objects selected for filtering the source list
   /// by headquarters.
@@ -82,11 +90,13 @@ final class HeadlinesFilterState extends Equatable {
     List<Topic>? allTopics,
     List<Source>? allSources,
     List<Country>? allCountries,
+    List<Person>? allPersons,
     List<Country>? allHeadquarterCountries,
     List<SourceType>? allSourceTypes,
     Set<Topic>? selectedTopics,
     Set<Source>? selectedSources,
     Set<Country>? selectedCountries,
+    Set<Person>? selectedPersons,
     Set<Country>? selectedSourceHeadquarterCountries,
     Set<SourceType>? selectedSourceTypes,
     HttpException? error,
@@ -97,12 +107,14 @@ final class HeadlinesFilterState extends Equatable {
       allTopics: allTopics ?? this.allTopics,
       allSources: allSources ?? this.allSources,
       allCountries: allCountries ?? this.allCountries,
+      allPersons: allPersons ?? this.allPersons,
       allHeadquarterCountries:
           allHeadquarterCountries ?? this.allHeadquarterCountries,
       allSourceTypes: allSourceTypes ?? this.allSourceTypes,
       selectedTopics: selectedTopics ?? this.selectedTopics,
       selectedSources: selectedSources ?? this.selectedSources,
       selectedCountries: selectedCountries ?? this.selectedCountries,
+      selectedPersons: selectedPersons ?? this.selectedPersons,
       selectedSourceHeadquarterCountries:
           selectedSourceHeadquarterCountries ??
           this.selectedSourceHeadquarterCountries,
@@ -117,11 +129,13 @@ final class HeadlinesFilterState extends Equatable {
     allTopics,
     allSources,
     allCountries,
+    allPersons,
     allHeadquarterCountries,
     allSourceTypes,
     selectedTopics,
     selectedSources,
     selectedCountries,
+    selectedPersons,
     selectedSourceHeadquarterCountries,
     selectedSourceTypes,
     error,

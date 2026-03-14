@@ -153,6 +153,7 @@ Future<void> _createAndApplyFilter(BuildContext context) async {
               topics: filterState.selectedTopics.toList(),
               sources: filterState.selectedSources.toList(),
               countries: filterState.selectedCountries.toList(),
+              persons: filterState.selectedPersons.toList(),
             ),
             // Use the values returned from the enhanced dialog.
             isPinned: result.isPinned,
@@ -219,6 +220,7 @@ Future<void> _updateAndApplyFilter(
               topics: filterState.selectedTopics.toList(),
               sources: filterState.selectedSources.toList(),
               countries: filterState.selectedCountries.toList(),
+              persons: filterState.selectedPersons.toList(),
             ),
           );
 
@@ -260,6 +262,7 @@ void _applyFilter(BuildContext context, {SavedHeadlineFilter? savedFilter}) {
     topics: filterState.selectedTopics.toList(),
     sources: filterState.selectedSources.toList(),
     countries: filterState.selectedCountries.toList(),
+    persons: filterState.selectedPersons.toList(),
   );
   headlinesFeedBloc.add(
     HeadlinesFeedFiltersApplied(
@@ -304,13 +307,15 @@ class _HeadlinesFilterView extends StatelessWidget {
             final isResetEnabled =
                 filterState.selectedTopics.isNotEmpty ||
                 filterState.selectedSources.isNotEmpty ||
-                filterState.selectedCountries.isNotEmpty;
+                filterState.selectedCountries.isNotEmpty ||
+                filterState.selectedPersons.isNotEmpty;
 
             // Determine if the "Apply" button should be enabled.
             final isFilterEmpty =
                 filterState.selectedTopics.isEmpty &&
                 filterState.selectedSources.isEmpty &&
-                filterState.selectedCountries.isEmpty;
+                filterState.selectedCountries.isEmpty &&
+                filterState.selectedPersons.isEmpty;
 
             // When editing, a duplicate check is not needed.
             final isEditing = filterToEdit != null;
@@ -335,6 +340,10 @@ class _HeadlinesFilterView extends StatelessWidget {
                       setEquals(
                         savedHeadlineFilter.criteria.countries.toSet(),
                         filterState.selectedCountries,
+                      ) &&
+                      setEquals(
+                        savedHeadlineFilter.criteria.persons.toSet(),
+                        filterState.selectedPersons,
                       ),
                 );
 
@@ -516,6 +525,40 @@ class _HeadlinesFilterView extends StatelessWidget {
                 if (selectedItems != null && context.mounted) {
                   context.read<HeadlinesFilterBloc>().add(
                     FilterCountriesChanged(countries: selectedItems),
+                  );
+                }
+              },
+            ),
+            const Divider(height: 1),
+            ListTile(
+              key: const Key('filter_persons_tile'),
+              title: Text(l10n.headlinesFeedFilterPersonLabel),
+              subtitle: Text(
+                filterState.selectedPersons.isEmpty
+                    ? l10n.headlinesFeedFilterAllLabel
+                    : l10n.headlinesFeedFilterSelectedCountLabel(
+                        filterState.selectedPersons.length,
+                      ),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () async {
+                final selectedItems = await Navigator.of(context)
+                    .push<Set<Person>>(
+                      MaterialPageRoute(
+                        builder: (_) => MultiSelectSearchPage<Person>(
+                          title: l10n.headlinesFeedFilterPersonLabel,
+                          allItems: filterState.allPersons,
+                          initialSelectedItems: filterState.selectedPersons
+                              .toSet(),
+                          itemBuilder: (Person item) =>
+                              item.name.getValue(context),
+                        ),
+                      ),
+                    );
+
+                if (selectedItems != null && context.mounted) {
+                  context.read<HeadlinesFilterBloc>().add(
+                    FilterPersonsChanged(persons: selectedItems),
                   );
                 }
               },
