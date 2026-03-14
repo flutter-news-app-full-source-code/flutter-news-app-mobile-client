@@ -28,11 +28,11 @@ dependencies:
   core:
     git:
       url: https://github.com/verity-hq/core.git
-      ref: 01ddd253e94303d86d9fbcc977acb2019f239fb4
+      ref: 302aec5e1b87bcfe0762ad557741c6038831d4dc
   core_ui:
     git:
       url: https://github.com/verity-hq/core-ui.git
-      ref: 051cdf79b85e3ffa124c90aa00cf873d722ae31c
+      ref: 10e864e60f035cc2c15198b283ca36dc45e8df3d
   equatable: ^2.0.7
   firebase_analytics: ^12.1.0
   firebase_core: ^4.2.1
