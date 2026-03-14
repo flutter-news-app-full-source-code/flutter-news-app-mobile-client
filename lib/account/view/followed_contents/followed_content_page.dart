@@ -23,15 +23,17 @@ class FollowedContentPage extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.followedContentPageTitle),
           bottom: TabBar(
+            isScrollable: true,
             tabs: [
               Tab(text: l10n.followedContentTopicsTab),
               Tab(text: l10n.followedContentSourcesTab),
-              Tab(text: l10n.headlinesFeedFilterCountryLabel),
+              Tab(text: l10n.followedContentCountriesTab),
+              Tab(text: l10n.followedContentPersonsTab),
             ],
           ),
           actions: [
@@ -72,6 +74,13 @@ class FollowedContentPage extends StatelessWidget {
                   items: context.select(
                     (AppBloc bloc) =>
                         bloc.state.userContentPreferences?.followedCountries ??
+                        [],
+                  ),
+                ),
+                _FollowedList<Person>(
+                  items: context.select(
+                    (AppBloc bloc) =>
+                        bloc.state.userContentPreferences?.followedPersons ??
                         [],
                   ),
                 ),
@@ -137,6 +146,22 @@ class FollowedContentPage extends StatelessWidget {
           if (newItems == null) return;
           final updatedPreferences = preferences.copyWith(
             followedCountries: newItems.whereType<Country>().toList(),
+          );
+          appBloc.add(
+            AppUserContentPreferencesChanged(preferences: updatedPreferences),
+          );
+        };
+      case 3:
+        page = MultiSelectSearchPage<Person>(
+          title: l10n.addPersonsPageTitle,
+          repository: context.read<DataRepository<Person>>(),
+          initialSelectedItems: preferences.followedPersons.toSet(),
+          itemBuilder: (Person person) => person.name.getValue(context),
+        );
+        onSave = (newItems) {
+          if (newItems == null) return;
+          final updatedPreferences = preferences.copyWith(
+            followedPersons: newItems.whereType<Person>().toList(),
           );
           appBloc.add(
             AppUserContentPreferencesChanged(preferences: updatedPreferences),
