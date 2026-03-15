@@ -7,37 +7,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:logging/logging.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:verity_mobile/ads/providers/ad_provider.dart';
-import 'package:verity_mobile/ads/providers/admob_ad_provider.dart';
-import 'package:verity_mobile/ads/providers/no_op_ad_provider.dart';
-import 'package:verity_mobile/ads/services/ad_manager.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
-import 'package:verity_mobile/analytics/providers/analytics_provider.dart';
-import 'package:verity_mobile/analytics/providers/firebase_analytics_provider.dart'
+import 'package:veritai_mobile/ads/providers/ad_provider.dart';
+import 'package:veritai_mobile/ads/providers/admob_ad_provider.dart';
+import 'package:veritai_mobile/ads/providers/no_op_ad_provider.dart';
+import 'package:veritai_mobile/ads/services/ad_manager.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/analytics/providers/analytics_provider.dart';
+import 'package:veritai_mobile/analytics/providers/firebase_analytics_provider.dart'
     as analytics_firebase;
-import 'package:verity_mobile/analytics/providers/mixpanel_analytics_provider.dart';
-import 'package:verity_mobile/analytics/providers/no_op_analytics_provider.dart';
-import 'package:verity_mobile/analytics/services/analytics_manager.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/config/config.dart' as app_config;
-import 'package:verity_mobile/app/services/app_initializer.dart';
-import 'package:verity_mobile/app/services/package_info_service.dart';
-import 'package:verity_mobile/app/view/app_initialization_page.dart';
-import 'package:verity_mobile/bloc_observer.dart';
-import 'package:verity_mobile/feed_decorators/services/feed_decorator_service.dart';
-import 'package:verity_mobile/headlines_feed/services/feed_cache_service.dart';
-import 'package:verity_mobile/push_notification/providers/firebase_push_notification_provider.dart';
-import 'package:verity_mobile/push_notification/providers/no_op_push_notification_provider.dart';
-import 'package:verity_mobile/push_notification/providers/one_signal_push_notification_provider.dart';
-import 'package:verity_mobile/push_notification/providers/push_notification_provider.dart';
-import 'package:verity_mobile/push_notification/services/push_notification_manager.dart';
-import 'package:verity_mobile/push_notification/services/push_notification_service.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
-import 'package:verity_mobile/user_content/app_review/services/app_review_service.dart';
-import 'package:verity_mobile/user_content/app_review/services/in_app_review_service.dart';
-import 'package:verity_mobile/user_content/app_review/services/native_review_service.dart';
-import 'package:verity_mobile/user_content/app_review/services/no_op_native_review_service.dart';
+import 'package:veritai_mobile/analytics/providers/mixpanel_analytics_provider.dart';
+import 'package:veritai_mobile/analytics/providers/no_op_analytics_provider.dart';
+import 'package:veritai_mobile/analytics/services/analytics_manager.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/config/config.dart' as app_config;
+import 'package:veritai_mobile/app/services/app_initializer.dart';
+import 'package:veritai_mobile/app/services/package_info_service.dart';
+import 'package:veritai_mobile/app/view/app_initialization_page.dart';
+import 'package:veritai_mobile/bloc_observer.dart';
+import 'package:veritai_mobile/feed_decorators/services/feed_decorator_service.dart';
+import 'package:veritai_mobile/headlines_feed/services/feed_cache_service.dart';
+import 'package:veritai_mobile/push_notification/providers/firebase_push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/no_op_push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/one_signal_push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/services/push_notification_manager.dart';
+import 'package:veritai_mobile/push_notification/services/push_notification_service.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/user_content/app_review/services/app_review_service.dart';
+import 'package:veritai_mobile/user_content/app_review/services/in_app_review_service.dart';
+import 'package:veritai_mobile/user_content/app_review/services/native_review_service.dart';
+import 'package:veritai_mobile/user_content/app_review/services/no_op_native_review_service.dart';
 
 Future<Widget> bootstrap(
   app_config.AppConfig appConfig,
@@ -225,6 +225,7 @@ Future<Widget> bootstrap(
   late final DataClient<Topic> topicsClient;
   late final DataClient<Country> countriesClient;
   late final DataClient<Source> sourcesClient;
+  late final DataClient<Person> personsClient;
   late final DataClient<UserContentPreferences> userContentPreferencesClient;
   late final DataClient<AppSettings> appSettingsClient;
   late final DataClient<User> userClient;
@@ -263,6 +264,13 @@ Future<Widget> bootstrap(
     modelName: 'source',
     fromJson: Source.fromJson,
     toJson: (source) => source.toJson(),
+    logger: logger,
+  );
+  personsClient = DataApi<Person>(
+    httpClient: httpClient,
+    modelName: 'person',
+    fromJson: Person.fromJson,
+    toJson: (person) => person.toJson(),
     logger: logger,
   );
   userContentPreferencesClient = DataApi<UserContentPreferences>(
@@ -346,6 +354,7 @@ Future<Widget> bootstrap(
     dataClient: countriesClient,
   );
   final sourcesRepository = DataRepository<Source>(dataClient: sourcesClient);
+  final personsRepository = DataRepository<Person>(dataClient: personsClient);
   final userContentPreferencesRepository =
       DataRepository<UserContentPreferences>(
         dataClient: userContentPreferencesClient,
@@ -483,6 +492,7 @@ Future<Widget> bootstrap(
       userRepository: userRepository,
       countriesRepository: countriesRepository,
       sourcesRepository: sourcesRepository,
+      personsRepository: personsRepository,
       remoteConfigRepository: remoteConfigRepository,
       appSettingsRepository: appSettingsRepository,
       userContentPreferencesRepository: userContentPreferencesRepository,

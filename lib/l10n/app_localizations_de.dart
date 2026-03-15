@@ -119,6 +119,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get followedContentSourcesTab => 'Quellen';
 
   @override
+  String get followedContentCountriesTab => 'Länder';
+
+  @override
+  String get followedContentPersonsTab => 'Personen';
+
+  @override
   String get authenticationEmailSentSuccess =>
       'Überprüfen Sie Ihre E-Mails auf den Anmelde-Link.';
 
@@ -192,6 +198,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get headlinesFeedFilterEventCountryLabel => 'Länder';
 
   @override
+  String get headlinesFeedFilterPersonLabel => 'Personen';
+
+  @override
   String get headlinesFeedFilterSourceCountryLabel => 'Hauptsitz der Quelle';
 
   @override
@@ -237,7 +246,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Erstellen Sie ein Konto, um Ihre Einstellungen, Inhaltspräferenzen und mehr geräteübergreifend zu speichern.';
 
   @override
-  String get authenticationSignInHeadline => 'Verity';
+  String get authenticationSignInHeadline => 'Veritai';
 
   @override
   String get authenticationSignInSubheadline =>
@@ -410,10 +419,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'Schriftstärke';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'Bild oben';
+  String get settingsFeedTileTypeImageTop => 'Kartenansicht';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'Bild am Anfang';
+  String get settingsFeedTileTypeImageStart => 'Kompakte Ansicht';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'Nur Text';
@@ -459,7 +468,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'Layout & Lesen';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'Ein unbekannter Fehler ist aufgetreten.';
@@ -729,6 +738,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addCountriesPageTitle => 'Länder zum Folgen hinzufügen';
 
   @override
+  String get addPersonsPageTitle => 'Personen folgen';
+
+  @override
   String followCountryTooltip(String countryName) {
     return '$countryName folgen';
   }
@@ -830,6 +842,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get entityDetailsCountryTitle => 'Land';
 
   @override
+  String get entityDetailsPersonTitle => 'Person';
+
+  @override
   String get savedHeadlinesLoadingHeadline =>
       'Gespeicherte Schlagzeilen werden geladen...';
 
@@ -896,6 +911,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get contentTypeCountry => 'Länder';
+
+  @override
+  String get contentTypePerson => 'Personen';
 
   @override
   String searchingFor(String contentType) {
@@ -1452,6 +1470,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get headlineActionsModalTitle => 'Aktionen';
 
   @override
+  String get readActionLabel => 'Lesen';
+
+  @override
+  String get reactActionLabel => 'Reagieren';
+
+  @override
+  String get mentionsActionLabel => 'Erwähnungen';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Erwähnungen';
+
+  @override
   String get shareActionLabel => 'Teilen';
 
   @override
@@ -1624,6 +1654,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Kommentare';
+
+  @override
+  String get engagementPageTitle => 'Interaktionen';
+
+  @override
+  String get engagementChooseReactionLabel => 'Was denken Sie darüber?';
 
   @override
   String commentsCount(int count) {
@@ -1861,6 +1897,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get initialPersonalizationStepCountriesTitle => 'Länder auswählen';
+
+  @override
+  String get initialPersonalizationStepPersonsTitle => 'Personen auswählen';
 
   @override
   String initialPersonalizationTotalSelectionCountLabel(int count) {

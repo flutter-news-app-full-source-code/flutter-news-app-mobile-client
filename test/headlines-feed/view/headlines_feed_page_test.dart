@@ -1,3 +1,5 @@
+import 'dart:io' as io;
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
@@ -6,17 +8,136 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/view/headlines_feed_page.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/view/headlines_feed_page.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
 
 class MockHeadlinesFeedBloc
     extends MockBloc<HeadlinesFeedEvent, HeadlinesFeedState>
     implements HeadlinesFeedBloc {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class TestHttpOverrides extends io.HttpOverrides {
+  @override
+  io.HttpClient createHttpClient(io.SecurityContext? context) {
+    return _MockHttpClient();
+  }
+}
+
+class _MockHttpClient extends Mock implements io.HttpClient {
+  _MockHttpClient() {
+    when(
+      () => getUrl(any<Uri>()),
+    ).thenAnswer((_) async => _MockHttpClientRequest());
+  }
+}
+
+class _MockHttpClientRequest extends Mock implements io.HttpClientRequest {
+  _MockHttpClientRequest() {
+    when(() => headers).thenReturn(_MockHttpHeaders());
+    when(close).thenAnswer((_) async => _MockHttpClientResponse());
+  }
+}
+
+class _MockHttpHeaders extends Mock implements io.HttpHeaders {}
+
+class _MockHttpClientResponse extends Mock implements io.HttpClientResponse {
+  _MockHttpClientResponse() {
+    when(() => statusCode).thenReturn(200);
+    when(() => contentLength).thenReturn(kTransparentImage.length);
+    when(
+      () => compressionState,
+    ).thenReturn(io.HttpClientResponseCompressionState.notCompressed);
+    when(
+      () => listen(
+        any(),
+        onError: any(named: 'onError'),
+        onDone: any(named: 'onDone'),
+        cancelOnError: any(named: 'cancelOnError'),
+      ),
+    ).thenAnswer((invocation) {
+      final onData =
+          invocation.positionalArguments[0] as void Function(List<int>);
+      final onDone = invocation.namedArguments[#onDone] as void Function()?;
+      onData(kTransparentImage);
+      onDone?.call();
+      return Stream<List<int>>.fromIterable([kTransparentImage]).listen(null);
+    });
+  }
+}
+
+const List<int> kTransparentImage = <int>[
+  0x89,
+  0x50,
+  0x4E,
+  0x47,
+  0x0D,
+  0x0A,
+  0x1A,
+  0x0A,
+  0x00,
+  0x00,
+  0x00,
+  0x0D,
+  0x49,
+  0x48,
+  0x44,
+  0x52,
+  0x00,
+  0x00,
+  0x00,
+  0x01,
+  0x00,
+  0x00,
+  0x00,
+  0x01,
+  0x08,
+  0x06,
+  0x00,
+  0x00,
+  0x00,
+  0x1F,
+  0x15,
+  0xC4,
+  0x89,
+  0x00,
+  0x00,
+  0x00,
+  0x0A,
+  0x49,
+  0x44,
+  0x41,
+  0x54,
+  0x78,
+  0x9C,
+  0x63,
+  0x00,
+  0x01,
+  0x00,
+  0x00,
+  0x05,
+  0x00,
+  0x01,
+  0x0D,
+  0x0A,
+  0x2D,
+  0xB4,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x49,
+  0x45,
+  0x4E,
+  0x44,
+  0xAE,
+  0x42,
+  0x60,
+  0x82,
+];
 
 void main() {
   late HeadlinesFeedBloc headlinesFeedBloc;
@@ -53,12 +174,14 @@ void main() {
       updatedAt: DateTime(2023),
       status: ContentStatus.active,
     ),
-    eventCountry: const Country(
-      isoCode: 'US',
-      name: {SupportedLanguage.en: 'USA'},
-      flagUrl: 'f',
-      id: 'c',
-    ),
+    mentionedCountries: const [
+      Country(
+        isoCode: 'US',
+        name: {SupportedLanguage.en: 'USA'},
+        flagUrl: 'f',
+        id: 'c',
+      ),
+    ],
     topic: Topic(
       id: 't1',
       name: const {SupportedLanguage.en: 'Topic 1'},
@@ -170,9 +293,11 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(NavigationHandled());
+    registerFallbackValue(Uri());
   });
 
   setUp(() {
+    io.HttpOverrides.global = TestHttpOverrides();
     headlinesFeedBloc = MockHeadlinesFeedBloc();
     appBloc = MockAppBloc();
 
@@ -186,6 +311,7 @@ void main() {
           followedCountries: [],
           followedSources: [],
           followedTopics: [],
+          followedPersons: [],
           savedHeadlines: [],
           savedHeadlineFilters: [],
         ),
@@ -213,6 +339,10 @@ void main() {
         const HeadlinesFeedState(status: HeadlinesFeedStatus.initial),
       ),
     );
+  });
+
+  tearDown(() {
+    io.HttpOverrides.global = null;
   });
 
   Widget buildTestWidget() {
@@ -299,7 +429,11 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
       await tester.drag(find.byType(CustomScrollView), const Offset(0, -1000));
       await tester.pump();
-      verify(() => headlinesFeedBloc.add(any())).called(1);
+      verify(
+        () => headlinesFeedBloc.add(
+          any(that: isA<HeadlinesFeedFetchRequested>()),
+        ),
+      ).called(1);
     });
   });
 }

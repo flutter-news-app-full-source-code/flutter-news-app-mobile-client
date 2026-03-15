@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/analytics/providers/analytics_provider.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/analytics/providers/analytics_provider.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 
 /// {@template analytics_manager}
 /// The concrete implementation of [AnalyticsService].

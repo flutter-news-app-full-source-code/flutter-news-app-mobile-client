@@ -4,9 +4,9 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
-import 'package:verity_mobile/headlines_feed/view/country_filter_page.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/view/country_filter_page.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
 
 import '../../helpers/helpers.dart';
 

@@ -5,11 +5,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 
 part 'entity_details_event.dart';
 part 'entity_details_state.dart';
@@ -29,6 +29,7 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
     required DataRepository<Topic> topicRepository,
     required DataRepository<Source> sourceRepository,
     required DataRepository<Country> countryRepository,
+    required DataRepository<Person> personRepository,
     required AppBloc appBloc,
     required AdService adService,
     required InlineAdCacheService inlineAdCacheService,
@@ -37,6 +38,7 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
        _topicRepository = topicRepository,
        _sourceRepository = sourceRepository,
        _countryRepository = countryRepository,
+       _personRepository = personRepository,
        _appBloc = appBloc,
        _adService = adService,
        _inlineAdCacheService = inlineAdCacheService,
@@ -55,6 +57,7 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
   final DataRepository<Topic> _topicRepository;
   final DataRepository<Source> _sourceRepository;
   final DataRepository<Country> _countryRepository;
+  final DataRepository<Person> _personRepository;
   final AppBloc _appBloc;
   final AdService _adService;
   final InlineAdCacheService _inlineAdCacheService;
@@ -88,6 +91,8 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
           entityToLoad = await _sourceRepository.read(id: event.entityId);
         case ContentType.country:
           entityToLoad = await _countryRepository.read(id: event.entityId);
+        case ContentType.person:
+          entityToLoad = await _personRepository.read(id: event.entityId);
         // ignore: no_default_cases
         default:
           throw const OperationFailedException(
@@ -113,7 +118,13 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
       } else if (contentTypeToLoad == ContentType.source) {
         filter['source.id'] = (entityToLoad as Source).id;
       } else if (contentTypeToLoad == ContentType.country) {
-        filter['eventCountry.id'] = (entityToLoad as Country).id;
+        filter['mentionedCountries.id'] = {
+          r'$in': [(entityToLoad as Country).id],
+        };
+      } else if (contentTypeToLoad == ContentType.person) {
+        filter['mentionedPersons.id'] = {
+          r'$in': [(entityToLoad as Person).id],
+        };
       }
 
       // Always filter for active headlines.
@@ -163,6 +174,10 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
         } else if (entityToLoad is Country) {
           isCurrentlyFollowing = preferences.followedCountries.any(
             (c) => c.id == (entityToLoad as Country).id,
+          );
+        } else if (entityToLoad is Person) {
+          isCurrentlyFollowing = preferences.followedPersons.any(
+            (p) => p.id == (entityToLoad as Person).id,
           );
         }
       }
@@ -219,6 +234,9 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
     final updatedFollowedCountries = List<Country>.from(
       currentPreferences.followedCountries,
     );
+    final updatedFollowedPersons = List<Person>.from(
+      currentPreferences.followedPersons,
+    );
 
     var isCurrentlyFollowing = false;
 
@@ -246,6 +264,14 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
         updatedFollowedCountries.add(country);
         isCurrentlyFollowing = true;
       }
+    } else if (entity is Person) {
+      final person = entity;
+      if (updatedFollowedPersons.any((p) => p.id == person.id)) {
+        updatedFollowedPersons.removeWhere((p) => p.id == person.id);
+      } else {
+        updatedFollowedPersons.add(person);
+        isCurrentlyFollowing = true;
+      }
     }
 
     // Create a new UserContentPreferences object with the updated lists
@@ -253,6 +279,7 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
       followedTopics: updatedFollowedTopics,
       followedSources: updatedFollowedSources,
       followedCountries: updatedFollowedCountries,
+      followedPersons: updatedFollowedPersons,
     );
 
     // Dispatch the event to AppBloc to update and persist preferences
@@ -284,7 +311,13 @@ class EntityDetailsBloc extends Bloc<EntityDetailsEvent, EntityDetailsState> {
       } else if (state.entity is Source) {
         filter['source.id'] = (state.entity! as Source).id;
       } else if (state.entity is Country) {
-        filter['eventCountry.id'] = (state.entity! as Country).id;
+        filter['mentionedCountries.id'] = {
+          r'$in': [(state.entity! as Country).id],
+        };
+      } else if (state.entity is Person) {
+        filter['mentionedPersons.id'] = {
+          r'$in': [(state.entity! as Person).id],
+        };
       }
 
       // Always filter for active headlines.

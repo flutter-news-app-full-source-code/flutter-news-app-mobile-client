@@ -142,6 +142,14 @@
     "@followedContentSourcesTab": {
         "description": "Label for the 'Sources' tab on the followed content page."
     },
+    "followedContentCountriesTab": "Countries",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "Persons",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "Check your email for the sign-in link.",
     "@authenticationEmailSentSuccess": {
         "description": "Success message shown after sending an email sign-in link on the authentication page"
@@ -238,6 +246,10 @@
     "@headlinesFeedFilterEventCountryLabel": {
         "description": "Filter page label indication where the hadline event has took place"
     },
+    "headlinesFeedFilterPersonLabel": "Persons",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "Source Headquarter",
     "@headlinesFeedFilterSourceCountryLabel": {
         "description": "Filter page label indication where the headline source is located"
@@ -294,7 +306,7 @@
     "@authenticationLinkingSubheadline": {
         "description": "Subheadline explaining the benefit of linking an anonymous account"
     },
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "@authenticationSignInHeadline": {
         "description": "Headline for the authentication page during standard sign-in"
     },
@@ -512,11 +524,11 @@
     "@settingsAppearanceFontWeightLabel": {
         "description": "Label for the font weight setting."
     },
-    "settingsFeedTileTypeImageTop": "Image Top",
+    "settingsFeedTileTypeImageTop": "Card View",
     "@settingsFeedTileTypeImageTop": {
         "description": "Label for the feed tile type with image on top"
     },
-    "settingsFeedTileTypeImageStart": "Image Start",
+    "settingsFeedTileTypeImageStart": "Compact View",
     "@settingsFeedTileTypeImageStart": {
         "description": "Label for the feed tile type with image at the start"
     },
@@ -576,7 +588,7 @@
     "@settingsLayoutAndReadingTitle": {
         "description": "Title for the feed layout and reading settings page."
     },
-    "appName": "News App",
+    "appName": "VeritAI",
     "@appName": {
         "description": "The name of the application."
     },
@@ -936,6 +948,10 @@
     "@addCountriesPageTitle": {
         "description": "Title for the page where users can add countries to follow"
     },
+    "addPersonsPageTitle": "Follow Persons",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "Follow {countryName}",
     "@followCountryTooltip": {
         "description": "Tooltip for the button to follow a specific country",
@@ -1064,6 +1080,10 @@
     "@entityDetailsCountryTitle": {
         "description": "Title for country entity type"
     },
+    "entityDetailsPersonTitle": "Person",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "Loading Saved Headlines...",
     "@savedHeadlinesLoadingHeadline": {
         "description": "Headline for loading state on saved headlines page"
@@ -1139,6 +1159,10 @@
     "contentTypeCountry": "Countries",
     "@contentTypeCountry": {
         "description": "Label for Country content type"
+    },
+    "contentTypePerson": "Persons",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
     },
     "searchingFor": "Searching for {contentType}...",
     "@searchingFor": {
@@ -1822,6 +1846,22 @@
     "@headlineActionsModalTitle": {
         "description": "Title for the modal bottom sheet that shows headline actions like share and bookmark."
     },
+    "readActionLabel": "Read",
+    "@readActionLabel": {
+        "description": "Label for the action to read the full article."
+    },
+    "reactActionLabel": "React",
+    "@reactActionLabel": {
+        "description": "Label for the action to open engagement (reactions and comments)."
+    },
+    "mentionsActionLabel": "Mentions",
+    "@mentionsActionLabel": {
+        "description": "Label for the action to view mentioned entities."
+    },
+    "mentionedEntitiesPageTitle": "Mentions",
+    "@mentionedEntitiesPageTitle": {
+        "description": "Title for the mentioned entities page."
+    },
     "shareActionLabel": "Share",
     "@shareActionLabel": {
         "description": "Label for the share action."
@@ -2037,6 +2077,14 @@
     "commentsPageTitle": "Comments",
     "@commentsPageTitle": {
         "description": "Title for the page or bottom sheet that displays comments for a headline."
+    },
+    "engagementPageTitle": "Engagement",
+    "@engagementPageTitle": {
+        "description": "Title for the engagement bottom sheet combining reactions and comments."
+    },
+    "engagementChooseReactionLabel": "How do you feel about this?",
+    "@engagementChooseReactionLabel": {
+        "description": "Label prompted users to select a reaction icon."
     },
     "commentsCount": "{count,plural, =1{1 Comment}other{{count} Comments}}",
     "@commentsCount": {
@@ -2336,6 +2384,10 @@
     "initialPersonalizationStepCountriesTitle": "Select Countries",
     "@initialPersonalizationStepCountriesTitle": {
         "description": "Title for the country selection step in initial personalization."
+    },
+    "initialPersonalizationStepPersonsTitle": "Select Persons",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
     },
     "initialPersonalizationTotalSelectionCountLabel": "{count} selected",
     "@initialPersonalizationTotalSelectionCountLabel": {

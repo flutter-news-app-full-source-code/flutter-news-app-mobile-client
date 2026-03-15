@@ -318,6 +318,18 @@ abstract class AppLocalizations {
   /// **'Sources'**
   String get followedContentSourcesTab;
 
+  /// Label for the 'Countries' tab on the followed content page.
+  ///
+  /// In en, this message translates to:
+  /// **'Countries'**
+  String get followedContentCountriesTab;
+
+  /// Label for the 'Persons' tab on the followed content page.
+  ///
+  /// In en, this message translates to:
+  /// **'Persons'**
+  String get followedContentPersonsTab;
+
   /// Success message shown after sending an email sign-in link on the authentication page
   ///
   /// In en, this message translates to:
@@ -462,6 +474,12 @@ abstract class AppLocalizations {
   /// **'Countries'**
   String get headlinesFeedFilterEventCountryLabel;
 
+  /// Label for the person filter selection
+  ///
+  /// In en, this message translates to:
+  /// **'Persons'**
+  String get headlinesFeedFilterPersonLabel;
+
   /// Filter page label indication where the headline source is located
   ///
   /// In en, this message translates to:
@@ -549,7 +567,7 @@ abstract class AppLocalizations {
   /// Headline for the authentication page during standard sign-in
   ///
   /// In en, this message translates to:
-  /// **'Verity'**
+  /// **'Veritai'**
   String get authenticationSignInHeadline;
 
   /// Subheadline for the authentication page during standard sign-in
@@ -867,13 +885,13 @@ abstract class AppLocalizations {
   /// Label for the feed tile type with image on top
   ///
   /// In en, this message translates to:
-  /// **'Image Top'**
+  /// **'Card View'**
   String get settingsFeedTileTypeImageTop;
 
   /// Label for the feed tile type with image at the start
   ///
   /// In en, this message translates to:
-  /// **'Image Start'**
+  /// **'Compact View'**
   String get settingsFeedTileTypeImageStart;
 
   /// Label for the feed tile type with text only
@@ -963,7 +981,7 @@ abstract class AppLocalizations {
   /// The name of the application.
   ///
   /// In en, this message translates to:
-  /// **'News App'**
+  /// **'VeritAI'**
   String get appName;
 
   /// Generic error message shown when an operation fails unexpectedly
@@ -1428,6 +1446,12 @@ abstract class AppLocalizations {
   /// **'Add Countries to Follow'**
   String get addCountriesPageTitle;
 
+  /// Title for the page where users can add persons to follow
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Persons'**
+  String get addPersonsPageTitle;
+
   /// Tooltip for the button to follow a specific country
   ///
   /// In en, this message translates to:
@@ -1602,6 +1626,12 @@ abstract class AppLocalizations {
   /// **'Country'**
   String get entityDetailsCountryTitle;
 
+  /// Title for person entity type
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get entityDetailsPersonTitle;
+
   /// Headline for loading state on saved headlines page
   ///
   /// In en, this message translates to:
@@ -1715,6 +1745,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Countries'**
   String get contentTypeCountry;
+
+  /// Label for Person content type
+  ///
+  /// In en, this message translates to:
+  /// **'Persons'**
+  String get contentTypePerson;
 
   /// Subheadline for loading state on search page
   ///
@@ -2706,6 +2742,30 @@ abstract class AppLocalizations {
   /// **'Actions'**
   String get headlineActionsModalTitle;
 
+  /// Label for the action to read the full article.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get readActionLabel;
+
+  /// Label for the action to open engagement (reactions and comments).
+  ///
+  /// In en, this message translates to:
+  /// **'React'**
+  String get reactActionLabel;
+
+  /// Label for the action to view mentioned entities.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentionsActionLabel;
+
+  /// Title for the mentioned entities page.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentionedEntitiesPageTitle;
+
   /// Label for the share action.
   ///
   /// In en, this message translates to:
@@ -3029,6 +3089,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Comments'**
   String get commentsPageTitle;
+
+  /// Title for the engagement bottom sheet combining reactions and comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement'**
+  String get engagementPageTitle;
+
+  /// Label prompted users to select a reaction icon.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you feel about this?'**
+  String get engagementChooseReactionLabel;
 
   /// Label for a button that shows the number of comments and opens the comments view.
   ///
@@ -3389,6 +3461,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Countries'**
   String get initialPersonalizationStepCountriesTitle;
+
+  /// Title for the person selection step in initial personalization.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Persons'**
+  String get initialPersonalizationStepPersonsTitle;
 
   /// Label showing the total number of selected items.
   ///

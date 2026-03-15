@@ -4,9 +4,9 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/initialization_result.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/initialization_result.dart';
 
 part 'app_tour_event.dart';
 part 'app_tour_state.dart';

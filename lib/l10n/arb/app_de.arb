@@ -42,6 +42,14 @@
     "followedContentPageTitle": "Gefolgte Elemente",
     "followedContentTopicsTab": "Themen",
     "followedContentSourcesTab": "Quellen",
+    "followedContentCountriesTab": "Länder",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "Personen",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "Überprüfen Sie Ihre E-Mails auf den Anmelde-Link.",
     "authenticationPageTitle": "Anmelden / Registrieren",
     "authenticationEmailLabel": "E-Mail",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "Reuters",
     "headlinesFeedFilterEventCountryLabel": "Länder",
+    "headlinesFeedFilterPersonLabel": "Personen",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "Hauptsitz der Quelle",
     "headlinesFeedFilterCountryUS": "Vereinigte Staaten",
     "headlinesFeedFilterCountryUK": "Vereinigtes Königreich",
@@ -80,7 +92,7 @@
     "authenticationEmailSignInButton": "Mit E-Mail fortfahren",
     "authenticationLinkingHeadline": "Fortschritt synchronisieren",
     "authenticationLinkingSubheadline": "Erstellen Sie ein Konto, um Ihre Einstellungen, Inhaltspräferenzen und mehr geräteübergreifend zu speichern.",
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "authenticationSignInSubheadline": "Ungefilterte Nachrichten von vertrauenswürdigen Quellen aus der ganzen Welt.",
     "emailSignInPageTitle": "Mit E-Mail anmelden",
     "emailSignInExplanation": "Geben Sie unten Ihre E-Mail-Adresse ein. Wir senden Ihnen einen sicheren Link zur sofortigen Anmeldung. Kein Passwort erforderlich!",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "App-Schriftgröße",
     "settingsAppearanceAppFontTypeLabel": "App-Schriftart",
     "settingsAppearanceFontWeightLabel": "Schriftstärke",
-    "settingsFeedTileTypeImageTop": "Bild oben",
-    "settingsFeedTileTypeImageStart": "Bild am Anfang",
+    "settingsFeedTileTypeImageTop": "Kartenansicht",
+    "settingsFeedTileTypeImageStart": "Kompakte Ansicht",
     "settingsFeedTileTypeTextOnly": "Nur Text",
     "settingsFeedTileTypeLabel": "Feed-Kachel-Layout",
     "settingsArticleFontSizeLabel": "Artikel-Schriftgröße",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "Akzentfarbe",
     "settingsFontFamilyLabel": "Schriftfamilie",
     "settingsLayoutAndReadingTitle": "Layout & Lesen",
-    "appName": "News App",
+    "appName": "VeritAI",
     "unknownError": "Ein unbekannter Fehler ist aufgetreten.",
     "loadMoreError": "Laden weiterer Elemente fehlgeschlagen.",
     "settingsAppearanceFontSizeExtraLarge": "Extra groß",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "Länder zum Folgen hinzufügen",
+    "addPersonsPageTitle": "Personen folgen",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "{countryName} folgen",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "Quelle",
     "entityDetailsTopicTitle": "Thema",
     "entityDetailsCountryTitle": "Land",
+    "entityDetailsPersonTitle": "Person",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "Gespeicherte Schlagzeilen werden geladen...",
     "savedHeadlinesLoadingSubheadline": "Bitte warten Sie, während wir Ihre gespeicherten Artikel abrufen.",
     "savedHeadlinesErrorHeadline": "Gespeicherte Schlagzeilen konnten nicht geladen werden",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "Themen",
     "contentTypeSource": "Quellen",
     "contentTypeCountry": "Länder",
+    "contentTypePerson": "Personen",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "Suche nach {contentType}...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "System-Browser",
     "continueToArticleButtonLabel": "Weiter zum Artikel",
     "headlineActionsModalTitle": "Aktionen",
+    "readActionLabel": "Lesen",
+    "reactActionLabel": "Reagieren",
+    "mentionsActionLabel": "Erwähnungen",
+    "mentionedEntitiesPageTitle": "Erwähnungen",
     "shareActionLabel": "Teilen",
     "bookmarkActionLabel": "Lesezeichen",
     "removeBookmarkActionLabel": "Lesezeichen entfernen",
@@ -612,6 +640,8 @@
     "createAccountButton": "Konto erstellen",
     "gotItButton": "Verstanden",
     "commentsPageTitle": "Kommentare",
+    "engagementPageTitle": "Interaktionen",
+    "engagementChooseReactionLabel": "Was denken Sie darüber?",
     "commentsCount": "{count,plural, =1{1 Kommentar}other{{count} Kommentare}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "Themen auswählen",
     "initialPersonalizationStepSourcesTitle": "Quellen auswählen",
     "initialPersonalizationStepCountriesTitle": "Länder auswählen",
+    "initialPersonalizationStepPersonsTitle": "Personen auswählen",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count} ausgewählt",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

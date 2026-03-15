@@ -2,9 +2,9 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/ads/models/inline_ad.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/ads/models/inline_ad.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
 
 class MockAdService extends Mock implements AdService {}
 

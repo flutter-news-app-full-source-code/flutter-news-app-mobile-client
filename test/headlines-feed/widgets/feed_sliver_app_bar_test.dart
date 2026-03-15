@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/widgets/feed_sliver_app_bar.dart';
-import 'package:verity_mobile/headlines_feed/widgets/saved_filters_bar.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/widgets/notification_indicator.dart';
-import 'package:verity_mobile/shared/widgets/user_avatar.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/widgets/feed_sliver_app_bar.dart';
+import 'package:veritai_mobile/headlines_feed/widgets/saved_filters_bar.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/widgets/notification_indicator.dart';
+import 'package:veritai_mobile/shared/widgets/user_avatar.dart';
 
 import '../../helpers/helpers.dart';
 

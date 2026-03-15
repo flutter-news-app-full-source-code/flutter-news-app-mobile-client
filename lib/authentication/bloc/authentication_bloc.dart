@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';

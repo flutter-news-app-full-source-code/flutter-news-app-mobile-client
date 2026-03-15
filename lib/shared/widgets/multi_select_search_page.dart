@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/widgets/entity_list_tile.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/widgets/entity_list_tile.dart';
 
 /// {@template multi_select_search_page}
 /// A generic and reusable page for selecting multiple items from a searchable
@@ -255,34 +255,45 @@ class _MultiSelectSearchPageState<T extends FeedItem>
                           _selectedItems.length >= widget.maxSelectionCount!;
                       final canSelectItem = !(!isSelected && isLimitReached);
 
-                      return ListTile(
-                        leading: EntityListTile.buildLeading(item),
-                        title: Text(widget.itemBuilder(item)),
-                        trailing: Checkbox(
-                          value: isSelected,
-                          onChanged: canSelectItem
-                              ? (value) {
-                                  setState(() {
-                                    if (value == true) {
-                                      _selectedItems.add(item);
-                                    } else {
-                                      _selectedItems.remove(item);
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            leading: EntityListTile.buildLeading(item),
+                            title: Text(widget.itemBuilder(item)),
+                            trailing: Checkbox(
+                              value: isSelected,
+                              onChanged: canSelectItem
+                                  ? (value) {
+                                      setState(() {
+                                        if (value == true) {
+                                          _selectedItems.add(item);
+                                        } else {
+                                          _selectedItems.remove(item);
+                                        }
+                                      });
                                     }
-                                  });
-                                }
-                              : null,
-                        ),
-                        onTap: canSelectItem
-                            ? () {
-                                setState(() {
-                                  if (isSelected) {
-                                    _selectedItems.remove(item);
-                                  } else {
-                                    _selectedItems.add(item);
+                                  : null,
+                            ),
+                            onTap: canSelectItem
+                                ? () {
+                                    setState(() {
+                                      if (isSelected) {
+                                        _selectedItems.remove(item);
+                                      } else {
+                                        _selectedItems.add(item);
+                                      }
+                                    });
                                   }
-                                });
-                              }
-                            : null,
+                                : null,
+                          ),
+                          if (index < displayItems.length - 1)
+                            const Divider(
+                              height: 1,
+                              indent: AppSpacing.md,
+                              endIndent: AppSpacing.md,
+                            ),
+                        ],
                       );
                     },
                   ),

@@ -1,8 +1,7 @@
 <p align="center">
-  <a href="https://github.com/veritas-hq/veritas-mobile/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
-  <img src="https://img.shields.io/badge/coverage-25%25-green?style=for-the-badge" alt="coverage: _%">
+  <a href="https://github.com/veritai-hq/veritai-mobile/wiki/Local-Setup"><img src="https://img.shields.io/badge/DOCUMENTATION-READ-slategray?style=for-the-badge" alt="Documentation: Read"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/TRIAL_LICENSE-VIEW_TERMS-blue?style=for-the-badge" alt="Trial License: View Terms"></a>
-  <a href="https://github.com/sponsors/veritas-hq"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
+  <a href="https://github.com/sponsors/veritai-hq"><img src="https://img.shields.io/badge/LIFETIME_LICENSE-PURCHASE-purple?style=for-the-badge" alt="Lifetime License: Purchase"></a>
 </p>
 
 <div align="center">
@@ -21,9 +20,9 @@
 
 ---
 
-Part of the **[Verity News Stack](https://github.com/verity-hq)**.
+Part of the **[VeritAI News](https://github.com/veritai-news)**.
 
-Verity Mobile is a production-ready news reader built with Flutter, focusing on performance, personalization, and secure monetization.
+veritai Mobile is a production-ready news reader built with Flutter, focusing on performance, personalization, and secure monetization.
 
 ---
 
@@ -194,14 +193,14 @@ The application is fully internationalized and includes working English and Arab
 </details>
 
 ## ⚠️ Important Notice:
-Verity is built using a standardized Flutter architecture for cross-platform compatibility. Please note that the current version has been developed and verified exclusively on Android. While the codebase is iOS-ready by design, iOS builds have not been tested in a live environment and may require platform-specific configuration by the developer.
+veritai is built using a standardized Flutter architecture for cross-platform compatibility. Please note that the current version has been developed and verified exclusively on Android. While the codebase is iOS-ready by design, iOS builds have not been tested in a live environment and may require platform-specific configuration by the developer.
 
 ## 🚀 Getting Started & Running Locally
 
-For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/verity-hq/verity-mobile/wiki) tab in this repository.
+For a complete guide on setting up your local environment and running this project, please see the [Wiki](https://github.com/veritai-news/veritai-mobile/wiki) tab in this repository.
 
 ## 🔑 Licensing
 
 This source code is licensed for commercial use and is provided for local evaluation. A **Lifetime Commercial License** is required for any production or public-facing application.
 
-Please visit the main [Verity News Stack](https://github.com/verity-hq) organization page to review the full license terms and to purchase.
+Please visit the main [veritai News Stack](https://github.com/veritai-news) organization page to review the full license terms and to purchase.

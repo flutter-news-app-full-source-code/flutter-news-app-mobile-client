@@ -42,6 +42,14 @@
     "followedContentPageTitle": "Itens Seguidos",
     "followedContentTopicsTab": "Tópicos",
     "followedContentSourcesTab": "Fontes",
+    "followedContentCountriesTab": "Países",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "Pessoas",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "Verifique seu e-mail para o link.",
     "authenticationPageTitle": "Entrar / Registrar",
     "authenticationEmailLabel": "E-mail",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "Reuters",
     "headlinesFeedFilterEventCountryLabel": "Países",
+    "headlinesFeedFilterPersonLabel": "Pessoas",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "Sede da Fonte",
     "headlinesFeedFilterCountryUS": "Estados Unidos",
     "headlinesFeedFilterCountryUK": "Reino Unido",
@@ -80,7 +92,7 @@
     "authenticationEmailSignInButton": "Continuar com E-mail",
     "authenticationLinkingHeadline": "Sincronizar Seu Progresso",
     "authenticationLinkingSubheadline": "Crie uma conta para salvar tudo.",
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "authenticationSignInSubheadline": "Notícias de fontes confiáveis.",
     "emailSignInPageTitle": "Entrar com E-mail",
     "emailSignInExplanation": "Enviaremos um link seguro para seu e-mail.",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "Cor de Destaque",
     "settingsFontFamilyLabel": "Família da Fonte",
     "settingsLayoutAndReadingTitle": "Layout e Leitura",
-    "appName": "News App",
+    "appName": "VeritAI",
     "unknownError": "Ocorreu um erro desconhecido.",
     "loadMoreError": "Falha ao carregar mais itens.",
     "settingsAppearanceFontSizeExtraLarge": "Extra Grande",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "Adicionar Países",
+    "addPersonsPageTitle": "Seguir Pessoas",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "Seguir {countryName}",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "Fonte",
     "entityDetailsTopicTitle": "Tópico",
     "entityDetailsCountryTitle": "País",
+    "entityDetailsPersonTitle": "Pessoa",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "Carregando Manchetes Salvas...",
     "savedHeadlinesLoadingSubheadline": "Buscando seus artigos.",
     "savedHeadlinesErrorHeadline": "Erro ao Carregar Salvos",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "Tópicos",
     "contentTypeSource": "Fontes",
     "contentTypeCountry": "Países",
+    "contentTypePerson": "Pessoas",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "Pesquisando por {contentType}...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "Navegador do sistema",
     "continueToArticleButtonLabel": "Ir para o Artigo",
     "headlineActionsModalTitle": "Ações",
+    "readActionLabel": "Ler",
+    "reactActionLabel": "Reagir",
+    "mentionsActionLabel": "Menções",
+    "mentionedEntitiesPageTitle": "Menções",
     "shareActionLabel": "Compartilhar",
     "bookmarkActionLabel": "Favoritar",
     "removeBookmarkActionLabel": "Remover Favorito",
@@ -612,6 +640,8 @@
     "createAccountButton": "Criar Conta",
     "gotItButton": "Entendi",
     "commentsPageTitle": "Comentários",
+    "engagementPageTitle": "Engajamento",
+    "engagementChooseReactionLabel": "O que você acha disso?",
     "commentsCount": "{count,plural, =1{1 Comentário}other{{count} Comentários}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "Tópicos",
     "initialPersonalizationStepSourcesTitle": "Fontes",
     "initialPersonalizationStepCountriesTitle": "Países",
+    "initialPersonalizationStepPersonsTitle": "Selecionar Pessoas",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count} selecionados",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

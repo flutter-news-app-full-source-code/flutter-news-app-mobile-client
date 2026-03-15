@@ -7,13 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/view/initial_personalization_page.dart';
-import 'package:verity_mobile/shared/widgets/multi_select_search_page.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/view/initial_personalization_page.dart';
+import 'package:veritai_mobile/shared/widgets/multi_select_search_page.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -48,6 +48,7 @@ void main() {
     userContentPreferencesRepository;
     late DataRepository<UserContext> userContextRepository;
     late DataRepository<Topic> topicsRepository;
+    late DataRepository<Person> personsRepository;
     late AnalyticsService analyticsService;
     late Logger logger;
     late RemoteConfig remoteConfig;
@@ -66,6 +67,7 @@ void main() {
       userContentPreferencesRepository = MockDataRepository();
       userContextRepository = MockDataRepository();
       topicsRepository = MockDataRepository();
+      personsRepository = MockDataRepository();
       analyticsService = MockAnalyticsService();
       logger = MockLogger();
       remoteConfig = MockRemoteConfig();
@@ -111,6 +113,7 @@ void main() {
           RepositoryProvider.value(value: userContentPreferencesRepository),
           RepositoryProvider.value(value: userContextRepository),
           RepositoryProvider.value(value: topicsRepository),
+          RepositoryProvider.value(value: personsRepository),
           RepositoryProvider.value(value: analyticsService),
           RepositoryProvider.value(value: logger),
         ],

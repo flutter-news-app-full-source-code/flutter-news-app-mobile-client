@@ -5,8 +5,8 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 
 part 'rewards_event.dart';
 part 'rewards_state.dart';

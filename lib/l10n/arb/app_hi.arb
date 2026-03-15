@@ -42,6 +42,14 @@
     "followedContentPageTitle": "फ़ॉलो किए गए आइटम",
     "followedContentTopicsTab": "विषय",
     "followedContentSourcesTab": "स्रोत",
+    "followedContentCountriesTab": "देश",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "व्यक्ति",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "साइन-इन लिंक के लिए अपना ईमेल देखें।",
     "authenticationPageTitle": "साइन इन / रजिस्टर",
     "authenticationEmailLabel": "ईमेल",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "रॉयटर्स",
     "headlinesFeedFilterEventCountryLabel": "देश",
+    "headlinesFeedFilterPersonLabel": "व्यक्ति",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "स्रोत मुख्यालय",
     "headlinesFeedFilterCountryUS": "संयुक्त राज्य अमेरिका",
     "headlinesFeedFilterCountryUK": "यूनाइटेड किंगडम",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "ऐप फ़ॉन्ट आकार",
     "settingsAppearanceAppFontTypeLabel": "ऐप फ़ॉन्ट",
     "settingsAppearanceFontWeightLabel": "फ़ॉन्ट मोटाई",
-    "settingsFeedTileTypeImageTop": "इमेज टॉप",
-    "settingsFeedTileTypeImageStart": "इमेज स्टार्ट",
+    "settingsFeedTileTypeImageTop": "कार्ड दृश्य",
+    "settingsFeedTileTypeImageStart": "कॉम्पैक्ट दृश्य",
     "settingsFeedTileTypeTextOnly": "केवल टेक्स्ट",
     "settingsFeedTileTypeLabel": "फ़ीड टाइल लेआउट",
     "settingsArticleFontSizeLabel": "लेख फ़ॉन्ट आकार",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "एक्सेंट रंग",
     "settingsFontFamilyLabel": "फ़ॉन्ट परिवार",
     "settingsLayoutAndReadingTitle": "लेआउट और पढ़ना",
-    "appName": "हेडलाइंस टूलकिट",
+    "appName": "VeritAI",
     "unknownError": "एक अज्ञात त्रुटि हुई।",
     "loadMoreError": "अधिक आइटम लोड करने में विफल।",
     "settingsAppearanceFontSizeExtraLarge": "बहुत बड़ा",
@@ -265,6 +277,10 @@
     },
     "followedCountriesPageTitle": "फ़ॉलो किए गए देश",
     "addCountriesTooltip": "देश जोड़ें",
+    "addPersonsPageTitle": "व्यक्तियों को फ़ॉलो करें",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "noFollowedCountriesMessage": "आप अभी तक किसी भी देश को फ़ॉलो नहीं कर रहे हैं।",
     "addCountriesButtonLabel": "फ़ॉलो करने के लिए देश खोजें",
     "unfollowCountryTooltip": "{countryName} को अनफ़ॉलो करें",
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "स्रोत",
     "entityDetailsTopicTitle": "विषय",
     "entityDetailsCountryTitle": "देश",
+    "entityDetailsPersonTitle": "व्यक्ति",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "सहेजी गई हेडलाइंस लोड हो रही हैं...",
     "savedHeadlinesLoadingSubheadline": "जब हम आपके सहेजे गए लेख प्राप्त करते हैं तो कृपया प्रतीक्षा करें।",
     "savedHeadlinesErrorHeadline": "सहेजी गई हेडलाइंस लोड नहीं हो सकीं",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "विषय",
     "contentTypeSource": "स्रोत",
     "contentTypeCountry": "देश",
+    "contentTypePerson": "व्यक्ति",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "{contentType} के लिए खोजा जा रहा है...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "सिस्टम ब्राउज़र",
     "continueToArticleButtonLabel": "लेख पर जारी रखें",
     "headlineActionsModalTitle": "क्रियाएं",
+    "readActionLabel": "पढ़ें",
+    "reactActionLabel": "प्रतिक्रिया दें",
+    "mentionsActionLabel": "उल्लेख",
+    "mentionedEntitiesPageTitle": "उल्लेख",
     "shareActionLabel": "साझा करें",
     "bookmarkActionLabel": "बुकमार्क",
     "removeBookmarkActionLabel": "बुकमार्क हटाएं",
@@ -612,6 +640,8 @@
     "createAccountButton": "खाता बनाएं",
     "gotItButton": "समझ गया",
     "commentsPageTitle": "टिप्पणियाँ",
+    "engagementPageTitle": "संलग्नता",
+    "engagementChooseReactionLabel": "आप इसके बारे में क्या सोचते हैं?",
     "commentsCount": "{count,plural, =1{1 टिप्पणी}other{{count} टिप्पणियाँ}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "विषय चुनें",
     "initialPersonalizationStepSourcesTitle": "स्रोत चुनें",
     "initialPersonalizationStepCountriesTitle": "देश चुनें",
+    "initialPersonalizationStepPersonsTitle": "व्यक्ति चुनें",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count} चयनित",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
 
 /// An extension to provide localized names for the [SourceType] enum.
 extension SourceTypeL10n on SourceType {

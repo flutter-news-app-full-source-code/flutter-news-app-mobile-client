@@ -4,15 +4,15 @@ import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/ads/models/ad_placeholder.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/models/inline_ad.dart';
-import 'package:verity_mobile/ads/models/interstitial_ad.dart';
-import 'package:verity_mobile/ads/models/native_ad.dart';
-import 'package:verity_mobile/ads/models/rewarded_ad.dart';
-import 'package:verity_mobile/ads/providers/ad_provider.dart';
-import 'package:verity_mobile/ads/services/ad_manager.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/ads/models/ad_placeholder.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/models/inline_ad.dart';
+import 'package:veritai_mobile/ads/models/interstitial_ad.dart';
+import 'package:veritai_mobile/ads/models/native_ad.dart';
+import 'package:veritai_mobile/ads/models/rewarded_ad.dart';
+import 'package:veritai_mobile/ads/providers/ad_provider.dart';
+import 'package:veritai_mobile/ads/services/ad_manager.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 
 class MockAdProvider extends Mock implements AdProvider {}
 

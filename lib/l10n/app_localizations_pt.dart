@@ -116,6 +116,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get followedContentSourcesTab => 'Fontes';
 
   @override
+  String get followedContentCountriesTab => 'Países';
+
+  @override
+  String get followedContentPersonsTab => 'Pessoas';
+
+  @override
   String get authenticationEmailSentSuccess =>
       'Verifique seu e-mail para o link.';
 
@@ -189,6 +195,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get headlinesFeedFilterEventCountryLabel => 'Países';
 
   @override
+  String get headlinesFeedFilterPersonLabel => 'Pessoas';
+
+  @override
   String get headlinesFeedFilterSourceCountryLabel => 'Sede da Fonte';
 
   @override
@@ -234,7 +243,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'Crie uma conta para salvar tudo.';
 
   @override
-  String get authenticationSignInHeadline => 'Verity';
+  String get authenticationSignInHeadline => 'Veritai';
 
   @override
   String get authenticationSignInSubheadline =>
@@ -449,7 +458,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'Layout e Leitura';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'Ocorreu um erro desconhecido.';
@@ -704,6 +713,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get addCountriesPageTitle => 'Adicionar Países';
 
   @override
+  String get addPersonsPageTitle => 'Seguir Pessoas';
+
+  @override
   String followCountryTooltip(String countryName) {
     return 'Seguir $countryName';
   }
@@ -798,6 +810,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get entityDetailsCountryTitle => 'País';
 
   @override
+  String get entityDetailsPersonTitle => 'Pessoa';
+
+  @override
   String get savedHeadlinesLoadingHeadline => 'Carregando Manchetes Salvas...';
 
   @override
@@ -857,6 +872,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get contentTypeCountry => 'Países';
+
+  @override
+  String get contentTypePerson => 'Pessoas';
 
   @override
   String searchingFor(String contentType) {
@@ -1382,6 +1400,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get headlineActionsModalTitle => 'Ações';
 
   @override
+  String get readActionLabel => 'Ler';
+
+  @override
+  String get reactActionLabel => 'Reagir';
+
+  @override
+  String get mentionsActionLabel => 'Menções';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Menções';
+
+  @override
   String get shareActionLabel => 'Compartilhar';
 
   @override
@@ -1542,6 +1572,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Comentários';
+
+  @override
+  String get engagementPageTitle => 'Engajamento';
+
+  @override
+  String get engagementChooseReactionLabel => 'O que você acha disso?';
 
   @override
   String commentsCount(int count) {
@@ -1761,6 +1797,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get initialPersonalizationStepCountriesTitle => 'Países';
+
+  @override
+  String get initialPersonalizationStepPersonsTitle => 'Selecionar Pessoas';
 
   @override
   String initialPersonalizationTotalSelectionCountLabel(int count) {

@@ -42,6 +42,14 @@
     "followedContentPageTitle": "العناصر المتابعة",
     "followedContentTopicsTab": "المواضيع",
     "followedContentSourcesTab": "المصادر",
+    "followedContentCountriesTab": "الدول",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "الأشخاص",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "تحقق من بريدك الإلكتروني للحصول على رابط تسجيل الدخول.",
     "authenticationPageTitle": "تسجيل الدخول / التسجيل",
     "authenticationEmailLabel": "البريد الإلكتروني",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "Reuters",
     "headlinesFeedFilterEventCountryLabel": "الدول",
+    "headlinesFeedFilterPersonLabel": "الأشخاص",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "مقر المصدر",
     "headlinesFeedFilterCountryUS": "الولايات المتحدة",
     "headlinesFeedFilterCountryUK": "المملكة المتحدة",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "حجم خط التطبيق",
     "settingsAppearanceAppFontTypeLabel": "خط التطبيق",
     "settingsAppearanceFontWeightLabel": "وزن الخط",
-    "settingsFeedTileTypeImageTop": "صورة في الأعلى",
-    "settingsFeedTileTypeImageStart": "صورة في البداية",
+    "settingsFeedTileTypeImageTop": "عرض البطاقة",
+    "settingsFeedTileTypeImageStart": "عرض مدمج",
     "settingsFeedTileTypeTextOnly": "نص فقط",
     "settingsFeedTileTypeLabel": "تخطيط عنصر الموجز",
     "settingsArticleFontSizeLabel": "حجم خط المقال",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "لون التمييز",
     "settingsFontFamilyLabel": "عائلة الخط",
     "settingsLayoutAndReadingTitle": "التخطيط والقراءة",
-    "appName": "News App",
+    "appName": "فيريتاي",
     "unknownError": "حدث خطأ غير معروف.",
     "loadMoreError": "فشل تحميل المزيد من العناصر.",
     "settingsAppearanceFontSizeExtraLarge": "كبير جداً",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "إضافة دول للمتابعة",
+    "addPersonsPageTitle": "متابعة الأشخاص",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "متابعة {countryName}",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "المصدر",
     "entityDetailsTopicTitle": "الموضوع",
     "entityDetailsCountryTitle": "الدولة",
+    "entityDetailsPersonTitle": "شخص",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "جارٍ تحميل العناوين المحفوظة...",
     "savedHeadlinesLoadingSubheadline": "يرجى الانتظار بينما نقوم بجلب مقالاتك المحفوظة.",
     "savedHeadlinesErrorHeadline": "تعذر تحميل العناوين المحفوظة",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "المواضيع",
     "contentTypeSource": "المصادر",
     "contentTypeCountry": "الدول",
+    "contentTypePerson": "الأشخاص",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "جار البحث عن {contentType}...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "متصفح النظام",
     "continueToArticleButtonLabel": "متابعة إلى المقال",
     "headlineActionsModalTitle": "إجراءات",
+    "readActionLabel": "قراءة",
+    "reactActionLabel": "تفاعل",
+    "mentionsActionLabel": "الإشارات",
+    "mentionedEntitiesPageTitle": "الإشارات",
     "shareActionLabel": "مشاركة",
     "bookmarkActionLabel": "حفظ",
     "removeBookmarkActionLabel": "إزالة من المحفوظات",
@@ -612,6 +640,8 @@
     "createAccountButton": "إنشاء حساب",
     "gotItButton": "حسنًا",
     "commentsPageTitle": "التعليقات",
+    "engagementPageTitle": "التفاعل",
+    "engagementChooseReactionLabel": "ما رأيك في هذا؟",
     "commentsCount": "{count,plural, zero{0 تعليقات} one{تعليق واحد} two{تعليقان} few{{count} تعليقات} many{{count} تعليقًا} other{{count} تعليق}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "اختر المواضيع",
     "initialPersonalizationStepSourcesTitle": "اختر المصادر",
     "initialPersonalizationStepCountriesTitle": "اختر الدول",
+    "initialPersonalizationStepPersonsTitle": "اختر الأشخاص",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count,plural, zero{0 محدد} one{1 محدد} two{2 محدد} few{{count} محددات} many{{count} محدد} other{{count} محدد}}",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

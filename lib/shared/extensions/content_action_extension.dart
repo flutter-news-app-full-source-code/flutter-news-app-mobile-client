@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
 
 /// Extension on [ContentAction] to centralize mapping logic.
 extension ContentActionExtension on ContentAction {
@@ -16,6 +16,8 @@ extension ContentActionExtension on ContentAction {
         return LimitedAction.followSource;
       case ContentAction.followCountry:
         return LimitedAction.followCountry;
+      case ContentAction.followPerson:
+        return LimitedAction.followPerson;
       case ContentAction.saveFilter:
         return LimitedAction.saveFilter;
       case ContentAction.pinFilter:
@@ -43,6 +45,7 @@ extension ContentActionExtension on ContentAction {
       case ContentAction.followTopic:
       case ContentAction.followSource:
       case ContentAction.followCountry:
+      case ContentAction.followPerson:
         return l10n.limitReachedBodyFollow;
       case ContentAction.postComment:
         return l10n.limitReachedBodyComments;

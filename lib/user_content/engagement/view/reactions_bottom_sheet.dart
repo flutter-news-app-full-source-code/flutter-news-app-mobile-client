@@ -4,22 +4,24 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/widgets/user_avatar.dart';
-import 'package:verity_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/widgets/user_avatar.dart';
+import 'package:veritai_mobile/user_content/engagement/widgets/inline_reaction_selector.dart';
+import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
-/// {@template comments_bottom_sheet}
-/// A bottom sheet that displays comments for a headline and allows users
-/// to post new comments.
+/// {@template reactions_bottom_sheet}
+/// A bottom sheet that displays reactions for a headline and allows users
+/// to post new reaction.
 /// {@endtemplate}
-class CommentsBottomSheet extends StatelessWidget {
-  /// {@macro comments_bottom_sheet}
-  const CommentsBottomSheet({required this.headlineId, super.key});
+class ReactionsBottomSheet extends StatelessWidget {
+  /// {@macro reactions_bottom_sheet}
+  const ReactionsBottomSheet({required this.headlineId, super.key});
 
-  /// The ID of the headline for which comments are being displayed.
+  /// The ID of the headline for which reactions are being displayed.
   final String headlineId;
 
   @override
@@ -27,13 +29,13 @@ class CommentsBottomSheet extends StatelessWidget {
     // Provide the HeadlinesFeedBloc to the view.
     return BlocProvider.value(
       value: context.read<HeadlinesFeedBloc>(),
-      child: _CommentsBottomSheetView(headlineId: headlineId),
+      child: _ReactionsBottomSheetView(headlineId: headlineId),
     );
   }
 }
 
-class _CommentsBottomSheetView extends StatefulWidget {
-  const _CommentsBottomSheetView({required this.headlineId});
+class _ReactionsBottomSheetView extends StatefulWidget {
+  const _ReactionsBottomSheetView({required this.headlineId});
   // A key to manage the state of the input field, allowing parent widgets
   // to trigger actions like editing.
   static final _inputFieldKey = GlobalKey<__CommentInputFieldState>();
@@ -41,54 +43,109 @@ class _CommentsBottomSheetView extends StatefulWidget {
   final String headlineId;
 
   @override
-  State<_CommentsBottomSheetView> createState() =>
-      __CommentsBottomSheetViewState();
+  State<_ReactionsBottomSheetView> createState() =>
+      _ReactionsBottomSheetViewState();
 }
 
-class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
+class _ReactionsBottomSheetViewState extends State<_ReactionsBottomSheetView> {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: DraggableScrollableSheet(
-        expand: false,
-        initialChildSize: 0.6,
-        minChildSize: 0.4,
-        maxChildSize: 0.9,
-        builder: (context, sheetScrollController) {
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: AppLayout.maxDialogContentWidth,
+    final l10n = AppLocalizationsX(context).l10n;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Material(
+      color: colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          minChildSize: 0.4,
+          maxChildSize: 0.9,
+          builder: (context, sheetScrollController) {
+            return SafeArea(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppLayout.maxDialogContentWidth,
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.xs,
+                        ),
+                        child: Text(
+                          l10n.engagementPageTitle,
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.md,
+                        ),
+                        child:
+                            BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
+                              builder: (context, state) {
+                                final userId = context.select(
+                                  (AppBloc bloc) => bloc.state.user?.id,
+                                );
+                                final engagements =
+                                    state.engagementsMap[widget.headlineId] ??
+                                    [];
+                                final userEngagement = engagements
+                                    .firstWhereOrNull(
+                                      (e) => e.userId == userId,
+                                    );
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: AppSpacing.sm,
+                                  ),
+                                  child: InlineReactionSelector(
+                                    unselectedColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                    selectedReaction:
+                                        userEngagement?.reaction?.reactionType,
+                                    onReactionSelected: (reaction) =>
+                                        context.read<HeadlinesFeedBloc>().add(
+                                          HeadlinesFeedReactionUpdated(
+                                            widget.headlineId,
+                                            reaction,
+                                            context: context,
+                                          ),
+                                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                      ),
+                      Divider(height: 1, color: colorScheme.outlineVariant),
+                      Expanded(
+                        child: _buildContent(context, sheetScrollController),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(AppSpacing.md),
+                        child: _CommentInputField(
+                          key: _ReactionsBottomSheetView._inputFieldKey,
+                          headlineId: widget.headlineId,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    child: Text(
-                      l10n.commentsPageTitle,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
-                  const Divider(height: 1),
-                  Expanded(
-                    child: _buildContent(context, sheetScrollController),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    child: _CommentInputField(
-                      key: _CommentsBottomSheetView._inputFieldKey,
-                      headlineId: widget.headlineId,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -127,7 +184,8 @@ class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
         return ListView.separated(
           controller: scrollController,
           itemCount: comments.length,
-          separatorBuilder: (context, index) => const Divider(height: 1),
+          separatorBuilder: (context, index) =>
+              Divider(height: 1, color: theme.colorScheme.outlineVariant),
           itemBuilder: (context, index) {
             final engagement = comments[index];
             final comment = engagement.comment!;
@@ -178,7 +236,7 @@ class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
                     IconButton(
                       icon: const Icon(Icons.edit_outlined, size: 20),
                       onPressed: () {
-                        _CommentsBottomSheetView._inputFieldKey.currentState
+                        _ReactionsBottomSheetView._inputFieldKey.currentState
                             ?.startEditing();
                       },
                     ),
@@ -307,6 +365,8 @@ class __CommentInputFieldState extends State<_CommentInputField> {
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(24)),
                   ),
+                  filled: true,
+                  fillColor: theme.colorScheme.surface,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.md,
                   ),

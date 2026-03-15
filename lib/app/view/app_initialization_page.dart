@@ -5,23 +5,23 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_initialization_bloc.dart';
-import 'package:verity_mobile/app/config/app_environment.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/app/models/initialization_result.dart';
-import 'package:verity_mobile/app/services/app_initializer.dart';
-import 'package:verity_mobile/app/view/app.dart';
-import 'package:verity_mobile/app/view/app_hot_restart_wrapper.dart';
-import 'package:verity_mobile/feed_decorators/services/feed_decorator_service.dart';
-import 'package:verity_mobile/headlines_feed/services/feed_cache_service.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/push_notification/services/push_notification_service.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
-import 'package:verity_mobile/status/view/view.dart';
-import 'package:verity_mobile/user_content/app_review/services/app_review_service.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_initialization_bloc.dart';
+import 'package:veritai_mobile/app/config/app_environment.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/app/models/initialization_result.dart';
+import 'package:veritai_mobile/app/services/app_initializer.dart';
+import 'package:veritai_mobile/app/view/app.dart';
+import 'package:veritai_mobile/app/view/app_hot_restart_wrapper.dart';
+import 'package:veritai_mobile/feed_decorators/services/feed_decorator_service.dart';
+import 'package:veritai_mobile/headlines_feed/services/feed_cache_service.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/push_notification/services/push_notification_service.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/status/view/view.dart';
+import 'package:veritai_mobile/user_content/app_review/services/app_review_service.dart';
 
 /// {@template app_initialization_page}
 /// A top-level widget that orchestrates the application's initialization
@@ -51,6 +51,7 @@ class AppInitializationPage extends StatelessWidget {
     required this.userRepository,
     required this.countriesRepository,
     required this.sourcesRepository,
+    required this.personsRepository,
     required this.remoteConfigRepository,
     required this.appSettingsRepository,
     required this.userContentPreferencesRepository,
@@ -80,6 +81,7 @@ class AppInitializationPage extends StatelessWidget {
   final DataRepository<Topic> topicsRepository;
   final DataRepository<Country> countriesRepository;
   final DataRepository<Source> sourcesRepository;
+  final DataRepository<Person> personsRepository;
   final DataRepository<User> userRepository;
   final DataRepository<RemoteConfig> remoteConfigRepository;
   final DataRepository<AppSettings> appSettingsRepository;
@@ -135,6 +137,7 @@ class AppInitializationPage extends StatelessWidget {
                     topicsRepository: topicsRepository,
                     userRepository: userRepository,
                     countriesRepository: countriesRepository,
+                    personsRepository: personsRepository,
                     sourcesRepository: sourcesRepository,
                     remoteConfigRepository: remoteConfigRepository,
                     appSettingsRepository: appSettingsRepository,
@@ -173,6 +176,7 @@ class AppInitializationPage extends StatelessWidget {
                     topicsRepository: topicsRepository,
                     userRepository: userRepository,
                     countriesRepository: countriesRepository,
+                    personsRepository: personsRepository,
                     sourcesRepository: sourcesRepository,
                     remoteConfigRepository: remoteConfigRepository,
                     appSettingsRepository: appSettingsRepository,

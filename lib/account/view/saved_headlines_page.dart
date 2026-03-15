@@ -3,11 +3,11 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/widgets/feed_core/feed_core.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/widgets/feed_core/feed_core.dart';
 
 /// {@template saved_headlines_page}
 /// Displays the list of headlines saved by the user.
@@ -93,18 +93,11 @@ class SavedHeadlinesPage extends StatelessWidget {
                       appState.settings?.feedSettings.feedItemImageStyle ??
                       FeedItemImageStyle.smallThumbnail;
 
+                  Widget child;
                   switch (imageStyle) {
                     case FeedItemImageStyle.hidden:
-                      return HeadlineTileTextOnly(
-                        headline: headline,
-                        onHeadlineTap: () =>
-                            HeadlineTapHandler.handleHeadlineTap(
-                              context,
-                              headline,
-                            ),
-                      );
                     case FeedItemImageStyle.smallThumbnail:
-                      return HeadlineTileImageStart(
+                      child = HeadlineTileCompact(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(
@@ -113,7 +106,7 @@ class SavedHeadlinesPage extends StatelessWidget {
                             ),
                       );
                     case FeedItemImageStyle.largeThumbnail:
-                      return HeadlineTileImageTop(
+                      child = HeadlineTileImmersive(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(
@@ -122,6 +115,43 @@ class SavedHeadlinesPage extends StatelessWidget {
                             ),
                       );
                   }
+
+                  return Dismissible(
+                    key: Key('saved_headline_${headline.id}'),
+                    direction: DismissDirection.horizontal,
+                    background: Container(
+                      color: theme.colorScheme.error,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: theme.colorScheme.onError,
+                      ),
+                    ),
+                    secondaryBackground: Container(
+                      color: theme.colorScheme.error,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: theme.colorScheme.onError,
+                      ),
+                    ),
+                    onDismissed: (_) {
+                      context.read<AppBloc>().add(
+                        AppBookmarkToggled(
+                          headline: headline,
+                          isBookmarked: true,
+                          context: context,
+                        ),
+                      );
+                    },
+                    child: child,
+                  );
                 },
               ),
             ),

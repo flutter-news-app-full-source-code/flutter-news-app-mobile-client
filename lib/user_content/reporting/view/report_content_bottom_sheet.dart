@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
 
 /// {@template report_content_bottom_sheet}
 /// A bottom sheet for reporting content such as headlines, sources, or comments.
@@ -131,75 +131,86 @@ class _ReportContentBottomSheetState extends State<ReportContentBottomSheet> {
     final textTheme = theme.textTheme;
     final reasons = _getReasons(l10n);
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: AppLayout.maxDialogContentWidth,
-        ),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            AppSpacing.lg,
-            AppSpacing.lg,
-            AppSpacing.lg,
-            AppSpacing.lg + MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.reportContentTitle, style: textTheme.headlineSmall),
-                  const SizedBox(height: AppSpacing.md),
-                  Text(
-                    l10n.reportReasonSelectionPrompt,
-                    style: textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  ...reasons.entries.map((entry) {
-                    return RadioListTile<String>(
-                      title: Text(entry.key),
-                      value: entry.value,
-                      groupValue: _selectedReason,
-                      onChanged: (value) =>
-                          setState(() => _selectedReason = value),
-                      contentPadding: EdgeInsets.zero,
-                    );
-                  }),
-                  const SizedBox(height: AppSpacing.md),
-                  TextFormField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                      labelText: l10n.reportAdditionalCommentsLabel,
-                    ),
-                    maxLines: 3,
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  Row(
+    return Material(
+      color: theme.colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: AppLayout.maxDialogContentWidth,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text(l10n.cancelButtonLabel),
-                        ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Text(
+                        l10n.reportContentTitle,
+                        style: textTheme.headlineSmall,
                       ),
-                      const SizedBox(width: AppSpacing.md),
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: _selectedReason != null && !_isSubmitting
-                              ? _submitReport
-                              : null,
-                          child: _isSubmitting
-                              ? const SizedBox.square(
-                                  dimension: 24,
-                                  child: CircularProgressIndicator(),
-                                )
-                              : Text(l10n.reportSubmitButtonLabel),
-                        ),
+                      const SizedBox(height: AppSpacing.md),
+                      Text(
+                        l10n.reportReasonSelectionPrompt,
+                        style: textTheme.bodyLarge,
                       ),
+                      const SizedBox(height: AppSpacing.md),
+                      ...reasons.entries.map((entry) {
+                        return RadioListTile<String>(
+                          title: Text(entry.key),
+                          value: entry.value,
+                          groupValue: _selectedReason,
+                          onChanged: (value) =>
+                              setState(() => _selectedReason = value),
+                          contentPadding: EdgeInsets.zero,
+                        );
+                      }),
+                      const SizedBox(height: AppSpacing.md),
+                      TextFormField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          labelText: l10n.reportAdditionalCommentsLabel,
+                        ),
+                        maxLines: 3,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(l10n.cancelButtonLabel),
+                            ),
+                          ),
+                          const SizedBox(width: AppSpacing.md),
+                          Expanded(
+                            child: FilledButton(
+                              onPressed:
+                                  _selectedReason != null && !_isSubmitting
+                                  ? _submitReport
+                                  : null,
+                              child: _isSubmitting
+                                  ? const SizedBox.square(
+                                      dimension: 24,
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Text(l10n.reportSubmitButtonLabel),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

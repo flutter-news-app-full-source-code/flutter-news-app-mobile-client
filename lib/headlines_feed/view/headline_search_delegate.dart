@@ -2,10 +2,10 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_search_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/widgets/feed_core/feed_core.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_search_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/widgets/feed_core/feed_core.dart';
 
 /// {@template headline_search_delegate}
 /// A search delegate for searching headlines.
@@ -104,7 +104,7 @@ class HeadlineSearchDelegate extends SearchDelegate<void> {
                     itemCount: state.headlines.length,
                     itemBuilder: (context, index) {
                       final headline = state.headlines[index];
-                      return HeadlineTileImageStart(
+                      return HeadlineTileCompact(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(

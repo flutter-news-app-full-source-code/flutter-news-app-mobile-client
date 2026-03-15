@@ -3,12 +3,12 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/shared.dart';
-import 'package:verity_mobile/shared/widgets/entity_list_tile.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/shared.dart';
+import 'package:veritai_mobile/shared/widgets/entity_list_tile.dart';
 
 /// {@template followed_content_page}
 /// A unified page that displays all content types followed by the user,
@@ -23,15 +23,17 @@ class FollowedContentPage extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.followedContentPageTitle),
           bottom: TabBar(
+            isScrollable: true,
             tabs: [
               Tab(text: l10n.followedContentTopicsTab),
               Tab(text: l10n.followedContentSourcesTab),
-              Tab(text: l10n.headlinesFeedFilterCountryLabel),
+              Tab(text: l10n.followedContentCountriesTab),
+              Tab(text: l10n.followedContentPersonsTab),
             ],
           ),
           actions: [
@@ -72,6 +74,13 @@ class FollowedContentPage extends StatelessWidget {
                   items: context.select(
                     (AppBloc bloc) =>
                         bloc.state.userContentPreferences?.followedCountries ??
+                        [],
+                  ),
+                ),
+                _FollowedList<Person>(
+                  items: context.select(
+                    (AppBloc bloc) =>
+                        bloc.state.userContentPreferences?.followedPersons ??
                         [],
                   ),
                 ),
@@ -142,6 +151,22 @@ class FollowedContentPage extends StatelessWidget {
             AppUserContentPreferencesChanged(preferences: updatedPreferences),
           );
         };
+      case 3:
+        page = MultiSelectSearchPage<Person>(
+          title: l10n.addPersonsPageTitle,
+          repository: context.read<DataRepository<Person>>(),
+          initialSelectedItems: preferences.followedPersons.toSet(),
+          itemBuilder: (Person person) => person.name.getValue(context),
+        );
+        onSave = (newItems) {
+          if (newItems == null) return;
+          final updatedPreferences = preferences.copyWith(
+            followedPersons: newItems.whereType<Person>().toList(),
+          );
+          appBloc.add(
+            AppUserContentPreferencesChanged(preferences: updatedPreferences),
+          );
+        };
       default:
         return;
     }
@@ -175,18 +200,28 @@ class _FollowedList<T extends FeedItem> extends StatelessWidget {
     }
 
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return InkWell(
-          onTap: () => context.pushNamed(
-            Routes.entityDetailsName,
-            pathParameters: {
-              'type': item.type,
-              'id': (item as dynamic).id as String,
-            },
+        return Card(
+          margin: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.xs,
           ),
-          child: EntityListTile(item: item),
+          elevation: 0,
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: () => context.pushNamed(
+              Routes.entityDetailsName,
+              pathParameters: {
+                'type': item.type,
+                'id': (item as dynamic).id as String,
+              },
+            ),
+            child: EntityListTile(item: item),
+          ),
         );
       },
     );

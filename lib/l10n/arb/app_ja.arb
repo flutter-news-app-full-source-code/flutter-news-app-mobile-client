@@ -42,6 +42,14 @@
     "followedContentPageTitle": "フォロー中のアイテム",
     "followedContentTopicsTab": "トピック",
     "followedContentSourcesTab": "ソース",
+    "followedContentCountriesTab": "国",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "人物",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "サインインリンクをメールで送信しました。",
     "authenticationPageTitle": "サインイン / 登録",
     "authenticationEmailLabel": "メールアドレス",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "ロイター",
     "headlinesFeedFilterEventCountryLabel": "国",
+    "headlinesFeedFilterPersonLabel": "人物",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "ソースの本拠地",
     "headlinesFeedFilterCountryUS": "アメリカ",
     "headlinesFeedFilterCountryUK": "イギリス",
@@ -80,7 +92,7 @@
     "authenticationEmailSignInButton": "メールで続行",
     "authenticationLinkingHeadline": "進捗を同期する",
     "authenticationLinkingSubheadline": "アカウントを作成して、設定やコンテンツの好みを保存しましょう。",
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "authenticationSignInSubheadline": "世界中の信頼できるソースからのニュース。",
     "emailSignInPageTitle": "メールでサインイン",
     "emailSignInExplanation": "メールアドレスを入力してください。サインイン用のリンクを送信します。",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "アプリのフォントサイズ",
     "settingsAppearanceAppFontTypeLabel": "アプリのフォント",
     "settingsAppearanceFontWeightLabel": "フォントの太さ",
-    "settingsFeedTileTypeImageTop": "画像上部",
-    "settingsFeedTileTypeImageStart": "画像左側",
+    "settingsFeedTileTypeImageTop": "カードビュー",
+    "settingsFeedTileTypeImageStart": "コンパクトビュー",
     "settingsFeedTileTypeTextOnly": "テキストのみ",
     "settingsFeedTileTypeLabel": "フィードタイルのレイアウト",
     "settingsArticleFontSizeLabel": "記事のフォントサイズ",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "アクセントカラー",
     "settingsFontFamilyLabel": "フォントファミリー",
     "settingsLayoutAndReadingTitle": "レイアウトと読書",
-    "appName": "News App",
+    "appName": "VeritAI",
     "unknownError": "不明なエラーが発生しました。",
     "loadMoreError": "さらに読み込むことができませんでした。",
     "settingsAppearanceFontSizeExtraLarge": "特大",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "フォローする国を追加",
+    "addPersonsPageTitle": "人物をフォロー",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "{countryName}をフォロー",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "ソース",
     "entityDetailsTopicTitle": "トピック",
     "entityDetailsCountryTitle": "国",
+    "entityDetailsPersonTitle": "人物",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "保存した見出しを読み込み中...",
     "savedHeadlinesLoadingSubheadline": "保存した記事を取得しています。",
     "savedHeadlinesErrorHeadline": "保存した見出しを読み込めませんでした",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "トピック",
     "contentTypeSource": "ソース",
     "contentTypeCountry": "国",
+    "contentTypePerson": "人物",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "{contentType}を検索中...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "システムブラウザ",
     "continueToArticleButtonLabel": "記事へ進む",
     "headlineActionsModalTitle": "アクション",
+    "readActionLabel": "読む",
+    "reactActionLabel": "反応する",
+    "mentionsActionLabel": "メンション",
+    "mentionedEntitiesPageTitle": "メンション",
     "shareActionLabel": "共有",
     "bookmarkActionLabel": "ブックマーク",
     "removeBookmarkActionLabel": "ブックマークを削除",
@@ -612,6 +640,8 @@
     "createAccountButton": "アカウントを作成",
     "gotItButton": "了解",
     "commentsPageTitle": "コメント",
+    "engagementPageTitle": "エンゲージメント",
+    "engagementChooseReactionLabel": "これについてどう思いますか？",
     "commentsCount": "{count,plural, other{{count} 件のコメント}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "トピックを選択",
     "initialPersonalizationStepSourcesTitle": "ソースを選択",
     "initialPersonalizationStepCountriesTitle": "国を選択",
+    "initialPersonalizationStepPersonsTitle": "人物を選択",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count}件選択済み",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

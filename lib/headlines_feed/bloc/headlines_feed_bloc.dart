@@ -8,16 +8,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/feed_decorators/services/feed_decorator_service.dart';
-import 'package:verity_mobile/headlines_feed/models/cached_feed.dart';
-import 'package:verity_mobile/headlines_feed/services/feed_cache_service.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/feed_decorators/services/feed_decorator_service.dart';
+import 'package:veritai_mobile/headlines_feed/models/cached_feed.dart';
+import 'package:veritai_mobile/headlines_feed/services/feed_cache_service.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
 
 part 'headlines_feed_event.dart';
 part 'headlines_feed_state.dart';
@@ -228,8 +228,13 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       };
     }
     if (filter.countries.isNotEmpty) {
-      queryFilter['eventCountry.id'] = {
+      queryFilter['mentionedCountries.id'] = {
         r'$in': filter.countries.map((c) => c.id).toList(),
+      };
+    }
+    if (filter.persons.isNotEmpty) {
+      queryFilter['mentionedPersons.id'] = {
+        r'$in': filter.persons.map((p) => p.id).toList(),
       };
     }
     // Always filter for active content.
@@ -768,6 +773,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
             topics: [],
             sources: [],
             countries: [],
+            persons: [],
           ),
           activeFilterId: _allFilterId,
         ),
@@ -787,6 +793,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       topics: [],
       sources: [],
       countries: [],
+      persons: [],
     );
     emit(
       state.copyWith(
@@ -967,6 +974,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
             topics: [],
             sources: [],
             countries: [],
+            persons: [],
           ),
           adThemeStyle: event.adThemeStyle,
         ),
@@ -984,6 +992,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
           topics: [],
           sources: [],
           countries: [],
+          persons: [],
         ),
       ),
     );
@@ -1007,6 +1016,7 @@ class HeadlinesFeedBloc extends Bloc<HeadlinesFeedEvent, HeadlinesFeedState> {
       topics: userPreferences.followedTopics,
       sources: userPreferences.followedSources,
       countries: userPreferences.followedCountries,
+      persons: userPreferences.followedPersons,
     );
 
     if (cachedFeed != null) {

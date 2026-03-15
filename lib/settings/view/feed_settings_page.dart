@@ -2,9 +2,9 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
 
 /// {@template feed_settings_page}
 /// A page for configuring feed display settings.
@@ -27,22 +27,24 @@ class FeedSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsLayoutAndReadingTitle)),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppLayout.maxDialogContentWidth,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            children: [
-              _SectionTitle(title: l10n.settingsFeedTileTypeLabel),
-              const SizedBox(height: AppSpacing.md),
-              _LayoutStyleSelector(settings: settings),
-              const SizedBox(height: AppSpacing.xxl),
-              _SectionTitle(title: l10n.settingsFeedClickBehaviorLabel),
-              const SizedBox(height: AppSpacing.md),
-              _OpenLinksInSelector(settings: settings),
-            ],
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              children: [
+                _SectionTitle(title: l10n.settingsFeedTileTypeLabel),
+                const SizedBox(height: AppSpacing.md),
+                _LayoutStyleSelector(settings: settings),
+                const SizedBox(height: AppSpacing.xxl),
+                _SectionTitle(title: l10n.settingsFeedClickBehaviorLabel),
+                const SizedBox(height: AppSpacing.md),
+                _OpenLinksInSelector(settings: settings),
+              ],
+            ),
           ),
         ),
       ),
@@ -68,6 +70,14 @@ class _LayoutStyleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+
+    // Safe fallback in case the local storage still contains the deprecated 'hidden' state.
+    // TODO(refactor): Rename FeedItemImageStyle enums (largeThumbnail -> immersive, smallThumbnail -> compact) and remove 'hidden' from core package.
+    final selectedStyle =
+        settings.feedSettings.feedItemImageStyle == FeedItemImageStyle.hidden
+        ? FeedItemImageStyle.smallThumbnail
+        : settings.feedSettings.feedItemImageStyle;
+
     return SegmentedButton<FeedItemImageStyle>(
       segments: [
         ButtonSegment(
@@ -80,13 +90,8 @@ class _LayoutStyleSelector extends StatelessWidget {
           label: Text(l10n.settingsFeedTileTypeImageStart),
           icon: const Icon(Icons.image_aspect_ratio_outlined),
         ),
-        ButtonSegment(
-          value: FeedItemImageStyle.hidden,
-          label: Text(l10n.settingsFeedTileTypeTextOnly),
-          icon: const Icon(Icons.short_text),
-        ),
       ],
-      selected: {settings.feedSettings.feedItemImageStyle},
+      selected: {selectedStyle},
       onSelectionChanged: (newSelection) {
         context.read<AppBloc>().add(
           AppSettingsChanged(

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/push_notification/providers/no_op_push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/no_op_push_notification_provider.dart';
 
 class MockLogger extends Mock implements Logger {}
 

@@ -8,15 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
-import 'package:verity_mobile/headlines_feed/view/headlines_filter_page.dart';
-import 'package:verity_mobile/headlines_feed/widgets/save_filter_dialog.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
-import 'package:verity_mobile/shared/widgets/multi_select_search_page.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/view/headlines_filter_page.dart';
+import 'package:veritai_mobile/headlines_feed/widgets/save_filter_dialog.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/shared/widgets/multi_select_search_page.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -45,6 +45,7 @@ void main() {
     registerFallbackValue(
       PushNotificationSubscriptionDeliveryType.breakingOnly,
     );
+    registerFallbackValue(const PaginationOptions());
   });
   group('HeadlinesFilterPage', () {
     late AppBloc appBloc;
@@ -53,6 +54,7 @@ void main() {
       topics: [],
       sources: [],
       countries: [],
+      persons: [],
     );
     late HeadlinesFeedBloc headlinesFeedBloc;
     late MockContentLimitationService contentLimitationService;
@@ -90,6 +92,7 @@ void main() {
         () => topicsRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
@@ -103,6 +106,7 @@ void main() {
         () => sourcesRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
@@ -116,6 +120,7 @@ void main() {
         () => countriesRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));

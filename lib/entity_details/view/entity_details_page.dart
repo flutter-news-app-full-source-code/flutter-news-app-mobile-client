@@ -4,19 +4,19 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_mobile/ads/models/ad_placeholder.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/widgets/feed_ad_loader_widget.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/entity_details/bloc/entity_details_bloc.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
-import 'package:verity_mobile/shared/widgets/content_limitation_bottom_sheet.dart';
-import 'package:verity_mobile/shared/widgets/feed_core/feed_core.dart';
-import 'package:verity_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
+import 'package:veritai_mobile/ads/models/ad_placeholder.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/widgets/feed_ad_loader_widget.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/entity_details/bloc/entity_details_bloc.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/shared/widgets/content_limitation_bottom_sheet.dart';
+import 'package:veritai_mobile/shared/widgets/feed_core/feed_core.dart';
+import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
 class EntityDetailsPageArguments {
   const EntityDetailsPageArguments({
@@ -108,6 +108,8 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
         name = l10n.entityDetailsSourceTitle;
       case ContentType.country:
         name = l10n.entityDetailsCountryTitle;
+      case ContentType.person:
+        name = l10n.entityDetailsPersonTitle;
       default:
         name = l10n.detailsPageTitle;
     }
@@ -178,6 +180,10 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
             final country = state.entity! as Country;
             appBarTitleText = country.name.getValue(context);
             appBarIconData = Icons.flag_outlined;
+          } else if (state.entity is Person) {
+            final person = state.entity! as Person;
+            appBarTitleText = person.name.getValue(context);
+            appBarIconData = Icons.person_outline;
           } else {
             appBarTitleText = l10n.detailsPageTitle;
           }
@@ -186,6 +192,7 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
             final Topic topic => topic.iconUrl,
             final Country country => country.flagUrl,
             final Source source => source.logoUrl,
+            final Person person => person.imageUrl,
             _ => null,
           };
 
@@ -194,36 +201,38 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
               constraints: const BoxConstraints(
                 maxWidth: AppLayout.maxContentWidth,
               ),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (constraints.maxWidth < AppLayout.tabletBreakpoint) {
-                    // Compact view (phones)
-                    return _buildCompactView(
-                      context,
-                      state,
-                      l10n,
-                      textTheme,
-                      colorScheme,
-                      appBarTitleText,
-                      appBarIconData,
-                      entityIconUrl,
-                      isSourceReportingEnabled,
-                    );
-                  } else {
-                    // Expanded view (tablets)
-                    return _buildExpandedView(
-                      context,
-                      state,
-                      l10n,
-                      textTheme,
-                      colorScheme,
-                      appBarTitleText,
-                      appBarIconData,
-                      entityIconUrl,
-                      isSourceReportingEnabled,
-                    );
-                  }
-                },
+              child: SafeArea(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < AppLayout.tabletBreakpoint) {
+                      // Compact view (phones)
+                      return _buildCompactView(
+                        context,
+                        state,
+                        l10n,
+                        textTheme,
+                        colorScheme,
+                        appBarTitleText,
+                        appBarIconData,
+                        entityIconUrl,
+                        isSourceReportingEnabled,
+                      );
+                    } else {
+                      // Expanded view (tablets)
+                      return _buildExpandedView(
+                        context,
+                        state,
+                        l10n,
+                        textTheme,
+                        colorScheme,
+                        appBarTitleText,
+                        appBarIconData,
+                        entityIconUrl,
+                        isSourceReportingEnabled,
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           );
@@ -290,6 +299,7 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
     final entityDescription = switch (state.entity) {
       final Topic topic => topic.description.getValue(context),
       final Source source => source.description.getValue(context),
+      final Person person => person.description.getValue(context),
       _ => '',
     };
 
@@ -445,6 +455,7 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
                   ContentType.topic => ContentAction.followTopic,
                   ContentType.source => ContentAction.followSource,
                   ContentType.country => ContentAction.followCountry,
+                  ContentType.person => ContentAction.followPerson,
                   _ => null,
                 };
 
@@ -569,19 +580,14 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
             Widget tile;
             switch (imageStyle) {
               case FeedItemImageStyle.hidden:
-                tile = HeadlineTileTextOnly(
-                  headline: item,
-                  onHeadlineTap: () =>
-                      HeadlineTapHandler.handleHeadlineTap(context, item),
-                );
               case FeedItemImageStyle.smallThumbnail:
-                tile = HeadlineTileImageStart(
+                tile = HeadlineTileCompact(
                   headline: item,
                   onHeadlineTap: () =>
                       HeadlineTapHandler.handleHeadlineTap(context, item),
                 );
               case FeedItemImageStyle.largeThumbnail:
-                tile = HeadlineTileImageTop(
+                tile = HeadlineTileImmersive(
                   headline: item,
                   onHeadlineTap: () =>
                       HeadlineTapHandler.handleHeadlineTap(context, item),

@@ -7,10 +7,10 @@ import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
 
 class MockEngagementRepository extends Mock
     implements DataRepository<Engagement> {}
@@ -107,6 +107,7 @@ void main() {
       followedCountries: [],
       followedSources: [],
       followedTopics: [],
+      followedPersons: [],
       savedHeadlines: [],
       savedHeadlineFilters: [],
     );
@@ -539,12 +540,14 @@ void main() {
                 updatedAt: DateTime(2023),
                 status: ContentStatus.active,
               ),
-              eventCountry: const Country(
-                isoCode: 'US',
-                name: {SupportedLanguage.en: 'USA'},
-                flagUrl: 'f',
-                id: 'c',
-              ),
+              mentionedCountries: const [
+                Country(
+                  isoCode: 'US',
+                  name: {SupportedLanguage.en: 'USA'},
+                  flagUrl: 'f',
+                  id: 'c',
+                ),
+              ],
               topic: Topic(
                 id: 't',
                 name: const {SupportedLanguage.en: 't'},
@@ -724,6 +727,7 @@ void main() {
                 topics: [],
                 sources: [],
                 countries: [],
+                persons: [],
               ),
               isPinned: false,
               deliveryTypes: const {},

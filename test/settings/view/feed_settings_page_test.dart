@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/settings/view/feed_settings_page.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/settings/view/feed_settings_page.dart';
 
 // Mocks
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
@@ -91,7 +91,7 @@ void main() {
       ) async {
         await tester.pumpApp(const FeedSettingsPage(), appBloc: appBloc);
 
-        await tester.tap(find.text('Text Only'));
+        await tester.tap(find.byIcon(Icons.image_outlined));
         await tester.pump();
 
         final captured =
@@ -100,7 +100,7 @@ void main() {
         final event = captured as AppSettingsChanged;
         expect(
           event.settings.feedSettings.feedItemImageStyle,
-          FeedItemImageStyle.hidden,
+          FeedItemImageStyle.largeThumbnail,
         );
       });
     });

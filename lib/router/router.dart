@@ -3,43 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/account/bloc/in_app_notification_center_bloc.dart';
-import 'package:verity_mobile/account/view/account_page.dart';
-import 'package:verity_mobile/account/view/followed_contents/followed_content_page.dart';
-import 'package:verity_mobile/account/view/in_app_notification_center_page.dart';
-import 'package:verity_mobile/account/view/profile/edit_profile_page.dart';
-import 'package:verity_mobile/account/view/saved_headlines_page.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/ads/services/ad_service.dart';
-import 'package:verity_mobile/ads/services/inline_ad_cache_service.dart';
-import 'package:verity_mobile/ads/services/rewarded_ad_manager.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/authentication/bloc/authentication_bloc.dart';
-import 'package:verity_mobile/authentication/view/account_linking_page.dart';
-import 'package:verity_mobile/authentication/view/authentication_page.dart';
-import 'package:verity_mobile/authentication/view/email_code_verification_page.dart';
-import 'package:verity_mobile/authentication/view/request_code_page.dart';
-import 'package:verity_mobile/entity_details/bloc/entity_details_bloc.dart';
-import 'package:verity_mobile/entity_details/view/entity_details_page.dart';
-import 'package:verity_mobile/feed_decorators/services/feed_decorator_service.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
-import 'package:verity_mobile/headlines_feed/services/feed_cache_service.dart';
-import 'package:verity_mobile/headlines_feed/view/headlines_feed_page.dart';
-import 'package:verity_mobile/headlines_feed/view/headlines_filter_page.dart';
-import 'package:verity_mobile/headlines_feed/view/saved_headlines_filters_page.dart';
-import 'package:verity_mobile/onboarding/app_tour/view/app_tour_page.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/view/initial_personalization_page.dart';
-import 'package:verity_mobile/rewards/view/rewards_page.dart';
-import 'package:verity_mobile/router/go_router_observer.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/settings/view/feed_settings_page.dart';
-import 'package:verity_mobile/settings/view/settings_page.dart';
-import 'package:verity_mobile/settings/view/theme_and_font_settings_page.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/account/bloc/in_app_notification_center_bloc.dart';
+import 'package:veritai_mobile/account/view/account_page.dart';
+import 'package:veritai_mobile/account/view/followed_contents/followed_content_page.dart';
+import 'package:veritai_mobile/account/view/in_app_notification_center_page.dart';
+import 'package:veritai_mobile/account/view/profile/edit_profile_page.dart';
+import 'package:veritai_mobile/account/view/saved_headlines_page.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/ads/services/ad_service.dart';
+import 'package:veritai_mobile/ads/services/inline_ad_cache_service.dart';
+import 'package:veritai_mobile/ads/services/rewarded_ad_manager.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/authentication/bloc/authentication_bloc.dart';
+import 'package:veritai_mobile/authentication/view/account_linking_page.dart';
+import 'package:veritai_mobile/authentication/view/authentication_page.dart';
+import 'package:veritai_mobile/authentication/view/email_code_verification_page.dart';
+import 'package:veritai_mobile/authentication/view/request_code_page.dart';
+import 'package:veritai_mobile/entity_details/bloc/entity_details_bloc.dart';
+import 'package:veritai_mobile/entity_details/view/entity_details_page.dart';
+import 'package:veritai_mobile/feed_decorators/services/feed_decorator_service.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/services/feed_cache_service.dart';
+import 'package:veritai_mobile/headlines_feed/view/headlines_feed_page.dart';
+import 'package:veritai_mobile/headlines_feed/view/headlines_filter_page.dart';
+import 'package:veritai_mobile/headlines_feed/view/mentioned_entities_page.dart';
+import 'package:veritai_mobile/headlines_feed/view/saved_headlines_filters_page.dart';
+import 'package:veritai_mobile/onboarding/app_tour/view/app_tour_page.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/view/initial_personalization_page.dart';
+import 'package:veritai_mobile/rewards/view/rewards_page.dart';
+import 'package:veritai_mobile/router/go_router_observer.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/settings/view/feed_settings_page.dart';
+import 'package:veritai_mobile/settings/view/settings_page.dart';
+import 'package:veritai_mobile/settings/view/theme_and_font_settings_page.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
 
 /// Creates and configures the main [GoRouter] for the application.
 ///
@@ -423,6 +424,7 @@ GoRouter createRouter({
                       sourceRepository: context.read<DataRepository<Source>>(),
                       countryRepository: context
                           .read<DataRepository<Country>>(),
+                      personRepository: context.read<DataRepository<Person>>(),
                       appBloc: context.read<AppBloc>(),
                       adService: context.read<AdService>(),
                       inlineAdCacheService: context
@@ -460,6 +462,15 @@ GoRouter createRouter({
             ],
             child: EntityDetailsPage(args: args),
           );
+        },
+      ),
+
+      GoRoute(
+        path: Routes.mentionedEntities,
+        name: Routes.mentionedEntitiesName,
+        builder: (context, state) {
+          final headline = state.extra! as Headline;
+          return MentionedEntitiesPage(headline: headline);
         },
       ),
 
@@ -531,12 +542,15 @@ GoRouter createRouter({
                                 .read<DataRepository<Source>>(),
                             countriesRepository: context
                                 .read<DataRepository<Country>>(),
+                            personsRepository: context
+                                .read<DataRepository<Person>>(),
                             appBloc: context.read<AppBloc>(),
                           )..add(
                             FilterDataLoaded(
                               initialSelectedTopics: initialFilter.topics,
                               initialSelectedSources: initialFilter.sources,
                               initialSelectedCountries: initialFilter.countries,
+                              initialSelectedPersons: initialFilter.persons,
                             ),
                           ),
                       child: HeadlinesFilterPage(

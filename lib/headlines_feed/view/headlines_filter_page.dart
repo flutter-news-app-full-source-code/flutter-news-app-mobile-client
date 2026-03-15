@@ -7,18 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
-import 'package:verity_mobile/headlines_feed/widgets/save_filter_dialog.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_mobile/shared/services/content_limitation_service.dart';
-import 'package:verity_mobile/shared/widgets/content_limitation_bottom_sheet.dart';
-import 'package:verity_mobile/shared/widgets/multi_select_search_page.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/widgets/save_filter_dialog.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_mobile/shared/services/content_limitation_service.dart';
+import 'package:veritai_mobile/shared/widgets/content_limitation_bottom_sheet.dart';
+import 'package:veritai_mobile/shared/widgets/multi_select_search_page.dart';
 
 /// {@template headlines_filter_page}
 /// A full-screen dialog page for selecting headline filters.
@@ -71,31 +71,33 @@ Future<void> _onApplyTapped(
   await showDialog<void>(
     context: context,
     builder: (BuildContext dialogContext) {
-      return AlertDialog(
-        title: Text(l10n.applyFilterDialogTitle),
-        content: Text(l10n.applyFilterDialogContent),
-        actions: <Widget>[
-          TextButton(
-            key: const Key('apply_only_button'),
-            child: Text(l10n.applyFilterDialogApplyOnlyButton),
-            onPressed: () {
-              // Pop the dialog first.
-              dialogContext.pop();
-              // Apply the filter and exit the filter page.
-              _applyAndExit(context);
-            },
-          ),
-          FilledButton(
-            key: const Key('apply_and_save_button'),
-            child: Text(l10n.applyFilterDialogApplyAndSaveButton),
-            onPressed: () {
-              // Pop the dialog first.
-              dialogContext.pop();
-              // Initiate the save and apply flow.
-              _createAndApplyFilter(context);
-            },
-          ),
-        ],
+      return SafeArea(
+        child: AlertDialog(
+          title: Text(l10n.applyFilterDialogTitle),
+          content: Text(l10n.applyFilterDialogContent),
+          actions: <Widget>[
+            TextButton(
+              key: const Key('apply_only_button'),
+              child: Text(l10n.applyFilterDialogApplyOnlyButton),
+              onPressed: () {
+                // Pop the dialog first.
+                dialogContext.pop();
+                // Apply the filter and exit the filter page.
+                _applyAndExit(context);
+              },
+            ),
+            FilledButton(
+              key: const Key('apply_and_save_button'),
+              child: Text(l10n.applyFilterDialogApplyAndSaveButton),
+              onPressed: () {
+                // Pop the dialog first.
+                dialogContext.pop();
+                // Initiate the save and apply flow.
+                _createAndApplyFilter(context);
+              },
+            ),
+          ],
+        ),
       );
     },
   );
@@ -153,6 +155,7 @@ Future<void> _createAndApplyFilter(BuildContext context) async {
               topics: filterState.selectedTopics.toList(),
               sources: filterState.selectedSources.toList(),
               countries: filterState.selectedCountries.toList(),
+              persons: filterState.selectedPersons.toList(),
             ),
             // Use the values returned from the enhanced dialog.
             isPinned: result.isPinned,
@@ -219,6 +222,7 @@ Future<void> _updateAndApplyFilter(
               topics: filterState.selectedTopics.toList(),
               sources: filterState.selectedSources.toList(),
               countries: filterState.selectedCountries.toList(),
+              persons: filterState.selectedPersons.toList(),
             ),
           );
 
@@ -260,6 +264,7 @@ void _applyFilter(BuildContext context, {SavedHeadlineFilter? savedFilter}) {
     topics: filterState.selectedTopics.toList(),
     sources: filterState.selectedSources.toList(),
     countries: filterState.selectedCountries.toList(),
+    persons: filterState.selectedPersons.toList(),
   );
   headlinesFeedBloc.add(
     HeadlinesFeedFiltersApplied(
@@ -304,13 +309,15 @@ class _HeadlinesFilterView extends StatelessWidget {
             final isResetEnabled =
                 filterState.selectedTopics.isNotEmpty ||
                 filterState.selectedSources.isNotEmpty ||
-                filterState.selectedCountries.isNotEmpty;
+                filterState.selectedCountries.isNotEmpty ||
+                filterState.selectedPersons.isNotEmpty;
 
             // Determine if the "Apply" button should be enabled.
             final isFilterEmpty =
                 filterState.selectedTopics.isEmpty &&
                 filterState.selectedSources.isEmpty &&
-                filterState.selectedCountries.isEmpty;
+                filterState.selectedCountries.isEmpty &&
+                filterState.selectedPersons.isEmpty;
 
             // When editing, a duplicate check is not needed.
             final isEditing = filterToEdit != null;
@@ -335,6 +342,10 @@ class _HeadlinesFilterView extends StatelessWidget {
                       setEquals(
                         savedHeadlineFilter.criteria.countries.toSet(),
                         filterState.selectedCountries,
+                      ) &&
+                      setEquals(
+                        savedHeadlineFilter.criteria.persons.toSet(),
+                        filterState.selectedPersons,
                       ),
                 );
 
@@ -387,6 +398,7 @@ class _HeadlinesFilterView extends StatelessWidget {
     AppLocalizations l10n,
     HeadlinesFilterState filterState,
   ) {
+    final theme = Theme.of(context);
     if (filterState.status == HeadlinesFilterStatus.loading) {
       return LoadingStateWidget(
         icon: Icons.filter_list,
@@ -418,107 +430,161 @@ class _HeadlinesFilterView extends StatelessWidget {
           maxWidth: AppLayout.maxDialogContentWidth,
         ),
         child: ListView(
+          padding: const EdgeInsets.all(AppSpacing.md),
           children: [
-            ListTile(
-              key: const Key('filter_topics_tile'),
-              title: Text(l10n.headlinesFeedFilterTopicLabel),
-              subtitle: Text(
-                filterState.selectedTopics.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedTopics.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Topic>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Topic>(
-                          title: l10n.headlinesFeedFilterTopicLabel,
-                          allItems: filterState.allTopics,
-                          initialSelectedItems: filterState.selectedTopics
-                              .toSet(),
-                          itemBuilder: (Topic item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+            Card(
+              margin: EdgeInsets.zero,
+              elevation: 0,
+              clipBehavior: Clip.antiAlias,
+              color: theme.colorScheme.surfaceContainerLow,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    key: const Key('filter_topics_tile'),
+                    title: Text(l10n.headlinesFeedFilterTopicLabel),
+                    subtitle: Text(
+                      filterState.selectedTopics.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedTopics.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Topic>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Topic>(
+                                title: l10n.headlinesFeedFilterTopicLabel,
+                                repository: context
+                                    .read<DataRepository<Topic>>(),
+                                initialSelectedItems: filterState.selectedTopics
+                                    .toSet(),
+                                itemBuilder: (Topic item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterTopicsChanged(topics: selectedItems),
-                  );
-                }
-              },
-            ),
-            const Divider(height: 1),
-            ListTile(
-              key: const Key('filter_sources_tile'),
-              title: Text(l10n.headlinesFeedFilterSourceLabel),
-              subtitle: Text(
-                filterState.selectedSources.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedSources.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Source>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Source>(
-                          title: l10n.headlinesFeedFilterSourceLabel,
-                          allItems: filterState.allSources,
-                          initialSelectedItems: filterState.selectedSources
-                              .toSet(),
-                          itemBuilder: (Source item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterTopicsChanged(topics: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_sources_tile'),
+                    title: Text(l10n.headlinesFeedFilterSourceLabel),
+                    subtitle: Text(
+                      filterState.selectedSources.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedSources.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Source>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Source>(
+                                title: l10n.headlinesFeedFilterSourceLabel,
+                                repository: context
+                                    .read<DataRepository<Source>>(),
+                                initialSelectedItems: filterState
+                                    .selectedSources
+                                    .toSet(),
+                                itemBuilder: (Source item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterSourcesChanged(sources: selectedItems),
-                  );
-                }
-              },
-            ),
-            const Divider(height: 1),
-            ListTile(
-              key: const Key('filter_countries_tile'),
-              title: Text(l10n.headlinesFeedFilterEventCountryLabel),
-              subtitle: Text(
-                filterState.selectedCountries.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedCountries.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Country>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Country>(
-                          title: l10n.headlinesFeedFilterEventCountryLabel,
-                          allItems: filterState.allCountries,
-                          initialSelectedItems: filterState.selectedCountries
-                              .toSet(),
-                          itemBuilder: (Country item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterSourcesChanged(sources: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_countries_tile'),
+                    title: Text(l10n.headlinesFeedFilterEventCountryLabel),
+                    subtitle: Text(
+                      filterState.selectedCountries.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedCountries.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Country>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Country>(
+                                title:
+                                    l10n.headlinesFeedFilterEventCountryLabel,
+                                repository: context
+                                    .read<DataRepository<Country>>(),
+                                initialSelectedItems: filterState
+                                    .selectedCountries
+                                    .toSet(),
+                                itemBuilder: (Country item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterCountriesChanged(countries: selectedItems),
-                  );
-                }
-              },
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterCountriesChanged(countries: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_persons_tile'),
+                    title: Text(l10n.headlinesFeedFilterPersonLabel),
+                    subtitle: Text(
+                      filterState.selectedPersons.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedPersons.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Person>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Person>(
+                                title: l10n.headlinesFeedFilterPersonLabel,
+                                repository: context
+                                    .read<DataRepository<Person>>(),
+                                initialSelectedItems: filterState
+                                    .selectedPersons
+                                    .toSet(),
+                                itemBuilder: (Person item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
+
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterPersonsChanged(persons: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

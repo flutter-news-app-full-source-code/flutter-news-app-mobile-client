@@ -5,10 +5,10 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/extensions/extensions.dart';
-import 'package:verity_mobile/shared/widgets/multi_select_search_page.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/extensions/extensions.dart';
+import 'package:veritai_mobile/shared/widgets/multi_select_search_page.dart';
 
 /// {@template source_list_filter_page}
 /// A dedicated page for selecting filter criteria for the source list.
@@ -29,7 +29,7 @@ class SourceListFilterPage extends StatelessWidget {
     // Provide the existing filterBloc to this subtree.
     return BlocProvider.value(
       value: filterBloc,
-      child: const _SourceListFilterView(),
+      child: const SafeArea(child: _SourceListFilterView()),
     );
   }
 }

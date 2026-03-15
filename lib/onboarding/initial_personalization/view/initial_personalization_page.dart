@@ -2,12 +2,12 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/l10n/app_localizations.dart';
-import 'package:verity_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
-import 'package:verity_mobile/shared/extensions/multilingual_map_extension.dart';
-import 'package:verity_mobile/shared/widgets/multi_select_search_page.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_mobile/shared/widgets/multi_select_search_page.dart';
 
 class InitialPersonalizationPage extends StatelessWidget {
   const InitialPersonalizationPage({super.key});
@@ -87,6 +87,25 @@ class _InitialPersonalizationView extends StatelessWidget {
     );
     if (result != null) {
       bloc.add(InitialPersonalizationItemsSelected<Country>(items: result));
+    }
+  }
+
+  Future<void> _selectPersons(BuildContext context) async {
+    final bloc = context.read<InitialPersonalizationBloc>();
+    final l10n = AppLocalizations.of(context);
+    final result = await Navigator.of(context).push<Set<Person>>(
+      MaterialPageRoute(
+        builder: (_) => MultiSelectSearchPage<Person>(
+          title: l10n.initialPersonalizationStepPersonsTitle,
+          repository: context.read<DataRepository<Person>>(),
+          initialSelectedItems: bloc.state.selectedPersons,
+          maxSelectionCount: bloc.state.maxSelectionsPerCategory,
+          itemBuilder: (person) => person.name.getValue(context),
+        ),
+      ),
+    );
+    if (result != null) {
+      bloc.add(InitialPersonalizationItemsSelected<Person>(items: result));
     }
   }
 
@@ -171,6 +190,13 @@ class _InitialPersonalizationView extends StatelessWidget {
                                 selectedCount: state.selectedCountries.length,
                                 onTap: () => _selectCountries(context),
                               ),
+                            // TODO(fulleni): Add remote config persons selection
+                            _StepCard(
+                              title:
+                                  l10n.initialPersonalizationStepPersonsTitle,
+                              selectedCount: state.selectedPersons.length,
+                              onTap: () => _selectPersons(context),
+                            ),
                           ],
                         ),
                       ),
@@ -226,7 +252,6 @@ class _StepCard extends StatelessWidget {
                 ),
               ),
             const SizedBox(width: AppSpacing.sm),
-            const Icon(Icons.chevron_right),
           ],
         ),
         onTap: onTap,

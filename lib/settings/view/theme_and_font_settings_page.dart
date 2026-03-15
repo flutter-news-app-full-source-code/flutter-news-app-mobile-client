@@ -3,9 +3,9 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
 
 /// {@template theme_and_font_settings_page}
 /// A page for configuring theme accent color and font settings.
@@ -28,24 +28,26 @@ class ThemeAndFontSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsAccentColorAndFontsTitle)),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppLayout.maxDialogContentWidth,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            children: [
-              _SectionTitle(title: l10n.settingsAccentColorLabel),
-              const SizedBox(height: AppSpacing.md),
-              _AccentThemeSelector(settings: settings),
-              const SizedBox(height: AppSpacing.lg),
-              _SectionTitle(title: l10n.settingsAppearanceFontWeightLabel),
-              const SizedBox(height: AppSpacing.md),
-              _FontWeightSelector(settings: settings),
-              const SizedBox(height: AppSpacing.xxl),
-              _FontFamilySelector(settings: settings),
-            ],
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              children: [
+                _SectionTitle(title: l10n.settingsAccentColorLabel),
+                const SizedBox(height: AppSpacing.md),
+                _AccentThemeSelector(settings: settings),
+                const SizedBox(height: AppSpacing.lg),
+                _SectionTitle(title: l10n.settingsAppearanceFontWeightLabel),
+                const SizedBox(height: AppSpacing.md),
+                _FontWeightSelector(settings: settings),
+                const SizedBox(height: AppSpacing.xxl),
+                _FontFamilySelector(settings: settings),
+              ],
+            ),
           ),
         ),
       ),

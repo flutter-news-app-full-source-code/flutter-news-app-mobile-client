@@ -61,4 +61,6 @@ abstract final class Routes {
   // --- Global / Shared Routes ---
   static const entityDetails = '/entity-details/:type/:id';
   static const entityDetailsName = 'entityDetails';
+  static const mentionedEntities = '/mentioned-entities';
+  static const mentionedEntitiesName = 'mentionedEntities';
 }

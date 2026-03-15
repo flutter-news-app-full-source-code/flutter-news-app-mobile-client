@@ -6,7 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 
 part 'in_app_notification_center_event.dart';
 part 'in_app_notification_center_state.dart';

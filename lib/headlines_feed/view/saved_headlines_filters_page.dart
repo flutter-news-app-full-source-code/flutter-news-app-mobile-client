@@ -3,13 +3,13 @@ import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:verity_mobile/ads/models/ad_theme_style.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:verity_mobile/headlines_feed/bloc/saved_headlines_filters_bloc.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/router/routes.dart';
-import 'package:verity_mobile/shared/extensions/multilingual_map_extension.dart';
+import 'package:veritai_mobile/ads/models/ad_theme_style.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/saved_headlines_filters_bloc.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/router/routes.dart';
+import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
 
 /// {@template saved_headlines_filters_page}
 /// A page for managing a user's saved headline filters.
@@ -64,6 +64,7 @@ class SavedHeadlinesFiltersView extends StatelessWidget {
                 topics: [],
                 sources: [],
                 countries: [],
+                persons: [],
               ),
             },
           );
@@ -71,162 +72,166 @@ class SavedHeadlinesFiltersView extends StatelessWidget {
         label: Text(l10n.savedHeadlineFiltersCreateNewButton),
         icon: const Icon(Icons.add),
       ),
-      body: BlocBuilder<SavedHeadlinesFiltersBloc, SavedHeadlinesFiltersState>(
-        builder: (context, state) {
-          if (state.status == SavedHeadlinesFiltersStatus.initial ||
-              state.status == SavedHeadlinesFiltersStatus.loading) {
-            return LoadingStateWidget(
-              icon: Icons.save_alt_outlined,
-              headline: l10n.savedHeadlineFiltersLoadingHeadline,
-              subheadline: l10n.pleaseWait,
-            );
-          }
+      body: SafeArea(
+        child: BlocBuilder<SavedHeadlinesFiltersBloc, SavedHeadlinesFiltersState>(
+          builder: (context, state) {
+            if (state.status == SavedHeadlinesFiltersStatus.initial ||
+                state.status == SavedHeadlinesFiltersStatus.loading) {
+              return LoadingStateWidget(
+                icon: Icons.save_alt_outlined,
+                headline: l10n.savedHeadlineFiltersLoadingHeadline,
+                subheadline: l10n.pleaseWait,
+              );
+            }
 
-          if (state.status == SavedHeadlinesFiltersStatus.failure) {
-            return FailureStateWidget(
-              exception:
-                  state.error ??
-                  const UnknownException('Failed to load saved filters.'),
-              onRetry: () => context.read<SavedHeadlinesFiltersBloc>().add(
-                const SavedHeadlinesFiltersDataLoaded(),
-              ),
-            );
-          }
-
-          if (state.filters.isEmpty) {
-            return InitialStateWidget(
-              icon: Icons.filter_list_off,
-              headline: l10n.savedHeadlineFiltersEmptyHeadline,
-              subheadline: l10n.savedHeadlineFiltersEmptySubheadline,
-            );
-          }
-
-          return ReorderableListView.builder(
-            padding: const EdgeInsets.only(bottom: AppSpacing.xxl * 2),
-            itemCount: state.filters.length,
-            buildDefaultDragHandles: false,
-            itemBuilder: (context, index) {
-              final filter = state.filters[index];
-              return ListTile(
-                key: ValueKey(filter.id),
-                leading: ReorderableDragStartListener(
-                  index: index,
-                  child: const Icon(Icons.drag_handle),
+            if (state.status == SavedHeadlinesFiltersStatus.failure) {
+              return FailureStateWidget(
+                exception:
+                    state.error ??
+                    const UnknownException('Failed to load saved filters.'),
+                onRetry: () => context.read<SavedHeadlinesFiltersBloc>().add(
+                  const SavedHeadlinesFiltersDataLoaded(),
                 ),
-                title: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      filter.name.getValue(context),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                    ),
-                    if (filter.isPinned) ...[
-                      const SizedBox(width: AppSpacing.sm),
-                      Icon(
-                        Icons.push_pin,
-                        size: 16,
-                        color: theme.colorScheme.secondary,
+              );
+            }
+
+            if (state.filters.isEmpty) {
+              return InitialStateWidget(
+                icon: Icons.filter_list_off,
+                headline: l10n.savedHeadlineFiltersEmptyHeadline,
+                subheadline: l10n.savedHeadlineFiltersEmptySubheadline,
+              );
+            }
+
+            return ReorderableListView.builder(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xxl * 2),
+              itemCount: state.filters.length,
+              buildDefaultDragHandles: false,
+              itemBuilder: (context, index) {
+                final filter = state.filters[index];
+                return ListTile(
+                  key: ValueKey(filter.id),
+                  leading: ReorderableDragStartListener(
+                    index: index,
+                    child: const Icon(Icons.drag_handle),
+                  ),
+                  title: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        filter.name.getValue(context),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
                       ),
-                    ],
-                    if (filter.deliveryTypes.isNotEmpty) ...[
-                      const SizedBox(width: AppSpacing.sm),
-                      Icon(
-                        Icons.notifications,
-                        size: 16,
-                        color: theme.colorScheme.secondary,
-                      ),
-                    ],
-                  ],
-                ),
-                onTap: () {
-                  // Apply the selected filter to the feed.
-                  context.read<HeadlinesFeedBloc>().add(
-                    SavedFilterSelected(
-                      filter: filter,
-                      adThemeStyle: AdThemeStyle.fromTheme(theme),
-                    ),
-                  );
-                  // Pop the current page (SavedHeadlinesFiltersPage) to return
-                  // to the underlying HeadlinesFeedPage, which will now show
-                  // the content for the applied filter.
-                  context.pop();
-                },
-                trailing: PopupMenuButton<String>(
-                  onSelected: (value) async {
-                    if (value == 'edit') {
-                      // Navigate to the filter page in 'edit' mode.
-                      await context.pushNamed(
-                        Routes.feedFilterName,
-                        extra: {
-                          'initialFilter': filter.criteria,
-                          'filterToEdit': filter,
-                        },
-                      );
-                    } else if (value == 'delete') {
-                      // Show a confirmation dialog before deleting.
-                      final didConfirm = await showDialog<bool>(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(l10n.deleteConfirmationDialogTitle),
-                          content: Text(l10n.deleteConfirmationDialogContent),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: Text(l10n.cancelButtonLabel),
-                            ),
-                            FilledButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: Text(
-                                l10n.deleteConfirmationDialogConfirmButton,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                      if (didConfirm == true && context.mounted) {
-                        context.read<SavedHeadlinesFiltersBloc>().add(
-                          SavedHeadlinesFiltersDeleted(filterId: filter.id),
-                        );
-                      }
-                    }
-                  },
-                  itemBuilder: (BuildContext context) =>
-                      <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'edit',
-                          child: Text(l10n.savedFiltersMenuEdit),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'delete',
-                          child: Text(l10n.savedFiltersMenuDelete),
+                      if (filter.isPinned) ...[
+                        const SizedBox(width: AppSpacing.sm),
+                        Icon(
+                          Icons.push_pin,
+                          size: 16,
+                          color: theme.colorScheme.secondary,
                         ),
                       ],
-                ),
-              );
-            },
-            onReorder: (oldIndex, newIndex) {
-              // When an item is moved down the list, the newIndex needs to be
-              // adjusted because the item's removal from its old position
-              // shifts the indices of subsequent items.
-              var adjustedNewIndex = newIndex;
-              if (newIndex > oldIndex) {
-                adjustedNewIndex -= 1;
-              }
-              final reorderedFilters = List<SavedHeadlineFilter>.from(
-                state.filters,
-              );
-              final item = reorderedFilters.removeAt(oldIndex);
-              reorderedFilters.insert(adjustedNewIndex, item);
-              context.read<SavedHeadlinesFiltersBloc>().add(
-                SavedHeadlinesFiltersReordered(
-                  reorderedFilters: reorderedFilters,
-                ),
-              );
-            },
-          );
-        },
+                      if (filter.deliveryTypes.isNotEmpty) ...[
+                        const SizedBox(width: AppSpacing.sm),
+                        Icon(
+                          Icons.notifications,
+                          size: 16,
+                          color: theme.colorScheme.secondary,
+                        ),
+                      ],
+                    ],
+                  ),
+                  onTap: () {
+                    // Apply the selected filter to the feed.
+                    context.read<HeadlinesFeedBloc>().add(
+                      SavedFilterSelected(
+                        filter: filter,
+                        adThemeStyle: AdThemeStyle.fromTheme(theme),
+                      ),
+                    );
+                    // Pop the current page (SavedHeadlinesFiltersPage) to return
+                    // to the underlying HeadlinesFeedPage, which will now show
+                    // the content for the applied filter.
+                    context.pop();
+                  },
+                  trailing: PopupMenuButton<String>(
+                    onSelected: (value) async {
+                      if (value == 'edit') {
+                        // Navigate to the filter page in 'edit' mode.
+                        await context.pushNamed(
+                          Routes.feedFilterName,
+                          extra: {
+                            'initialFilter': filter.criteria,
+                            'filterToEdit': filter,
+                          },
+                        );
+                      } else if (value == 'delete') {
+                        // Show a confirmation dialog before deleting.
+                        final didConfirm = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(l10n.deleteConfirmationDialogTitle),
+                            content: Text(l10n.deleteConfirmationDialogContent),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: Text(l10n.cancelButtonLabel),
+                              ),
+                              FilledButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: Text(
+                                  l10n.deleteConfirmationDialogConfirmButton,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (didConfirm == true && context.mounted) {
+                          context.read<SavedHeadlinesFiltersBloc>().add(
+                            SavedHeadlinesFiltersDeleted(filterId: filter.id),
+                          );
+                        }
+                      }
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                          PopupMenuItem<String>(
+                            value: 'edit',
+                            child: Text(l10n.savedFiltersMenuEdit),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'delete',
+                            child: Text(l10n.savedFiltersMenuDelete),
+                          ),
+                        ],
+                  ),
+                );
+              },
+              onReorder: (oldIndex, newIndex) {
+                // When an item is moved down the list, the newIndex needs to be
+                // adjusted because the item's removal from its old position
+                // shifts the indices of subsequent items.
+                var adjustedNewIndex = newIndex;
+                if (newIndex > oldIndex) {
+                  adjustedNewIndex -= 1;
+                }
+                final reorderedFilters = List<SavedHeadlineFilter>.from(
+                  state.filters,
+                );
+                final item = reorderedFilters.removeAt(oldIndex);
+                reorderedFilters.insert(adjustedNewIndex, item);
+                context.read<SavedHeadlinesFiltersBloc>().add(
+                  SavedHeadlinesFiltersReordered(
+                    reorderedFilters: reorderedFilters,
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

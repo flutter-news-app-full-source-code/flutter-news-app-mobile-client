@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_mobile/app/config/config.dart';
-import 'package:verity_mobile/app/view/app_hot_restart_wrapper.dart';
-import 'package:verity_mobile/bootstrap.dart';
+import 'package:veritai_mobile/app/config/config.dart';
+import 'package:veritai_mobile/app/view/app_hot_restart_wrapper.dart';
+import 'package:veritai_mobile/bootstrap.dart';
 
 // Determine the current application environment from compile-time variables.
 // Defaults to 'development' if no environment is specified.

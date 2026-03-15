@@ -4,9 +4,9 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/app/models/initialization_result.dart';
-import 'package:verity_mobile/app/services/app_initializer.dart'
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/app/models/initialization_result.dart';
+import 'package:veritai_mobile/app/services/app_initializer.dart'
     show AppInitializer;
 
 part 'app_initialization_event.dart';

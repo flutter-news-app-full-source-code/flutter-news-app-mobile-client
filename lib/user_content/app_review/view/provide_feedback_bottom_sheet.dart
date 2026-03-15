@@ -1,7 +1,7 @@
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:verity_mobile/l10n/l10n.dart';
-import 'package:verity_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/shared/constants/app_layout.dart';
 
 /// {@template provide_feedback_bottom_sheet}
 /// A bottom sheet for collecting detailed user feedback after a negative
@@ -59,71 +59,82 @@ class _ProvideFeedbackBottomSheetState
       l10n.feedbackPromptReasonOther: 'other',
     };
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: AppLayout.maxDialogContentWidth,
-        ),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            AppSpacing.lg,
-            AppSpacing.lg,
-            AppSpacing.lg,
-            AppSpacing.lg + MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.feedbackPromptTitle, style: textTheme.headlineSmall),
-                const SizedBox(height: AppSpacing.lg),
-                ...reasons.entries.map((entry) {
-                  return RadioListTile<String>(
-                    title: Text(entry.key),
-                    value: entry.value,
-                    groupValue: _selectedReason,
-                    onChanged: (value) =>
-                        setState(() => _selectedReason = value),
-                    contentPadding: EdgeInsets.zero,
-                  );
-                }),
-                if (_selectedReason == 'other')
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSpacing.md),
-                    child: TextFormField(
-                      controller: _textController,
-                      autofocus: true,
-                      decoration: InputDecoration(
-                        labelText: l10n.reportAdditionalCommentsLabel,
-                      ),
-                      maxLines: 3,
-                    ),
-                  ),
-                const SizedBox(height: AppSpacing.lg),
-                Row(
+    return Material(
+      color: theme.colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: AppSpacing.lg,
+                right: AppSpacing.lg,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text(l10n.cancelButtonLabel),
-                      ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Text(
+                      l10n.feedbackPromptTitle,
+                      style: textTheme.headlineSmall,
                     ),
-                    const SizedBox(width: AppSpacing.md),
-                    Expanded(
-                      child: FilledButton(
-                        onPressed:
-                            (_selectedReason != null &&
-                                (_selectedReason != 'other' ||
-                                    _textController.text.isNotEmpty))
-                            ? _submitFeedback
-                            : null,
-                        child: Text(l10n.feedbackPromptSubmitButton),
+                    const SizedBox(height: AppSpacing.lg),
+                    ...reasons.entries.map((entry) {
+                      return RadioListTile<String>(
+                        title: Text(entry.key),
+                        value: entry.value,
+                        groupValue: _selectedReason,
+                        onChanged: (value) =>
+                            setState(() => _selectedReason = value),
+                        contentPadding: EdgeInsets.zero,
+                      );
+                    }),
+                    if (_selectedReason == 'other')
+                      Padding(
+                        padding: const EdgeInsets.only(top: AppSpacing.md),
+                        child: TextFormField(
+                          controller: _textController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: l10n.reportAdditionalCommentsLabel,
+                          ),
+                          maxLines: 3,
+                        ),
                       ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(l10n.cancelButtonLabel),
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: FilledButton(
+                            onPressed:
+                                (_selectedReason != null &&
+                                    (_selectedReason != 'other' ||
+                                        _textController.text.isNotEmpty))
+                                ? _submitFeedback
+                                : null,
+                            child: Text(l10n.feedbackPromptSubmitButton),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: AppSpacing.lg),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

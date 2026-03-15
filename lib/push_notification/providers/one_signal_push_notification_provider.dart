@@ -4,7 +4,7 @@ import 'package:core/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:verity_mobile/push_notification/providers/push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/push_notification_provider.dart';
 
 /// A wrapper around [OneSignal] static methods to facilitate testing.
 ///

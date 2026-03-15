@@ -149,18 +149,18 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "01ddd253e94303d86d9fbcc977acb2019f239fb4"
-      resolved-ref: "01ddd253e94303d86d9fbcc977acb2019f239fb4"
-      url: "https://github.com/verity-hq/core.git"
+      ref: "v2.2.0"
+      resolved-ref: "01b7135a77b4c4306bb6fa8d2cd8a72ee1933a03"
+      url: "https://github.com/veritai-news/core.git"
     source: git
-    version: "2.1.0"
+    version: "2.2.0"
   core_ui:
     dependency: "direct main"
     description:
       path: "."
-      ref: "051cdf79b85e3ffa124c90aa00cf873d722ae31c"
-      resolved-ref: "051cdf79b85e3ffa124c90aa00cf873d722ae31c"
-      url: "https://github.com/verity-hq/core-ui.git"
+      ref: "6f9233537c752d5cc8b2bfc82ebc5f65a124325b"
+      resolved-ref: "6f9233537c752d5cc8b2bfc82ebc5f65a124325b"
+      url: "https://github.com/veritai-news/core-ui.git"
     source: git
     version: "2.0.0"
   coverage:

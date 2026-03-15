@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:core/core.dart';
 import 'package:logging/logging.dart';
-import 'package:verity_mobile/analytics/services/analytics_service.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/shared/extensions/content_action_extension.dart';
+import 'package:veritai_mobile/analytics/services/analytics_service.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/shared/extensions/content_action_extension.dart';
 
 /// Defines the specific type of content-related action a user is trying to
 /// perform, which may be subject to limitations.
@@ -21,6 +21,9 @@ enum ContentAction {
 
   /// The action of following a country.
   followCountry,
+
+  /// The action of following a person.
+  followPerson,
 
   /// The action of saving a filter.
   saveFilter,
@@ -339,6 +342,7 @@ class ContentLimitationService {
       case ContentAction.followTopic:
       case ContentAction.followSource:
       case ContentAction.followCountry:
+      case ContentAction.followPerson:
         final limit = limits.followedItems[tier];
         _logger.finer(
           'Follow limit check for tier "$tier" and action "${action.name}"',
@@ -348,6 +352,7 @@ class ContentLimitationService {
           ContentAction.followTopic => preferences.followedTopics.length,
           ContentAction.followSource => preferences.followedSources.length,
           ContentAction.followCountry => preferences.followedCountries.length,
+          ContentAction.followPerson => preferences.followedPersons.length,
           _ => 0,
         };
         _logger.finer('Current count: $count, Limit: $limit');

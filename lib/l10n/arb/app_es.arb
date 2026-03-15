@@ -42,6 +42,14 @@
     "followedContentPageTitle": "Elementos seguidos",
     "followedContentTopicsTab": "Temas",
     "followedContentSourcesTab": "Fuentes",
+    "followedContentCountriesTab": "Países",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "Personas",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "Revisa tu correo para el enlace.",
     "authenticationPageTitle": "Acceder / Registrarse",
     "authenticationEmailLabel": "Correo electrónico",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "Reuters",
     "headlinesFeedFilterEventCountryLabel": "Países",
+    "headlinesFeedFilterPersonLabel": "Personas",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "Sede de la fuente",
     "headlinesFeedFilterCountryUS": "Estados Unidos",
     "headlinesFeedFilterCountryUK": "Reino Unido",
@@ -80,7 +92,7 @@
     "authenticationEmailSignInButton": "Continuar con correo",
     "authenticationLinkingHeadline": "Sincroniza tu progreso",
     "authenticationLinkingSubheadline": "Crea una cuenta para guardar tus ajustes y preferencias.",
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "authenticationSignInSubheadline": "Noticias sin filtros de fuentes confiables.",
     "emailSignInPageTitle": "Acceder con correo",
     "emailSignInExplanation": "Introduce tu correo. Te enviaremos un enlace seguro para acceder al instante.",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "Tamaño de fuente de la app",
     "settingsAppearanceAppFontTypeLabel": "Fuente de la app",
     "settingsAppearanceFontWeightLabel": "Grosor de fuente",
-    "settingsFeedTileTypeImageTop": "Imagen arriba",
-    "settingsFeedTileTypeImageStart": "Imagen al inicio",
+    "settingsFeedTileTypeImageTop": "Vista de tarjeta",
+    "settingsFeedTileTypeImageStart": "Vista compacta",
     "settingsFeedTileTypeTextOnly": "Solo texto",
     "settingsFeedTileTypeLabel": "Diseño de tarjeta del feed",
     "settingsArticleFontSizeLabel": "Tamaño de fuente del artículo",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "Color de acento",
     "settingsFontFamilyLabel": "Familia tipográfica",
     "settingsLayoutAndReadingTitle": "Diseño y lectura",
-    "appName": "News App",
+    "appName": "VeritAI",
     "unknownError": "Ocurrió un error desconocido.",
     "loadMoreError": "Error al cargar más elementos.",
     "settingsAppearanceFontSizeExtraLarge": "Extra grande",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "Añadir países para seguir",
+    "addPersonsPageTitle": "Seguir personas",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "Seguir {countryName}",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "Fuente",
     "entityDetailsTopicTitle": "Tema",
     "entityDetailsCountryTitle": "País",
+    "entityDetailsPersonTitle": "Persona",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "Cargando titulares guardados...",
     "savedHeadlinesLoadingSubheadline": "Estamos obteniendo tus artículos guardados.",
     "savedHeadlinesErrorHeadline": "Error al cargar titulares guardados",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "Temas",
     "contentTypeSource": "Fuentes",
     "contentTypeCountry": "Países",
+    "contentTypePerson": "Personas",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "Buscando {contentType}...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "Navegador del sistema",
     "continueToArticleButtonLabel": "Continuar al artículo",
     "headlineActionsModalTitle": "Acciones",
+    "readActionLabel": "Leer",
+    "reactActionLabel": "Reaccionar",
+    "mentionsActionLabel": "Menciones",
+    "mentionedEntitiesPageTitle": "Menciones",
     "shareActionLabel": "Compartir",
     "bookmarkActionLabel": "Guardar",
     "removeBookmarkActionLabel": "Quitar guardado",
@@ -612,6 +640,8 @@
     "createAccountButton": "Crear cuenta",
     "gotItButton": "Entendido",
     "commentsPageTitle": "Comentarios",
+    "engagementPageTitle": "Interacción",
+    "engagementChooseReactionLabel": "¿Qué opinas sobre esto?",
     "commentsCount": "{count,plural, =1{1 comentario}other{{count} comentarios}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "Selecciona temas",
     "initialPersonalizationStepSourcesTitle": "Selecciona fuentes",
     "initialPersonalizationStepCountriesTitle": "Selecciona países",
+    "initialPersonalizationStepPersonsTitle": "Seleccionar personas",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count} seleccionados",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

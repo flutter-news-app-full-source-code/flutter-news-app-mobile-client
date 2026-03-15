@@ -42,6 +42,14 @@
     "followedContentPageTitle": "关注的项目",
     "followedContentTopicsTab": "话题",
     "followedContentSourcesTab": "来源",
+    "followedContentCountriesTab": "国家",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "人物",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "请检查您的电子邮件以获取登录链接。",
     "authenticationPageTitle": "登录 / 注册",
     "authenticationEmailLabel": "电子邮件",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "路透社",
     "headlinesFeedFilterEventCountryLabel": "国家",
+    "headlinesFeedFilterPersonLabel": "人物",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "总部所在地",
     "headlinesFeedFilterCountryUS": "美国",
     "headlinesFeedFilterCountryUK": "英国",
@@ -80,7 +92,7 @@
     "authenticationEmailSignInButton": "使用电子邮件继续",
     "authenticationLinkingHeadline": "同步您的进度",
     "authenticationLinkingSubheadline": "创建一个账户，以便在设备间保存您的设置、内容偏好等。",
-    "authenticationSignInHeadline": "Verity",
+    "authenticationSignInHeadline": "Veritai",
     "authenticationSignInSubheadline": "来自全球可信来源的未经过滤的新闻。",
     "emailSignInPageTitle": "使用电子邮件登录",
     "emailSignInExplanation": "在下方输入您的电子邮件。我们将向您发送一个安全的登录链接。无需密码！",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "应用字体大小",
     "settingsAppearanceAppFontTypeLabel": "应用字体",
     "settingsAppearanceFontWeightLabel": "字体粗细",
-    "settingsFeedTileTypeImageTop": "图片置顶",
-    "settingsFeedTileTypeImageStart": "图片居前",
+    "settingsFeedTileTypeImageTop": "卡片视图",
+    "settingsFeedTileTypeImageStart": "紧凑视图",
     "settingsFeedTileTypeTextOnly": "仅文字",
     "settingsFeedTileTypeLabel": "信息流卡片布局",
     "settingsArticleFontSizeLabel": "文章字体大小",
@@ -157,7 +169,7 @@
     "settingsAccentColorLabel": "强调色",
     "settingsFontFamilyLabel": "字体系列",
     "settingsLayoutAndReadingTitle": "布局与阅读",
-    "appName": "头条工具箱",
+    "appName": "VeritAI",
     "unknownError": "发生未知错误。",
     "loadMoreError": "无法加载更多项目。",
     "settingsAppearanceFontSizeExtraLarge": "特大",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "添加要关注的国家",
+    "addPersonsPageTitle": "关注人物",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "关注 {countryName}",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "来源",
     "entityDetailsTopicTitle": "话题",
     "entityDetailsCountryTitle": "国家",
+    "entityDetailsPersonTitle": "人物",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "正在加载已保存的头条...",
     "savedHeadlinesLoadingSubheadline": "请稍候，正在获取您保存的文章。",
     "savedHeadlinesErrorHeadline": "无法加载已保存的头条",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "话题",
     "contentTypeSource": "来源",
     "contentTypeCountry": "国家",
+    "contentTypePerson": "人物",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "正在搜索 {contentType}...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "系统浏览器",
     "continueToArticleButtonLabel": "继续阅读文章",
     "headlineActionsModalTitle": "操作",
+    "readActionLabel": "阅读",
+    "reactActionLabel": "回应",
+    "mentionsActionLabel": "提及",
+    "mentionedEntitiesPageTitle": "提及",
     "shareActionLabel": "分享",
     "bookmarkActionLabel": "书签",
     "removeBookmarkActionLabel": "移除书签",
@@ -612,6 +640,8 @@
     "createAccountButton": "创建账户",
     "gotItButton": "知道了",
     "commentsPageTitle": "评论",
+    "engagementPageTitle": "互动",
+    "engagementChooseReactionLabel": "您对此有何看法？",
     "commentsCount": "{count,plural, =1{1 条评论}other{{count} 条评论}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "选择话题",
     "initialPersonalizationStepSourcesTitle": "选择来源",
     "initialPersonalizationStepCountriesTitle": "选择国家",
+    "initialPersonalizationStepPersonsTitle": "选择人物",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "已选择 {count} 个",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

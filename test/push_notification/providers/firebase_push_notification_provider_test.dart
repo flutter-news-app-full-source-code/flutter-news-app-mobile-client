@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:verity_mobile/push_notification/providers/firebase_push_notification_provider.dart';
+import 'package:veritai_mobile/push_notification/providers/firebase_push_notification_provider.dart';
 
 // Mocks for dependencies
 class MockFirebaseMessagingPlatform extends Mock

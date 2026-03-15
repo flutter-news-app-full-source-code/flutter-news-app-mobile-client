@@ -2,15 +2,17 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:verity_mobile/app/bloc/app_bloc.dart';
-import 'package:verity_mobile/app/models/app_life_cycle_status.dart';
-import 'package:verity_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/app/models/app_life_cycle_status.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
 
 class MockTopicsRepository extends Mock implements DataRepository<Topic> {}
 
 class MockSourcesRepository extends Mock implements DataRepository<Source> {}
 
 class MockCountriesRepository extends Mock implements DataRepository<Country> {}
+
+class MockPersonsRepository extends Mock implements DataRepository<Person> {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -19,6 +21,7 @@ void main() {
     late DataRepository<Topic> topicsRepository;
     late DataRepository<Source> sourcesRepository;
     late DataRepository<Country> countriesRepository;
+    late DataRepository<Person> personsRepository;
     late MockAppBloc appBloc;
     late HeadlinesFilterBloc headlinesFilterBloc;
 
@@ -66,6 +69,7 @@ void main() {
       topicsRepository = MockTopicsRepository();
       sourcesRepository = MockSourcesRepository();
       countriesRepository = MockCountriesRepository();
+      personsRepository = MockPersonsRepository();
       appBloc = MockAppBloc();
 
       when(
@@ -114,11 +118,21 @@ void main() {
           hasMore: false,
         ),
       );
+      when(
+        () => personsRepository.readAll(
+          filter: any(named: 'filter'),
+          sort: any(named: 'sort'),
+        ),
+      ).thenAnswer(
+        (_) async =>
+            const PaginatedResponse(items: [], cursor: null, hasMore: false),
+      );
 
       headlinesFilterBloc = HeadlinesFilterBloc(
         topicsRepository: topicsRepository,
         sourcesRepository: sourcesRepository,
         countriesRepository: countriesRepository,
+        personsRepository: personsRepository,
         appBloc: appBloc,
       );
     });
@@ -138,11 +152,13 @@ void main() {
           allTopics: [topic1],
           allSources: [source1],
           allCountries: const [country1],
+          allPersons: const [],
           allHeadquarterCountries: const [country1, country2],
           allSourceTypes: SourceType.values,
           selectedTopics: const {},
           selectedSources: const {},
           selectedCountries: const {},
+          selectedPersons: const {},
         ),
       ],
       verify: (_) {
@@ -155,6 +171,12 @@ void main() {
         verify(
           () => countriesRepository.readAll(
             filter: null,
+            sort: any(named: 'sort'),
+          ),
+        ).called(1);
+        verify(
+          () => personsRepository.readAll(
+            filter: any(named: 'filter'),
             sort: any(named: 'sort'),
           ),
         ).called(1);
@@ -220,6 +242,7 @@ void main() {
           selectedTopics: {},
           selectedSources: {},
           selectedCountries: {},
+          selectedPersons: {},
         ),
       ],
     );

@@ -8,6 +8,7 @@ class InitialPersonalizationState extends Equatable {
     this.selectedTopics = const {},
     this.selectedSources = const {},
     this.selectedCountries = const {},
+    this.selectedPersons = const {},
     this.maxSelectionsPerCategory,
     this.error,
   });
@@ -16,17 +17,22 @@ class InitialPersonalizationState extends Equatable {
   final Set<Topic> selectedTopics;
   final Set<Source> selectedSources;
   final Set<Country> selectedCountries;
+  final Set<Person> selectedPersons;
   final int? maxSelectionsPerCategory;
   final HttpException? error;
 
   int get totalSelectedCount =>
-      selectedTopics.length + selectedSources.length + selectedCountries.length;
+      selectedTopics.length +
+      selectedSources.length +
+      selectedCountries.length +
+      selectedPersons.length;
 
   InitialPersonalizationState copyWith({
     InitialPersonalizationStatus? status,
     Set<Topic>? selectedTopics,
     Set<Source>? selectedSources,
     Set<Country>? selectedCountries,
+    Set<Person>? selectedPersons,
     int? maxSelectionsPerCategory,
     HttpException? error,
   }) {
@@ -35,6 +41,7 @@ class InitialPersonalizationState extends Equatable {
       selectedTopics: selectedTopics ?? this.selectedTopics,
       selectedSources: selectedSources ?? this.selectedSources,
       selectedCountries: selectedCountries ?? this.selectedCountries,
+      selectedPersons: selectedPersons ?? this.selectedPersons,
       maxSelectionsPerCategory:
           maxSelectionsPerCategory ?? this.maxSelectionsPerCategory,
       error: error ?? this.error,
@@ -47,6 +54,7 @@ class InitialPersonalizationState extends Equatable {
     selectedTopics,
     selectedSources,
     selectedCountries,
+    selectedPersons,
     maxSelectionsPerCategory,
     error,
   ];
