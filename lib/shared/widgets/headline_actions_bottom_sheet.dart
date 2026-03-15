@@ -43,6 +43,8 @@ class _HeadlineActionsBottomSheetState
           ) ??
           false,
     );
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     final remoteConfig = context.watch<AppBloc>().state.remoteConfig;
     final communityConfig = remoteConfig?.features.community;
@@ -50,113 +52,131 @@ class _HeadlineActionsBottomSheetState
         (communityConfig?.enabled ?? false) &&
         (communityConfig?.reporting.headlineReportingEnabled ?? false);
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: AppLayout.maxDialogContentWidth,
-        ),
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.chrome_reader_mode_outlined),
-              title: Text(l10n.readActionLabel),
-              onTap: () {
-                Navigator.of(context).pop();
-                // We bypass the handler logic here to avoid re-opening the sheet.
-                // This uses the core navigation utility.
-                HeadlineTapHandler.openHeadlineUrl(context, widget.headline);
-              },
+    return Material(
+      color: colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
             ),
-            ListTile(
-              leading: const Icon(Icons.add_reaction_outlined),
-              title: Text(l10n.reactActionLabel),
-              onTap: () {
-                final feedBloc = context.read<HeadlinesFeedBloc>();
-                Navigator.of(context).pop();
-                showModalBottomSheet<void>(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (_) => BlocProvider.value(
-                    value: feedBloc,
-                    child: ReactionsBottomSheet(headlineId: widget.headline.id),
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.chrome_reader_mode_outlined),
+                  title: Text(l10n.readActionLabel),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    // We bypass the handler logic here to avoid re-opening the sheet.
+                    // This uses the core navigation utility.
+                    HeadlineTapHandler.openHeadlineUrl(
+                      context,
+                      widget.headline,
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.add_reaction_outlined),
+                  title: Text(l10n.reactActionLabel),
+                  onTap: () {
+                    final feedBloc = context.read<HeadlinesFeedBloc>();
+                    Navigator.of(context).pop();
+                    showModalBottomSheet<void>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (_) => BlocProvider.value(
+                        value: feedBloc,
+                        child: ReactionsBottomSheet(
+                          headlineId: widget.headline.id,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                if (widget.headline.mentionedPersons.isNotEmpty ||
+                    widget.headline.mentionedCountries.isNotEmpty)
+                  ListTile(
+                    leading: const Icon(Icons.label_important_outline),
+                    title: Text(l10n.mentionsActionLabel),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.pushNamed(
+                        Routes.mentionedEntitiesName,
+                        extra: widget.headline,
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-            if (widget.headline.mentionedPersons.isNotEmpty ||
-                widget.headline.mentionedCountries.isNotEmpty)
-              ListTile(
-                leading: const Icon(Icons.label_important_outline),
-                title: Text(l10n.mentionsActionLabel),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  context.pushNamed(
-                    Routes.mentionedEntitiesName,
-                    extra: widget.headline,
-                  );
-                },
-              ),
-            ListTile(
-              leading: _isBookmarking
-                  ? const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_border),
-              title: Text(
-                isBookmarked
-                    ? l10n.removeBookmarkActionLabel
-                    : l10n.bookmarkActionLabel,
-              ),
-              onTap: () {
-                context.read<AppBloc>().add(
-                  AppBookmarkToggled(
-                    headline: widget.headline,
-                    isBookmarked: isBookmarked,
-                    context: context,
+                ListTile(
+                  leading: _isBookmarking
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation(null),
+                          ),
+                        )
+                      : Icon(
+                          isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                        ),
+                  title: Text(
+                    isBookmarked
+                        ? l10n.removeBookmarkActionLabel
+                        : l10n.bookmarkActionLabel,
                   ),
-                );
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.share_outlined),
-              title: Text(l10n.shareActionLabel),
-              onTap: () {
-                // Pop the sheet before sharing to avoid it being open in the background.
-                Navigator.of(context).pop();
-                Share.share(widget.headline.url);
-                context.read<AnalyticsService>().logEvent(
-                  AnalyticsEvent.contentShared,
-                  payload: ContentSharedPayload(
-                    contentId: widget.headline.id,
-                    contentType: ContentType.headline.name,
-                    // TODO(fulleni): We assume system share for now as we can't easily detect the
-                    // specific app chosen by the user in the native sheet.
-                    shareMedium: 'system',
+                  iconColor: isBookmarked ? colorScheme.primary : null,
+                  onTap: () {
+                    context.read<AppBloc>().add(
+                      AppBookmarkToggled(
+                        headline: widget.headline,
+                        isBookmarked: isBookmarked,
+                        context: context,
+                      ),
+                    );
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.share_outlined),
+                  title: Text(l10n.shareActionLabel),
+                  onTap: () {
+                    // Pop the sheet before sharing to avoid it being open in the background.
+                    Navigator.of(context).pop();
+                    Share.share(widget.headline.url);
+                    context.read<AnalyticsService>().logEvent(
+                      AnalyticsEvent.contentShared,
+                      payload: ContentSharedPayload(
+                        contentId: widget.headline.id,
+                        contentType: ContentType.headline.name,
+                        // TODO(fulleni): We assume system share for now as we can't easily detect the
+                        // specific app chosen by the user in the native sheet.
+                        shareMedium: 'system',
+                      ),
+                    );
+                  },
+                ),
+                if (isHeadlineReportingEnabled)
+                  ListTile(
+                    leading: const Icon(Icons.flag_outlined),
+                    title: Text(l10n.reportActionLabel),
+                    onTap: () async {
+                      // Pop the current sheet before showing the new one.
+                      Navigator.of(context).pop();
+                      await showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => ReportContentBottomSheet(
+                          entityId: widget.headline.id,
+                          reportableEntity: ReportableEntity.headline,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+              ],
             ),
-            if (isHeadlineReportingEnabled)
-              ListTile(
-                leading: const Icon(Icons.flag_outlined),
-                title: Text(l10n.reportActionLabel),
-                onTap: () async {
-                  // Pop the current sheet before showing the new one.
-                  Navigator.of(context).pop();
-                  await showModalBottomSheet<void>(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (_) => ReportContentBottomSheet(
-                      entityId: widget.headline.id,
-                      reportableEntity: ReportableEntity.headline,
-                    ),
-                  );
-                },
-              ),
-          ],
+          ),
         ),
       ),
     );
