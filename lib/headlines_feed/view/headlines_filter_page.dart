@@ -445,7 +445,7 @@ class _HeadlinesFilterView extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => MultiSelectSearchPage<Topic>(
                           title: l10n.headlinesFeedFilterTopicLabel,
-                          allItems: filterState.allTopics,
+                          repository: context.read<DataRepository<Topic>>(),
                           initialSelectedItems: filterState.selectedTopics
                               .toSet(),
                           itemBuilder: (Topic item) =>
@@ -479,7 +479,7 @@ class _HeadlinesFilterView extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => MultiSelectSearchPage<Source>(
                           title: l10n.headlinesFeedFilterSourceLabel,
-                          allItems: filterState.allSources,
+                          repository: context.read<DataRepository<Source>>(),
                           initialSelectedItems: filterState.selectedSources
                               .toSet(),
                           itemBuilder: (Source item) =>
@@ -513,7 +513,7 @@ class _HeadlinesFilterView extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => MultiSelectSearchPage<Country>(
                           title: l10n.headlinesFeedFilterEventCountryLabel,
-                          allItems: filterState.allCountries,
+                          repository: context.read<DataRepository<Country>>(),
                           initialSelectedItems: filterState.selectedCountries
                               .toSet(),
                           itemBuilder: (Country item) =>
@@ -547,7 +547,7 @@ class _HeadlinesFilterView extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => MultiSelectSearchPage<Person>(
                           title: l10n.headlinesFeedFilterPersonLabel,
-                          allItems: filterState.allPersons,
+                          repository: context.read<DataRepository<Person>>(),
                           initialSelectedItems: filterState.selectedPersons
                               .toSet(),
                           itemBuilder: (Person item) =>
