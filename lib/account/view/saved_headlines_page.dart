@@ -95,14 +95,6 @@ class SavedHeadlinesPage extends StatelessWidget {
 
                   switch (imageStyle) {
                     case FeedItemImageStyle.hidden:
-                      return HeadlineTileTextOnly(
-                        headline: headline,
-                        onHeadlineTap: () =>
-                            HeadlineTapHandler.handleHeadlineTap(
-                              context,
-                              headline,
-                            ),
-                      );
                     case FeedItemImageStyle.smallThumbnail:
                       return HeadlineTileImageStart(
                         headline: headline,

@@ -15,7 +15,7 @@ import 'package:veritai_mobile/headlines_feed/widgets/saved_filters_bar.dart';
 import 'package:veritai_mobile/l10n/l10n.dart';
 import 'package:veritai_mobile/shared/constants/app_layout.dart';
 import 'package:veritai_mobile/shared/shared.dart';
-import 'package:veritai_mobile/user_content/engagement/view/comments_bottom_sheet.dart';
+import 'package:veritai_mobile/user_content/engagement/view/reactions_bottom_sheet.dart';
 
 /// {@template headlines_feed_view}
 /// The main page for the headlines feed, responsible for providing the
@@ -146,7 +146,7 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
             showModalBottomSheet<void>(
               context: context,
               isScrollControlled: true,
-              builder: (_) => CommentsBottomSheet(headlineId: navArgs.id),
+              builder: (_) => ReactionsBottomSheet(headlineId: navArgs.id),
             );
           } else {
             // Handle simple URL navigation for call-to-actions.
@@ -321,11 +321,8 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
 
       switch (imageStyle) {
         case FeedItemImageStyle.hidden:
-          return HeadlineTileTextOnly(
-            headline: item,
-            onHeadlineTap: () =>
-                HeadlineTapHandler.handleHeadlineTap(context, item),
-          );
+          // TODO(refactor): Remove hidden from FeedItemImageStyle enum in core.
+          return const SizedBox.shrink();
         case FeedItemImageStyle.smallThumbnail:
           return HeadlineTileImageStart(
             headline: item,
