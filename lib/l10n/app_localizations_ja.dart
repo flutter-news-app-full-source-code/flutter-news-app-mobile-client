@@ -399,10 +399,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'フォントの太さ';
 
   @override
-  String get settingsFeedTileTypeImageTop => '画像上部';
+  String get settingsFeedTileTypeImageTop => 'カードビュー';
 
   @override
-  String get settingsFeedTileTypeImageStart => '画像左側';
+  String get settingsFeedTileTypeImageStart => 'コンパクトビュー';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'テキストのみ';
@@ -447,7 +447,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'レイアウトと読書';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => '不明なエラーが発生しました。';
@@ -1367,6 +1367,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get headlineActionsModalTitle => 'アクション';
 
   @override
+  String get readActionLabel => '読む';
+
+  @override
+  String get reactActionLabel => '反応する';
+
+  @override
+  String get mentionsActionLabel => 'メンション';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'メンション';
+
+  @override
   String get shareActionLabel => '共有';
 
   @override
@@ -1529,6 +1541,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'コメント';
+
+  @override
+  String get engagementPageTitle => 'エンゲージメント';
+
+  @override
+  String get engagementChooseReactionLabel => 'これについてどう思いますか？';
 
   @override
   String commentsCount(int count) {

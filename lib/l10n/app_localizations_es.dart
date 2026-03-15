@@ -417,10 +417,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'Grosor de fuente';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'Imagen arriba';
+  String get settingsFeedTileTypeImageTop => 'Vista de tarjeta';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'Imagen al inicio';
+  String get settingsFeedTileTypeImageStart => 'Vista compacta';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'Solo texto';
@@ -465,7 +465,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'Diseño y lectura';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'Ocurrió un error desconocido.';
@@ -1445,6 +1445,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get headlineActionsModalTitle => 'Acciones';
 
   @override
+  String get readActionLabel => 'Leer';
+
+  @override
+  String get reactActionLabel => 'Reaccionar';
+
+  @override
+  String get mentionsActionLabel => 'Menciones';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Menciones';
+
+  @override
   String get shareActionLabel => 'Compartir';
 
   @override
@@ -1615,6 +1627,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Comentarios';
+
+  @override
+  String get engagementPageTitle => 'Interacción';
+
+  @override
+  String get engagementChooseReactionLabel => '¿Qué opinas sobre esto?';
 
   @override
   String commentsCount(int count) {

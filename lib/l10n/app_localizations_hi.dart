@@ -416,10 +416,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'फ़ॉन्ट मोटाई';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'इमेज टॉप';
+  String get settingsFeedTileTypeImageTop => 'कार्ड दृश्य';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'इमेज स्टार्ट';
+  String get settingsFeedTileTypeImageStart => 'कॉम्पैक्ट दृश्य';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'केवल टेक्स्ट';
@@ -464,7 +464,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'लेआउट और पढ़ना';
 
   @override
-  String get appName => 'हेडलाइंस टूलकिट';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'एक अज्ञात त्रुटि हुई।';
@@ -1448,6 +1448,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String get headlineActionsModalTitle => 'क्रियाएं';
 
   @override
+  String get readActionLabel => 'पढ़ें';
+
+  @override
+  String get reactActionLabel => 'प्रतिक्रिया दें';
+
+  @override
+  String get mentionsActionLabel => 'उल्लेख';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'उल्लेख';
+
+  @override
   String get shareActionLabel => 'साझा करें';
 
   @override
@@ -1617,6 +1629,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'टिप्पणियाँ';
+
+  @override
+  String get engagementPageTitle => 'संलग्नता';
+
+  @override
+  String get engagementChooseReactionLabel =>
+      'आप इसके बारे में क्या सोचते हैं?';
 
   @override
   String commentsCount(int count) {

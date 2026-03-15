@@ -524,11 +524,11 @@
     "@settingsAppearanceFontWeightLabel": {
         "description": "Label for the font weight setting."
     },
-    "settingsFeedTileTypeImageTop": "Image Top",
+    "settingsFeedTileTypeImageTop": "Card View",
     "@settingsFeedTileTypeImageTop": {
         "description": "Label for the feed tile type with image on top"
     },
-    "settingsFeedTileTypeImageStart": "Image Start",
+    "settingsFeedTileTypeImageStart": "Compact View",
     "@settingsFeedTileTypeImageStart": {
         "description": "Label for the feed tile type with image at the start"
     },
@@ -588,7 +588,7 @@
     "@settingsLayoutAndReadingTitle": {
         "description": "Title for the feed layout and reading settings page."
     },
-    "appName": "News App",
+    "appName": "VeritAI",
     "@appName": {
         "description": "The name of the application."
     },
@@ -1846,6 +1846,22 @@
     "@headlineActionsModalTitle": {
         "description": "Title for the modal bottom sheet that shows headline actions like share and bookmark."
     },
+    "readActionLabel": "Read",
+    "@readActionLabel": {
+        "description": "Label for the action to read the full article."
+    },
+    "reactActionLabel": "React",
+    "@reactActionLabel": {
+        "description": "Label for the action to open engagement (reactions and comments)."
+    },
+    "mentionsActionLabel": "Mentions",
+    "@mentionsActionLabel": {
+        "description": "Label for the action to view mentioned entities."
+    },
+    "mentionedEntitiesPageTitle": "Mentions",
+    "@mentionedEntitiesPageTitle": {
+        "description": "Title for the mentioned entities page."
+    },
     "shareActionLabel": "Share",
     "@shareActionLabel": {
         "description": "Label for the share action."
@@ -2061,6 +2077,14 @@
     "commentsPageTitle": "Comments",
     "@commentsPageTitle": {
         "description": "Title for the page or bottom sheet that displays comments for a headline."
+    },
+    "engagementPageTitle": "Engagement",
+    "@engagementPageTitle": {
+        "description": "Title for the engagement bottom sheet combining reactions and comments."
+    },
+    "engagementChooseReactionLabel": "How do you feel about this?",
+    "@engagementChooseReactionLabel": {
+        "description": "Label prompted users to select a reaction icon."
     },
     "commentsCount": "{count,plural, =1{1 Comment}other{{count} Comments}}",
     "@commentsCount": {

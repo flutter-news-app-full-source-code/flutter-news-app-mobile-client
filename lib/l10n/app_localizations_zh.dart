@@ -398,10 +398,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => '字体粗细';
 
   @override
-  String get settingsFeedTileTypeImageTop => '图片置顶';
+  String get settingsFeedTileTypeImageTop => '卡片视图';
 
   @override
-  String get settingsFeedTileTypeImageStart => '图片居前';
+  String get settingsFeedTileTypeImageStart => '紧凑视图';
 
   @override
   String get settingsFeedTileTypeTextOnly => '仅文字';
@@ -446,7 +446,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => '布局与阅读';
 
   @override
-  String get appName => '头条工具箱';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => '发生未知错误。';
@@ -1363,6 +1363,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get headlineActionsModalTitle => '操作';
 
   @override
+  String get readActionLabel => '阅读';
+
+  @override
+  String get reactActionLabel => '回应';
+
+  @override
+  String get mentionsActionLabel => '提及';
+
+  @override
+  String get mentionedEntitiesPageTitle => '提及';
+
+  @override
   String get shareActionLabel => '分享';
 
   @override
@@ -1523,6 +1535,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get commentsPageTitle => '评论';
+
+  @override
+  String get engagementPageTitle => '互动';
+
+  @override
+  String get engagementChooseReactionLabel => '您对此有何看法？';
 
   @override
   String commentsCount(int count) {

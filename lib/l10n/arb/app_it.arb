@@ -42,6 +42,14 @@
     "followedContentPageTitle": "Elementi seguiti",
     "followedContentTopicsTab": "Argomenti",
     "followedContentSourcesTab": "Fonti",
+    "followedContentCountriesTab": "Paesi",
+    "@followedContentCountriesTab": {
+        "description": "Label for the 'Countries' tab on the followed content page."
+    },
+    "followedContentPersonsTab": "Persone",
+    "@followedContentPersonsTab": {
+        "description": "Label for the 'Persons' tab on the followed content page."
+    },
     "authenticationEmailSentSuccess": "Controlla la tua email per il link di accesso.",
     "authenticationPageTitle": "Accedi / Registrati",
     "authenticationEmailLabel": "Email",
@@ -66,6 +74,10 @@
     "headlinesFeedFilterSourceCNN": "CNN",
     "headlinesFeedFilterSourceReuters": "Reuters",
     "headlinesFeedFilterEventCountryLabel": "Paesi",
+    "headlinesFeedFilterPersonLabel": "Persone",
+    "@headlinesFeedFilterPersonLabel": {
+        "description": "Label for the person filter selection"
+    },
     "headlinesFeedFilterSourceCountryLabel": "Sede della fonte",
     "headlinesFeedFilterCountryUS": "Stati Uniti",
     "headlinesFeedFilterCountryUK": "Regno Unito",
@@ -141,8 +153,8 @@
     "settingsAppearanceAppFontSizeLabel": "Dimensione carattere app",
     "settingsAppearanceAppFontTypeLabel": "Carattere app",
     "settingsAppearanceFontWeightLabel": "Spessore carattere",
-    "settingsFeedTileTypeImageTop": "Immagine in alto",
-    "settingsFeedTileTypeImageStart": "Immagine all'inizio",
+    "settingsFeedTileTypeImageTop": "Vista a schede",
+    "settingsFeedTileTypeImageStart": "Vista compatta",
     "settingsFeedTileTypeTextOnly": "Solo testo",
     "settingsFeedTileTypeLabel": "Layout riquadro feed",
     "settingsArticleFontSizeLabel": "Dimensione carattere articolo",
@@ -299,6 +311,10 @@
         }
     },
     "addCountriesPageTitle": "Aggiungi paesi da seguire",
+    "addPersonsPageTitle": "Segui persone",
+    "@addPersonsPageTitle": {
+        "description": "Title for the page where users can add persons to follow"
+    },
     "followCountryTooltip": "Segui {countryName}",
     "@followCountryTooltip": {
         "placeholders": {
@@ -344,6 +360,10 @@
     "entityDetailsSourceTitle": "Fonte",
     "entityDetailsTopicTitle": "Argomento",
     "entityDetailsCountryTitle": "Paese",
+    "entityDetailsPersonTitle": "Persona",
+    "@entityDetailsPersonTitle": {
+        "description": "Title for person entity type"
+    },
     "savedHeadlinesLoadingHeadline": "Caricamento notizie salvate...",
     "savedHeadlinesLoadingSubheadline": "Attendere prego mentre recuperiamo i tuoi articoli salvati.",
     "savedHeadlinesErrorHeadline": "Impossibile caricare le notizie salvate",
@@ -363,6 +383,10 @@
     "contentTypeTopic": "Argomenti",
     "contentTypeSource": "Fonti",
     "contentTypeCountry": "Paesi",
+    "contentTypePerson": "Persone",
+    "@contentTypePerson": {
+        "description": "Label for Person content type"
+    },
     "searchingFor": "Ricerca di {contentType} in corso...",
     "@searchingFor": {
         "placeholders": {
@@ -558,6 +582,10 @@
     "settingsFeedClickBehaviorSystem": "Browser di sistema",
     "continueToArticleButtonLabel": "Continua all'articolo",
     "headlineActionsModalTitle": "Azioni",
+    "readActionLabel": "Leggi",
+    "reactActionLabel": "Reagisci",
+    "mentionsActionLabel": "Menzioni",
+    "mentionedEntitiesPageTitle": "Menzioni",
     "shareActionLabel": "Condividi",
     "bookmarkActionLabel": "Segnalibro",
     "removeBookmarkActionLabel": "Rimuovi segnalibro",
@@ -612,6 +640,8 @@
     "createAccountButton": "Crea account",
     "gotItButton": "Capito",
     "commentsPageTitle": "Commenti",
+    "engagementPageTitle": "Interazioni",
+    "engagementChooseReactionLabel": "Cosa ne pensi?",
     "commentsCount": "{count,plural, =1{1 commento}other{{count} commenti}}",
     "@commentsCount": {
         "placeholders": {
@@ -753,6 +783,10 @@
     "initialPersonalizationStepTopicsTitle": "Seleziona argomenti",
     "initialPersonalizationStepSourcesTitle": "Seleziona fonti",
     "initialPersonalizationStepCountriesTitle": "Seleziona paesi",
+    "initialPersonalizationStepPersonsTitle": "Seleziona persone",
+    "@initialPersonalizationStepPersonsTitle": {
+        "description": "Title for the person selection step in initial personalization."
+    },
     "initialPersonalizationTotalSelectionCountLabel": "{count} selezionati",
     "@initialPersonalizationTotalSelectionCountLabel": {
         "placeholders": {

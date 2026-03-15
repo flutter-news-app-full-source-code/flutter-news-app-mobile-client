@@ -118,10 +118,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get followedContentSourcesTab => 'Fonti';
 
   @override
-  String get followedContentCountriesTab => 'Countries';
+  String get followedContentCountriesTab => 'Paesi';
 
   @override
-  String get followedContentPersonsTab => 'Persons';
+  String get followedContentPersonsTab => 'Persone';
 
   @override
   String get authenticationEmailSentSuccess =>
@@ -197,7 +197,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get headlinesFeedFilterEventCountryLabel => 'Paesi';
 
   @override
-  String get headlinesFeedFilterPersonLabel => 'Persons';
+  String get headlinesFeedFilterPersonLabel => 'Persone';
 
   @override
   String get headlinesFeedFilterSourceCountryLabel => 'Sede della fonte';
@@ -417,10 +417,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'Spessore carattere';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'Immagine in alto';
+  String get settingsFeedTileTypeImageTop => 'Vista a schede';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'Immagine all\'inizio';
+  String get settingsFeedTileTypeImageStart => 'Vista compatta';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'Solo testo';
@@ -736,7 +736,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get addCountriesPageTitle => 'Aggiungi paesi da seguire';
 
   @override
-  String get addPersonsPageTitle => 'Follow Persons';
+  String get addPersonsPageTitle => 'Segui persone';
 
   @override
   String followCountryTooltip(String countryName) {
@@ -837,7 +837,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get entityDetailsCountryTitle => 'Paese';
 
   @override
-  String get entityDetailsPersonTitle => 'Person';
+  String get entityDetailsPersonTitle => 'Persona';
 
   @override
   String get savedHeadlinesLoadingHeadline => 'Caricamento notizie salvate...';
@@ -905,7 +905,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get contentTypeCountry => 'Paesi';
 
   @override
-  String get contentTypePerson => 'Persons';
+  String get contentTypePerson => 'Persone';
 
   @override
   String searchingFor(String contentType) {
@@ -1452,6 +1452,18 @@ class AppLocalizationsIt extends AppLocalizations {
   String get headlineActionsModalTitle => 'Azioni';
 
   @override
+  String get readActionLabel => 'Leggi';
+
+  @override
+  String get reactActionLabel => 'Reagisci';
+
+  @override
+  String get mentionsActionLabel => 'Menzioni';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Menzioni';
+
+  @override
   String get shareActionLabel => 'Condividi';
 
   @override
@@ -1622,6 +1634,12 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Commenti';
+
+  @override
+  String get engagementPageTitle => 'Interazioni';
+
+  @override
+  String get engagementChooseReactionLabel => 'Cosa ne pensi?';
 
   @override
   String commentsCount(int count) {
@@ -1862,7 +1880,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get initialPersonalizationStepCountriesTitle => 'Seleziona paesi';
 
   @override
-  String get initialPersonalizationStepPersonsTitle => 'Select Persons';
+  String get initialPersonalizationStepPersonsTitle => 'Seleziona persone';
 
   @override
   String initialPersonalizationTotalSelectionCountLabel(int count) {

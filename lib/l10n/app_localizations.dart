@@ -885,13 +885,13 @@ abstract class AppLocalizations {
   /// Label for the feed tile type with image on top
   ///
   /// In en, this message translates to:
-  /// **'Image Top'**
+  /// **'Card View'**
   String get settingsFeedTileTypeImageTop;
 
   /// Label for the feed tile type with image at the start
   ///
   /// In en, this message translates to:
-  /// **'Image Start'**
+  /// **'Compact View'**
   String get settingsFeedTileTypeImageStart;
 
   /// Label for the feed tile type with text only
@@ -981,7 +981,7 @@ abstract class AppLocalizations {
   /// The name of the application.
   ///
   /// In en, this message translates to:
-  /// **'News App'**
+  /// **'VeritAI'**
   String get appName;
 
   /// Generic error message shown when an operation fails unexpectedly
@@ -2742,6 +2742,30 @@ abstract class AppLocalizations {
   /// **'Actions'**
   String get headlineActionsModalTitle;
 
+  /// Label for the action to read the full article.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get readActionLabel;
+
+  /// Label for the action to open engagement (reactions and comments).
+  ///
+  /// In en, this message translates to:
+  /// **'React'**
+  String get reactActionLabel;
+
+  /// Label for the action to view mentioned entities.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentionsActionLabel;
+
+  /// Title for the mentioned entities page.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get mentionedEntitiesPageTitle;
+
   /// Label for the share action.
   ///
   /// In en, this message translates to:
@@ -3065,6 +3089,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Comments'**
   String get commentsPageTitle;
+
+  /// Title for the engagement bottom sheet combining reactions and comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement'**
+  String get engagementPageTitle;
+
+  /// Label prompted users to select a reaction icon.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you feel about this?'**
+  String get engagementChooseReactionLabel;
 
   /// Label for a button that shows the number of comments and opens the comments view.
   ///

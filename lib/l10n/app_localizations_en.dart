@@ -417,10 +417,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'Font Weight';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'Image Top';
+  String get settingsFeedTileTypeImageTop => 'Card View';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'Image Start';
+  String get settingsFeedTileTypeImageStart => 'Compact View';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'Text Only';
@@ -465,7 +465,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'Layout & Reading';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'An unknown error occurred.';
@@ -1435,6 +1435,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get headlineActionsModalTitle => 'Actions';
 
   @override
+  String get readActionLabel => 'Read';
+
+  @override
+  String get reactActionLabel => 'React';
+
+  @override
+  String get mentionsActionLabel => 'Mentions';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Mentions';
+
+  @override
   String get shareActionLabel => 'Share';
 
   @override
@@ -1603,6 +1615,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Comments';
+
+  @override
+  String get engagementPageTitle => 'Engagement';
+
+  @override
+  String get engagementChooseReactionLabel => 'How do you feel about this?';
 
   @override
   String commentsCount(int count) {

@@ -414,10 +414,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsAppearanceFontWeightLabel => 'وزن الخط';
 
   @override
-  String get settingsFeedTileTypeImageTop => 'صورة في الأعلى';
+  String get settingsFeedTileTypeImageTop => 'عرض البطاقة';
 
   @override
-  String get settingsFeedTileTypeImageStart => 'صورة في البداية';
+  String get settingsFeedTileTypeImageStart => 'عرض مدمج';
 
   @override
   String get settingsFeedTileTypeTextOnly => 'نص فقط';
@@ -462,7 +462,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'التخطيط والقراءة';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'فيريتاي';
 
   @override
   String get unknownError => 'حدث خطأ غير معروف.';
@@ -1430,6 +1430,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get headlineActionsModalTitle => 'إجراءات';
 
   @override
+  String get readActionLabel => 'قراءة';
+
+  @override
+  String get reactActionLabel => 'تفاعل';
+
+  @override
+  String get mentionsActionLabel => 'الإشارات';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'الإشارات';
+
+  @override
   String get shareActionLabel => 'مشاركة';
 
   @override
@@ -1595,6 +1607,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'التعليقات';
+
+  @override
+  String get engagementPageTitle => 'التفاعل';
+
+  @override
+  String get engagementChooseReactionLabel => 'ما رأيك في هذا؟';
 
   @override
   String commentsCount(int count) {

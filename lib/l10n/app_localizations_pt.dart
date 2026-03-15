@@ -458,7 +458,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get settingsLayoutAndReadingTitle => 'Layout e Leitura';
 
   @override
-  String get appName => 'News App';
+  String get appName => 'VeritAI';
 
   @override
   String get unknownError => 'Ocorreu um erro desconhecido.';
@@ -1400,6 +1400,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get headlineActionsModalTitle => 'Ações';
 
   @override
+  String get readActionLabel => 'Ler';
+
+  @override
+  String get reactActionLabel => 'Reagir';
+
+  @override
+  String get mentionsActionLabel => 'Menções';
+
+  @override
+  String get mentionedEntitiesPageTitle => 'Menções';
+
+  @override
   String get shareActionLabel => 'Compartilhar';
 
   @override
@@ -1560,6 +1572,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get commentsPageTitle => 'Comentários';
+
+  @override
+  String get engagementPageTitle => 'Engajamento';
+
+  @override
+  String get engagementChooseReactionLabel => 'O que você acha disso?';
 
   @override
   String commentsCount(int count) {

@@ -20,7 +20,7 @@
 
 ---
 
-Part of the **[veritai News Stack](https://github.com/veritai-news)**.
+Part of the **[VeritAI News](https://github.com/veritai-news)**.
 
 veritai Mobile is a production-ready news reader built with Flutter, focusing on performance, personalization, and secure monetization.
 

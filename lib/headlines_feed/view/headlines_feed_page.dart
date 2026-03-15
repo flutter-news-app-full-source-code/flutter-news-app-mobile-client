@@ -162,7 +162,7 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
             builder: (context, state) {
               // Access the AppBloc to check for remoteConfig availability.
               final appBlocState = context.watch<AppBloc>().state;
-        
+
               // If remoteConfig is not yet loaded, show a loading indicator.
               // This handles the brief period after authentication but before
               // the remote config is fetched, preventing null access errors.
@@ -173,7 +173,7 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
                   subheadline: l10n.pleaseWait,
                 );
               }
-        
+
               if (state.status == HeadlinesFeedStatus.initial ||
                   (state.status == HeadlinesFeedStatus.loading &&
                       state.feedItems.isEmpty)) {
@@ -183,7 +183,7 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
                   subheadline: l10n.headlinesFeedLoadingSubheadline,
                 );
               }
-        
+
               if (state.status == HeadlinesFeedStatus.failure &&
                   state.feedItems.isEmpty) {
                 return FailureStateWidget(
@@ -195,7 +195,7 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
                   ),
                 );
               }
-        
+
               return Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
@@ -250,9 +250,8 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
                                     onPressed: () =>
                                         context.read<HeadlinesFeedBloc>().add(
                                           HeadlinesFeedFiltersCleared(
-                                            adThemeStyle: AdThemeStyle.fromTheme(
-                                              theme,
-                                            ),
+                                            adThemeStyle:
+                                                AdThemeStyle.fromTheme(theme),
                                           ),
                                         ),
                                     child: Text(
