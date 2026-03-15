@@ -93,10 +93,11 @@ class SavedHeadlinesPage extends StatelessWidget {
                       appState.settings?.feedSettings.feedItemImageStyle ??
                       FeedItemImageStyle.smallThumbnail;
 
+                  Widget child;
                   switch (imageStyle) {
                     case FeedItemImageStyle.hidden:
                     case FeedItemImageStyle.smallThumbnail:
-                      return HeadlineTileCompact(
+                      child = HeadlineTileCompact(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(
@@ -105,7 +106,7 @@ class SavedHeadlinesPage extends StatelessWidget {
                             ),
                       );
                     case FeedItemImageStyle.largeThumbnail:
-                      return HeadlineTileImmersive(
+                      child = HeadlineTileImmersive(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(
@@ -114,6 +115,43 @@ class SavedHeadlinesPage extends StatelessWidget {
                             ),
                       );
                   }
+
+                  return Dismissible(
+                    key: Key('saved_headline_${headline.id}'),
+                    direction: DismissDirection.horizontal,
+                    background: Container(
+                      color: theme.colorScheme.error,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: theme.colorScheme.onError,
+                      ),
+                    ),
+                    secondaryBackground: Container(
+                      color: theme.colorScheme.error,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: theme.colorScheme.onError,
+                      ),
+                    ),
+                    onDismissed: (_) {
+                      context.read<AppBloc>().add(
+                        AppBookmarkToggled(
+                          headline: headline,
+                          isBookmarked: true,
+                          context: context,
+                        ),
+                      );
+                    },
+                    child: child,
+                  );
                 },
               ),
             ),
