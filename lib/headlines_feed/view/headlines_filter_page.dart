@@ -396,6 +396,7 @@ class _HeadlinesFilterView extends StatelessWidget {
     AppLocalizations l10n,
     HeadlinesFilterState filterState,
   ) {
+    final theme = Theme.of(context);
     if (filterState.status == HeadlinesFilterStatus.loading) {
       return LoadingStateWidget(
         icon: Icons.filter_list,
@@ -427,141 +428,161 @@ class _HeadlinesFilterView extends StatelessWidget {
           maxWidth: AppLayout.maxDialogContentWidth,
         ),
         child: ListView(
+          padding: const EdgeInsets.all(AppSpacing.md),
           children: [
-            ListTile(
-              key: const Key('filter_topics_tile'),
-              title: Text(l10n.headlinesFeedFilterTopicLabel),
-              subtitle: Text(
-                filterState.selectedTopics.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedTopics.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Topic>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Topic>(
-                          title: l10n.headlinesFeedFilterTopicLabel,
-                          repository: context.read<DataRepository<Topic>>(),
-                          initialSelectedItems: filterState.selectedTopics
-                              .toSet(),
-                          itemBuilder: (Topic item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+            Card(
+              margin: EdgeInsets.zero,
+              elevation: 0,
+              clipBehavior: Clip.antiAlias,
+              color: theme.colorScheme.surfaceContainerLow,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    key: const Key('filter_topics_tile'),
+                    title: Text(l10n.headlinesFeedFilterTopicLabel),
+                    subtitle: Text(
+                      filterState.selectedTopics.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedTopics.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Topic>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Topic>(
+                                title: l10n.headlinesFeedFilterTopicLabel,
+                                repository: context
+                                    .read<DataRepository<Topic>>(),
+                                initialSelectedItems: filterState.selectedTopics
+                                    .toSet(),
+                                itemBuilder: (Topic item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterTopicsChanged(topics: selectedItems),
-                  );
-                }
-              },
-            ),
-            const Divider(height: 1),
-            ListTile(
-              key: const Key('filter_sources_tile'),
-              title: Text(l10n.headlinesFeedFilterSourceLabel),
-              subtitle: Text(
-                filterState.selectedSources.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedSources.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Source>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Source>(
-                          title: l10n.headlinesFeedFilterSourceLabel,
-                          repository: context.read<DataRepository<Source>>(),
-                          initialSelectedItems: filterState.selectedSources
-                              .toSet(),
-                          itemBuilder: (Source item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterTopicsChanged(topics: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_sources_tile'),
+                    title: Text(l10n.headlinesFeedFilterSourceLabel),
+                    subtitle: Text(
+                      filterState.selectedSources.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedSources.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Source>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Source>(
+                                title: l10n.headlinesFeedFilterSourceLabel,
+                                repository: context
+                                    .read<DataRepository<Source>>(),
+                                initialSelectedItems: filterState
+                                    .selectedSources
+                                    .toSet(),
+                                itemBuilder: (Source item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterSourcesChanged(sources: selectedItems),
-                  );
-                }
-              },
-            ),
-            const Divider(height: 1),
-            ListTile(
-              key: const Key('filter_countries_tile'),
-              title: Text(l10n.headlinesFeedFilterEventCountryLabel),
-              subtitle: Text(
-                filterState.selectedCountries.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedCountries.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Country>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Country>(
-                          title: l10n.headlinesFeedFilterEventCountryLabel,
-                          repository: context.read<DataRepository<Country>>(),
-                          initialSelectedItems: filterState.selectedCountries
-                              .toSet(),
-                          itemBuilder: (Country item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterSourcesChanged(sources: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_countries_tile'),
+                    title: Text(l10n.headlinesFeedFilterEventCountryLabel),
+                    subtitle: Text(
+                      filterState.selectedCountries.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedCountries.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Country>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Country>(
+                                title:
+                                    l10n.headlinesFeedFilterEventCountryLabel,
+                                repository: context
+                                    .read<DataRepository<Country>>(),
+                                initialSelectedItems: filterState
+                                    .selectedCountries
+                                    .toSet(),
+                                itemBuilder: (Country item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterCountriesChanged(countries: selectedItems),
-                  );
-                }
-              },
-            ),
-            const Divider(height: 1),
-            ListTile(
-              key: const Key('filter_persons_tile'),
-              title: Text(l10n.headlinesFeedFilterPersonLabel),
-              subtitle: Text(
-                filterState.selectedPersons.isEmpty
-                    ? l10n.headlinesFeedFilterAllLabel
-                    : l10n.headlinesFeedFilterSelectedCountLabel(
-                        filterState.selectedPersons.length,
-                      ),
-              ),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () async {
-                final selectedItems = await Navigator.of(context)
-                    .push<Set<Person>>(
-                      MaterialPageRoute(
-                        builder: (_) => MultiSelectSearchPage<Person>(
-                          title: l10n.headlinesFeedFilterPersonLabel,
-                          repository: context.read<DataRepository<Person>>(),
-                          initialSelectedItems: filterState.selectedPersons
-                              .toSet(),
-                          itemBuilder: (Person item) =>
-                              item.name.getValue(context),
-                        ),
-                      ),
-                    );
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterCountriesChanged(countries: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    key: const Key('filter_persons_tile'),
+                    title: Text(l10n.headlinesFeedFilterPersonLabel),
+                    subtitle: Text(
+                      filterState.selectedPersons.isEmpty
+                          ? l10n.headlinesFeedFilterAllLabel
+                          : l10n.headlinesFeedFilterSelectedCountLabel(
+                              filterState.selectedPersons.length,
+                            ),
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      final selectedItems = await Navigator.of(context)
+                          .push<Set<Person>>(
+                            MaterialPageRoute(
+                              builder: (_) => MultiSelectSearchPage<Person>(
+                                title: l10n.headlinesFeedFilterPersonLabel,
+                                repository: context
+                                    .read<DataRepository<Person>>(),
+                                initialSelectedItems: filterState
+                                    .selectedPersons
+                                    .toSet(),
+                                itemBuilder: (Person item) =>
+                                    item.name.getValue(context),
+                              ),
+                            ),
+                          );
 
-                if (selectedItems != null && context.mounted) {
-                  context.read<HeadlinesFilterBloc>().add(
-                    FilterPersonsChanged(persons: selectedItems),
-                  );
-                }
-              },
+                      if (selectedItems != null && context.mounted) {
+                        context.read<HeadlinesFilterBloc>().add(
+                          FilterPersonsChanged(persons: selectedItems),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
