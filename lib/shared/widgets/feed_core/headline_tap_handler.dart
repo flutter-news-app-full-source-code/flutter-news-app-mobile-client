@@ -32,8 +32,7 @@ abstract final class HeadlineTapHandler {
     BuildContext context,
     Headline headline,
   ) async {
-    // Now triggers the action sheet instead of direct navigation.
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<AppBloc>(),
