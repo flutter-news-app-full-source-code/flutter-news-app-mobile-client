@@ -28,70 +28,73 @@ class RateAppBottomSheet extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     // Determine which set of strings to use based on user's feedback history.
-    final hasGivenNegativeFeedback =
-        context
-            .read<AppBloc>()
-            .state
-            .userContext
-            ?.feedDecoratorStatus[FeedDecoratorType.rateApp]
-            ?.lastShownAt !=
-        null;
+    final contextState = context.read<AppBloc>().state.userContext;
+    final rateStatus =
+        contextState?.feedDecoratorStatus[FeedDecoratorType.rateApp];
+    final hasHistory = rateStatus?.lastShownAt != null;
 
-    final title = hasGivenNegativeFeedback
+    final title = hasHistory
         ? l10n.rateAppNegativeFollowUpTitle_1
         : l10n.rateAppPromptTitle;
-    final body = hasGivenNegativeFeedback
+    final body = hasHistory
         ? l10n.rateAppNegativeFollowUpBody_1
         : l10n.rateAppPromptBody;
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: AppLayout.maxDialogContentWidth,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.paddingLarge),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.star_half, size: 48, color: colorScheme.primary),
-              const SizedBox(height: AppSpacing.lg),
-              Text(
-                title,
-                style: textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                body,
-                style: textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Row(
+    return Material(
+      color: colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.paddingLarge),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        onResponse(false);
-                      },
-                      child: Text(l10n.rateAppPromptNoButton),
-                    ),
+                  Icon(Icons.star_half, size: 48, color: colorScheme.primary),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    title,
+                    style: textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        onResponse(true);
-                      },
-                      child: Text(l10n.rateAppPromptYesButton),
-                    ),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(
+                    body,
+                    style: textTheme.bodyLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            onResponse(false);
+                          },
+                          child: Text(l10n.rateAppPromptNoButton),
+                        ),
+                      ),
+                      const SizedBox(width: AppSpacing.md),
+                      Expanded(
+                        child: FilledButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            onResponse(true);
+                          },
+                          child: Text(l10n.rateAppPromptYesButton),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
