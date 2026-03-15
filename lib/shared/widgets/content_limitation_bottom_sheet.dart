@@ -50,40 +50,47 @@ class _ContentLimitationBottomSheetState
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: AppLayout.maxDialogContentWidth,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.paddingLarge),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.block,
-                  size: AppSpacing.xxl * 1.5,
-                  color: colorScheme.primary,
+    return Material(
+      color: colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.paddingLarge),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.block,
+                      size: AppSpacing.xxl * 1.5,
+                      color: colorScheme.primary,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Text(
+                      widget.title,
+                      style: textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    Text(
+                      widget.body,
+                      style: textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    ElevatedButton(
+                      onPressed: widget.onButtonPressed,
+                      child: Text(widget.buttonText),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: AppSpacing.lg),
-                Text(
-                  widget.title,
-                  style: textTheme.headlineSmall,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  widget.body,
-                  style: textTheme.bodyLarge,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                ElevatedButton(
-                  onPressed: widget.onButtonPressed,
-                  child: Text(widget.buttonText),
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -116,6 +123,7 @@ void showContentLimitationBottomSheet({
 
   showModalBottomSheet<void>(
     context: context,
+    backgroundColor: Colors.transparent,
     builder: (_) => ContentLimitationBottomSheet(
       title: content.title,
       body: content.body,
