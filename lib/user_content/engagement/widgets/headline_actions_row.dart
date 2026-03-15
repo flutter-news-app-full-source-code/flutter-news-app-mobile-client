@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
 import 'package:veritai_mobile/l10n/app_localizations.dart';
-import 'package:veritai_mobile/user_content/engagement/view/comments_bottom_sheet.dart';
+import 'package:veritai_mobile/user_content/engagement/view/reactions_bottom_sheet.dart';
 import 'package:veritai_mobile/user_content/engagement/widgets/inline_reaction_selector.dart';
 
 /// {@template headline_actions_row}
@@ -87,7 +87,7 @@ class _HeadlineActionsRowView extends StatelessWidget {
             onPressed: () => showModalBottomSheet<void>(
               context: context,
               isScrollControlled: true,
-              builder: (_) => CommentsBottomSheet(headlineId: headline.id),
+              builder: (_) => ReactionsBottomSheet(headlineId: headline.id),
             ),
           ),
       ],

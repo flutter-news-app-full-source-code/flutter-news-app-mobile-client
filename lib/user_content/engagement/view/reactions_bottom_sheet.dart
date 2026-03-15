@@ -7,19 +7,21 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
 import 'package:veritai_mobile/l10n/app_localizations.dart';
+import 'package:veritai_mobile/l10n/l10n.dart';
 import 'package:veritai_mobile/shared/constants/app_layout.dart';
 import 'package:veritai_mobile/shared/widgets/user_avatar.dart';
+import 'package:veritai_mobile/user_content/engagement/widgets/inline_reaction_selector.dart';
 import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
-/// {@template comments_bottom_sheet}
-/// A bottom sheet that displays comments for a headline and allows users
-/// to post new comments.
+/// {@template reactions_bottom_sheet}
+/// A bottom sheet that displays reactions for a headline and allows users
+/// to post new reaction.
 /// {@endtemplate}
-class CommentsBottomSheet extends StatelessWidget {
-  /// {@macro comments_bottom_sheet}
-  const CommentsBottomSheet({required this.headlineId, super.key});
+class ReactionsBottomSheet extends StatelessWidget {
+  /// {@macro reactions_bottom_sheet}
+  const ReactionsBottomSheet({required this.headlineId, super.key});
 
-  /// The ID of the headline for which comments are being displayed.
+  /// The ID of the headline for which reactions are being displayed.
   final String headlineId;
 
   @override
@@ -27,13 +29,13 @@ class CommentsBottomSheet extends StatelessWidget {
     // Provide the HeadlinesFeedBloc to the view.
     return BlocProvider.value(
       value: context.read<HeadlinesFeedBloc>(),
-      child: _CommentsBottomSheetView(headlineId: headlineId),
+      child: _ReactionsBottomSheetView(headlineId: headlineId),
     );
   }
 }
 
-class _CommentsBottomSheetView extends StatefulWidget {
-  const _CommentsBottomSheetView({required this.headlineId});
+class _ReactionsBottomSheetView extends StatefulWidget {
+  const _ReactionsBottomSheetView({required this.headlineId});
   // A key to manage the state of the input field, allowing parent widgets
   // to trigger actions like editing.
   static final _inputFieldKey = GlobalKey<__CommentInputFieldState>();
@@ -41,14 +43,14 @@ class _CommentsBottomSheetView extends StatefulWidget {
   final String headlineId;
 
   @override
-  State<_CommentsBottomSheetView> createState() =>
-      __CommentsBottomSheetViewState();
+  State<_ReactionsBottomSheetView> createState() =>
+      _ReactionsBottomSheetViewState();
 }
 
-class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
+class _ReactionsBottomSheetViewState extends State<_ReactionsBottomSheetView> {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizationsX(context).l10n;
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -67,10 +69,52 @@ class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      AppSpacing.xs,
+                    ),
                     child: Text(
-                      l10n.commentsPageTitle,
+                      l10n.engagementPageTitle,
                       style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                    ),
+                    child: BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
+                      builder: (context, state) {
+                        final userId = context.select(
+                          (AppBloc bloc) => bloc.state.user?.id,
+                        );
+                        final engagements =
+                            state.engagementsMap[widget.headlineId] ?? [];
+                        final userEngagement = engagements.firstWhereOrNull(
+                          (e) => e.userId == userId,
+                        );
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.sm,
+                          ),
+                          child: InlineReactionSelector(
+                            unselectedColor: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant.withOpacity(0.6),
+                            selectedReaction:
+                                userEngagement?.reaction?.reactionType,
+                            onReactionSelected: (reaction) =>
+                                context.read<HeadlinesFeedBloc>().add(
+                                  HeadlinesFeedReactionUpdated(
+                                    widget.headlineId,
+                                    reaction,
+                                    context: context,
+                                  ),
+                                ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const Divider(height: 1),
@@ -80,7 +124,7 @@ class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
                   Padding(
                     padding: const EdgeInsets.all(AppSpacing.md),
                     child: _CommentInputField(
-                      key: _CommentsBottomSheetView._inputFieldKey,
+                      key: _ReactionsBottomSheetView._inputFieldKey,
                       headlineId: widget.headlineId,
                     ),
                   ),
@@ -178,7 +222,7 @@ class __CommentsBottomSheetViewState extends State<_CommentsBottomSheetView> {
                     IconButton(
                       icon: const Icon(Icons.edit_outlined, size: 20),
                       onPressed: () {
-                        _CommentsBottomSheetView._inputFieldKey.currentState
+                        _ReactionsBottomSheetView._inputFieldKey.currentState
                             ?.startEditing();
                       },
                     ),
