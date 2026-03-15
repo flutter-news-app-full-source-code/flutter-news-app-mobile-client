@@ -200,18 +200,28 @@ class _FollowedList<T extends FeedItem> extends StatelessWidget {
     }
 
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return InkWell(
-          onTap: () => context.pushNamed(
-            Routes.entityDetailsName,
-            pathParameters: {
-              'type': item.type,
-              'id': (item as dynamic).id as String,
-            },
+        return Card(
+          margin: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.xs,
           ),
-          child: EntityListTile(item: item),
+          elevation: 0,
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: () => context.pushNamed(
+              Routes.entityDetailsName,
+              pathParameters: {
+                'type': item.type,
+                'id': (item as dynamic).id as String,
+              },
+            ),
+            child: EntityListTile(item: item),
+          ),
         );
       },
     );
