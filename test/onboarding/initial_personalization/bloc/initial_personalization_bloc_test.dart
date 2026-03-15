@@ -90,6 +90,7 @@ void main() {
           followedTopics: any(named: 'followedTopics'),
           followedSources: any(named: 'followedSources'),
           followedCountries: any(named: 'followedCountries'),
+          followedPersons: any(named: 'followedPersons'),
         ),
       ).thenReturn(userContentPreferences);
       when(
