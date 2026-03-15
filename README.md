@@ -5,19 +5,10 @@
 </p>
 
 <div align="center">
-  <table>
-    <tr>
-      <td valign="top" width="50%">
-        <video src="https://github.com/user-attachments/assets/32808fcd-6df5-4c72-805f-0bc77b7a07a0" controls="controls" width="100%">
-        </video>
-      </td>
-      <td valign="top" width="50%">
-  <img src="https://github.com/user-attachments/assets/f91c8153-8cfb-496f-8270-38a48bf0e40f" alt="flutter-news-app" width="440">
-      </td>
-    </tr>
-  </table>
+   <a href="https://www.youtube.com/shorts/6OP_mryQN4k" target="_blank">
+      <img src="https://repository-images.githubusercontent.com/946589707/688fca55-528f-413b-9355-8d11036dc451" alt="Watch the veritai-news-dashboard-demo" width="80%">
+    </a>
 </div>
-
 ---
 
 Part of the **[VeritAI News](https://github.com/veritai-news)**.
