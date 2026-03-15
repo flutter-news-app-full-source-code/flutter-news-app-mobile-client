@@ -28,24 +28,26 @@ class ThemeAndFontSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsAccentColorAndFontsTitle)),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppLayout.maxDialogContentWidth,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            children: [
-              _SectionTitle(title: l10n.settingsAccentColorLabel),
-              const SizedBox(height: AppSpacing.md),
-              _AccentThemeSelector(settings: settings),
-              const SizedBox(height: AppSpacing.lg),
-              _SectionTitle(title: l10n.settingsAppearanceFontWeightLabel),
-              const SizedBox(height: AppSpacing.md),
-              _FontWeightSelector(settings: settings),
-              const SizedBox(height: AppSpacing.xxl),
-              _FontFamilySelector(settings: settings),
-            ],
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              children: [
+                _SectionTitle(title: l10n.settingsAccentColorLabel),
+                const SizedBox(height: AppSpacing.md),
+                _AccentThemeSelector(settings: settings),
+                const SizedBox(height: AppSpacing.lg),
+                _SectionTitle(title: l10n.settingsAppearanceFontWeightLabel),
+                const SizedBox(height: AppSpacing.md),
+                _FontWeightSelector(settings: settings),
+                const SizedBox(height: AppSpacing.xxl),
+                _FontFamilySelector(settings: settings),
+              ],
+            ),
           ),
         ),
       ),

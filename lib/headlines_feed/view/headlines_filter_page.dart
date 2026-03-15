@@ -71,31 +71,33 @@ Future<void> _onApplyTapped(
   await showDialog<void>(
     context: context,
     builder: (BuildContext dialogContext) {
-      return AlertDialog(
-        title: Text(l10n.applyFilterDialogTitle),
-        content: Text(l10n.applyFilterDialogContent),
-        actions: <Widget>[
-          TextButton(
-            key: const Key('apply_only_button'),
-            child: Text(l10n.applyFilterDialogApplyOnlyButton),
-            onPressed: () {
-              // Pop the dialog first.
-              dialogContext.pop();
-              // Apply the filter and exit the filter page.
-              _applyAndExit(context);
-            },
-          ),
-          FilledButton(
-            key: const Key('apply_and_save_button'),
-            child: Text(l10n.applyFilterDialogApplyAndSaveButton),
-            onPressed: () {
-              // Pop the dialog first.
-              dialogContext.pop();
-              // Initiate the save and apply flow.
-              _createAndApplyFilter(context);
-            },
-          ),
-        ],
+      return SafeArea(
+        child: AlertDialog(
+          title: Text(l10n.applyFilterDialogTitle),
+          content: Text(l10n.applyFilterDialogContent),
+          actions: <Widget>[
+            TextButton(
+              key: const Key('apply_only_button'),
+              child: Text(l10n.applyFilterDialogApplyOnlyButton),
+              onPressed: () {
+                // Pop the dialog first.
+                dialogContext.pop();
+                // Apply the filter and exit the filter page.
+                _applyAndExit(context);
+              },
+            ),
+            FilledButton(
+              key: const Key('apply_and_save_button'),
+              child: Text(l10n.applyFilterDialogApplyAndSaveButton),
+              onPressed: () {
+                // Pop the dialog first.
+                dialogContext.pop();
+                // Initiate the save and apply flow.
+                _createAndApplyFilter(context);
+              },
+            ),
+          ],
+        ),
       );
     },
   );

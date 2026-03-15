@@ -91,7 +91,7 @@ void main() {
       ) async {
         await tester.pumpApp(const FeedSettingsPage(), appBloc: appBloc);
 
-        await tester.tap(find.text('Text Only'));
+        await tester.tap(find.byIcon(Icons.image_outlined));
         await tester.pump();
 
         final captured =
@@ -100,7 +100,7 @@ void main() {
         final event = captured as AppSettingsChanged;
         expect(
           event.settings.feedSettings.feedItemImageStyle,
-          FeedItemImageStyle.hidden,
+          FeedItemImageStyle.largeThumbnail,
         );
       });
     });

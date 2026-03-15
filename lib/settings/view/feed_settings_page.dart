@@ -27,22 +27,24 @@ class FeedSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsLayoutAndReadingTitle)),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppLayout.maxDialogContentWidth,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            children: [
-              _SectionTitle(title: l10n.settingsFeedTileTypeLabel),
-              const SizedBox(height: AppSpacing.md),
-              _LayoutStyleSelector(settings: settings),
-              const SizedBox(height: AppSpacing.xxl),
-              _SectionTitle(title: l10n.settingsFeedClickBehaviorLabel),
-              const SizedBox(height: AppSpacing.md),
-              _OpenLinksInSelector(settings: settings),
-            ],
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              children: [
+                _SectionTitle(title: l10n.settingsFeedTileTypeLabel),
+                const SizedBox(height: AppSpacing.md),
+                _LayoutStyleSelector(settings: settings),
+                const SizedBox(height: AppSpacing.xxl),
+                _SectionTitle(title: l10n.settingsFeedClickBehaviorLabel),
+                const SizedBox(height: AppSpacing.md),
+                _OpenLinksInSelector(settings: settings),
+              ],
+            ),
           ),
         ),
       ),

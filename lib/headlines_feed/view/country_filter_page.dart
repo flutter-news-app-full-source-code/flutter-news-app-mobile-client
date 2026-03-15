@@ -35,7 +35,7 @@ class CountryFilterPage extends StatelessWidget {
     // Provide the existing filterBloc to this subtree.
     return BlocProvider.value(
       value: filterBloc,
-      child: _CountryFilterView(title: title),
+      child: SafeArea(child: _CountryFilterView(title: title)),
     );
   }
 }

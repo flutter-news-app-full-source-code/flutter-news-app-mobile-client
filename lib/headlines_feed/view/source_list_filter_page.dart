@@ -29,7 +29,7 @@ class SourceListFilterPage extends StatelessWidget {
     // Provide the existing filterBloc to this subtree.
     return BlocProvider.value(
       value: filterBloc,
-      child: const _SourceListFilterView(),
+      child: const SafeArea(child: _SourceListFilterView()),
     );
   }
 }

@@ -42,22 +42,24 @@ class AccountPage extends StatelessWidget {
             ),
         ],
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: AppLayout.maxDialogContentWidth,
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: Column(
-                // The main column for the page content
-                children: [
-                  _ProfileHeader(),
-                  const SizedBox(height: AppSpacing.lg),
-                  _NavigationSections(),
-                ],
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: AppLayout.maxDialogContentWidth,
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                child: Column(
+                  // The main column for the page content
+                  children: [
+                    _ProfileHeader(),
+                    const SizedBox(height: AppSpacing.lg),
+                    _NavigationSections(),
+                  ],
+                ),
               ),
             ),
           ),

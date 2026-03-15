@@ -156,120 +156,122 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
           context.read<HeadlinesFeedBloc>().add(NavigationHandled());
         }
       },
-      child: Scaffold(
-        body: BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
-          builder: (context, state) {
-            // Access the AppBloc to check for remoteConfig availability.
-            final appBlocState = context.watch<AppBloc>().state;
-
-            // If remoteConfig is not yet loaded, show a loading indicator.
-            // This handles the brief period after authentication but before
-            // the remote config is fetched, preventing null access errors.
-            if (appBlocState.remoteConfig == null) {
-              return LoadingStateWidget(
-                icon: Icons.settings_applications_outlined,
-                headline: l10n.headlinesFeedLoadingHeadline,
-                subheadline: l10n.pleaseWait,
-              );
-            }
-
-            if (state.status == HeadlinesFeedStatus.initial ||
-                (state.status == HeadlinesFeedStatus.loading &&
-                    state.feedItems.isEmpty)) {
-              return LoadingStateWidget(
-                icon: Icons.newspaper,
-                headline: l10n.headlinesFeedLoadingHeadline,
-                subheadline: l10n.headlinesFeedLoadingSubheadline,
-              );
-            }
-
-            if (state.status == HeadlinesFeedStatus.failure &&
-                state.feedItems.isEmpty) {
-              return FailureStateWidget(
-                exception: state.error ?? UnknownException(l10n.unknownError),
-                onRetry: () => context.read<HeadlinesFeedBloc>().add(
-                  HeadlinesFeedRefreshRequested(
-                    adThemeStyle: AdThemeStyle.fromTheme(theme),
+      child: SafeArea(
+        child: Scaffold(
+          body: BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
+            builder: (context, state) {
+              // Access the AppBloc to check for remoteConfig availability.
+              final appBlocState = context.watch<AppBloc>().state;
+        
+              // If remoteConfig is not yet loaded, show a loading indicator.
+              // This handles the brief period after authentication but before
+              // the remote config is fetched, preventing null access errors.
+              if (appBlocState.remoteConfig == null) {
+                return LoadingStateWidget(
+                  icon: Icons.settings_applications_outlined,
+                  headline: l10n.headlinesFeedLoadingHeadline,
+                  subheadline: l10n.pleaseWait,
+                );
+              }
+        
+              if (state.status == HeadlinesFeedStatus.initial ||
+                  (state.status == HeadlinesFeedStatus.loading &&
+                      state.feedItems.isEmpty)) {
+                return LoadingStateWidget(
+                  icon: Icons.newspaper,
+                  headline: l10n.headlinesFeedLoadingHeadline,
+                  subheadline: l10n.headlinesFeedLoadingSubheadline,
+                );
+              }
+        
+              if (state.status == HeadlinesFeedStatus.failure &&
+                  state.feedItems.isEmpty) {
+                return FailureStateWidget(
+                  exception: state.error ?? UnknownException(l10n.unknownError),
+                  onRetry: () => context.read<HeadlinesFeedBloc>().add(
+                    HeadlinesFeedRefreshRequested(
+                      adThemeStyle: AdThemeStyle.fromTheme(theme),
+                    ),
                   ),
-                ),
-              );
-            }
-
-            return Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: AppLayout.maxContentWidth,
-                ),
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    context.read<HeadlinesFeedBloc>().add(
-                      HeadlinesFeedRefreshRequested(
-                        adThemeStyle: AdThemeStyle.fromTheme(theme),
-                      ),
-                    );
-                  },
-                  child: CustomScrollView(
-                    controller: _scrollController,
-                    slivers: [
-                      const FeedSliverAppBar(
-                        bottom: PreferredSize(
-                          preferredSize: Size.fromHeight(
-                            AppLayout.savedFiltersBarHeight,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSpacing.md,
+                );
+              }
+        
+              return Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppLayout.maxContentWidth,
+                  ),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<HeadlinesFeedBloc>().add(
+                        HeadlinesFeedRefreshRequested(
+                          adThemeStyle: AdThemeStyle.fromTheme(theme),
+                        ),
+                      );
+                    },
+                    child: CustomScrollView(
+                      controller: _scrollController,
+                      slivers: [
+                        const FeedSliverAppBar(
+                          bottom: PreferredSize(
+                            preferredSize: Size.fromHeight(
+                              AppLayout.savedFiltersBarHeight,
                             ),
-                            child: SavedFiltersBar(),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppSpacing.md,
+                              ),
+                              child: SavedFiltersBar(),
+                            ),
                           ),
                         ),
-                      ),
-                      // Conditionally render either the feed content or an empty
-                      // state message within the scroll view. This ensures the
-                      // app bar and filter bar are always visible for a better
-                      // and more consistent user experience, allowing users to
-                      // easily modify filters even when there are no results.
-                      if (state.feedItems.isEmpty &&
-                          state.status != HeadlinesFeedStatus.loading)
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InitialStateWidget(
-                                  icon: Icons.search_off,
-                                  headline:
-                                      l10n.headlinesFeedEmptyFilteredHeadline,
-                                  subheadline: l10n
-                                      .headlinesFeedEmptyFilteredSubheadline,
-                                ),
-                                const SizedBox(height: AppSpacing.lg),
-                                ElevatedButton(
-                                  onPressed: () =>
-                                      context.read<HeadlinesFeedBloc>().add(
-                                        HeadlinesFeedFiltersCleared(
-                                          adThemeStyle: AdThemeStyle.fromTheme(
-                                            theme,
+                        // Conditionally render either the feed content or an empty
+                        // state message within the scroll view. This ensures the
+                        // app bar and filter bar are always visible for a better
+                        // and more consistent user experience, allowing users to
+                        // easily modify filters even when there are no results.
+                        if (state.feedItems.isEmpty &&
+                            state.status != HeadlinesFeedStatus.loading)
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InitialStateWidget(
+                                    icon: Icons.search_off,
+                                    headline:
+                                        l10n.headlinesFeedEmptyFilteredHeadline,
+                                    subheadline: l10n
+                                        .headlinesFeedEmptyFilteredSubheadline,
+                                  ),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  ElevatedButton(
+                                    onPressed: () =>
+                                        context.read<HeadlinesFeedBloc>().add(
+                                          HeadlinesFeedFiltersCleared(
+                                            adThemeStyle: AdThemeStyle.fromTheme(
+                                              theme,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                  child: Text(
-                                    l10n.headlinesFeedClearFiltersButton,
+                                    child: Text(
+                                      l10n.headlinesFeedClearFiltersButton,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      else
-                        _buildSliverList(state, theme),
-                    ],
+                          )
+                        else
+                          _buildSliverList(state, theme),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
