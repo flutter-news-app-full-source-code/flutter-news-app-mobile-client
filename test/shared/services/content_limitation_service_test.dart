@@ -107,6 +107,7 @@ void main() {
       followedCountries: [],
       followedSources: [],
       followedTopics: [],
+      followedPersons: [],
       savedHeadlines: [],
       savedHeadlineFilters: [],
     );
@@ -539,12 +540,14 @@ void main() {
                 updatedAt: DateTime(2023),
                 status: ContentStatus.active,
               ),
-              eventCountry: const Country(
-                isoCode: 'US',
-                name: {SupportedLanguage.en: 'USA'},
-                flagUrl: 'f',
-                id: 'c',
-              ),
+              mentionedCountries: const [
+                Country(
+                  isoCode: 'US',
+                  name: {SupportedLanguage.en: 'USA'},
+                  flagUrl: 'f',
+                  id: 'c',
+                ),
+              ],
               topic: Topic(
                 id: 't',
                 name: const {SupportedLanguage.en: 't'},
@@ -724,6 +727,7 @@ void main() {
                 topics: [],
                 sources: [],
                 countries: [],
+                persons: [],
               ),
               isPinned: false,
               deliveryTypes: const {},
