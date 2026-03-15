@@ -48,6 +48,7 @@ void main() {
     userContentPreferencesRepository;
     late DataRepository<UserContext> userContextRepository;
     late DataRepository<Topic> topicsRepository;
+    late DataRepository<Person> personsRepository;
     late AnalyticsService analyticsService;
     late Logger logger;
     late RemoteConfig remoteConfig;
@@ -66,6 +67,7 @@ void main() {
       userContentPreferencesRepository = MockDataRepository();
       userContextRepository = MockDataRepository();
       topicsRepository = MockDataRepository();
+      personsRepository = MockDataRepository();
       analyticsService = MockAnalyticsService();
       logger = MockLogger();
       remoteConfig = MockRemoteConfig();
@@ -111,6 +113,7 @@ void main() {
           RepositoryProvider.value(value: userContentPreferencesRepository),
           RepositoryProvider.value(value: userContextRepository),
           RepositoryProvider.value(value: topicsRepository),
+          RepositoryProvider.value(value: personsRepository),
           RepositoryProvider.value(value: analyticsService),
           RepositoryProvider.value(value: logger),
         ],
