@@ -68,6 +68,14 @@ class _LayoutStyleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
+
+    // Safe fallback in case the local storage still contains the deprecated 'hidden' state.
+    // TODO(refactor): Rename FeedItemImageStyle enums (largeThumbnail -> card, smallThumbnail -> compact) and remove 'hidden' from core package.
+    final selectedStyle =
+        settings.feedSettings.feedItemImageStyle == FeedItemImageStyle.hidden
+        ? FeedItemImageStyle.smallThumbnail
+        : settings.feedSettings.feedItemImageStyle;
+
     return SegmentedButton<FeedItemImageStyle>(
       segments: [
         ButtonSegment(
@@ -80,13 +88,8 @@ class _LayoutStyleSelector extends StatelessWidget {
           label: Text(l10n.settingsFeedTileTypeImageStart),
           icon: const Icon(Icons.image_aspect_ratio_outlined),
         ),
-        ButtonSegment(
-          value: FeedItemImageStyle.hidden,
-          label: Text(l10n.settingsFeedTileTypeTextOnly),
-          icon: const Icon(Icons.short_text),
-        ),
       ],
-      selected: {settings.feedSettings.feedItemImageStyle},
+      selected: {selectedStyle},
       onSelectionChanged: (newSelection) {
         context.read<AppBloc>().add(
           AppSettingsChanged(
