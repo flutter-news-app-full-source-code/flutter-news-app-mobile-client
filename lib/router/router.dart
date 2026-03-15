@@ -29,6 +29,7 @@ import 'package:veritai_mobile/headlines_feed/bloc/headlines_filter_bloc.dart';
 import 'package:veritai_mobile/headlines_feed/services/feed_cache_service.dart';
 import 'package:veritai_mobile/headlines_feed/view/headlines_feed_page.dart';
 import 'package:veritai_mobile/headlines_feed/view/headlines_filter_page.dart';
+import 'package:veritai_mobile/headlines_feed/view/mentioned_entities_page.dart';
 import 'package:veritai_mobile/headlines_feed/view/saved_headlines_filters_page.dart';
 import 'package:veritai_mobile/onboarding/app_tour/view/app_tour_page.dart';
 import 'package:veritai_mobile/onboarding/initial_personalization/bloc/initial_personalization_bloc.dart';
@@ -461,6 +462,15 @@ GoRouter createRouter({
             ],
             child: EntityDetailsPage(args: args),
           );
+        },
+      ),
+
+      GoRoute(
+        path: Routes.mentionedEntities,
+        name: Routes.mentionedEntitiesName,
+        builder: (context, state) {
+          final headline = state.extra! as Headline;
+          return MentionedEntitiesPage(headline: headline);
         },
       ),
 
