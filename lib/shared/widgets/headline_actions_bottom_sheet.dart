@@ -1,13 +1,15 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
-import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
 import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/router/routes.dart';
 import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
 import 'package:veritai_mobile/user_content/engagement/view/reactions_bottom_sheet.dart';
 import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
@@ -81,6 +83,19 @@ class _HeadlineActionsBottomSheetState
                 );
               },
             ),
+            if (widget.headline.mentionedPersons.isNotEmpty ||
+                widget.headline.mentionedCountries.isNotEmpty)
+              ListTile(
+                leading: const Icon(Icons.label_important_outline),
+                title: Text(l10n.mentionsActionLabel),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  context.pushNamed(
+                    Routes.mentionedEntitiesName,
+                    extra: widget.headline,
+                  );
+                },
+              ),
             ListTile(
               leading: _isBookmarking
                   ? const SizedBox(
