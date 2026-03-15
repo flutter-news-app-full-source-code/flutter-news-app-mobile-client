@@ -55,8 +55,8 @@ class HeadlineTileCompact extends StatelessWidget {
       ),
       child: NotificationIndicator(
         showIndicator: headline.isBreaking,
-        top: -6,
-        start: -6,
+        top: -2,
+        start: -2,
         child: Card(
           clipBehavior: Clip.antiAlias,
           color: Theme.of(context).colorScheme.surfaceContainerHigh,
@@ -124,10 +124,10 @@ class HeadlineTileCompact extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        PositionedDirectional(
                           top: AppSpacing.xs,
-                          left: AppSpacing.xs,
-                          right: AppSpacing.xs,
+                          start: AppSpacing.xs,
+                          end: AppSpacing.xs,
                           child: GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () async {
@@ -147,8 +147,8 @@ class HeadlineTileCompact extends StatelessWidget {
                               children: [
                                 if (headline.source.logoUrl != null)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: AppSpacing.sm,
+                                    padding: const EdgeInsetsDirectional.only(
+                                      end: AppSpacing.sm,
                                     ),
                                     child: CircleAvatar(
                                       radius: 8,
@@ -172,10 +172,10 @@ class HeadlineTileCompact extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        PositionedDirectional(
                           bottom: AppSpacing.xs,
-                          left: AppSpacing.xs,
-                          right: AppSpacing.xs,
+                          start: AppSpacing.xs,
+                          end: AppSpacing.xs,
                           child: Text(
                             formattedDate,
                             style: textTheme.labelSmall?.copyWith(

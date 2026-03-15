@@ -55,8 +55,8 @@ class HeadlineTileImmersive extends StatelessWidget {
       ),
       child: NotificationIndicator(
         showIndicator: headline.isBreaking,
-        top: -6,
-        start: -6,
+        top: -2,
+        start: -2,
         child: Card(
           clipBehavior: Clip.antiAlias,
           color: Theme.of(context).colorScheme.surfaceContainerHigh,
@@ -70,134 +70,134 @@ class HeadlineTileImmersive extends StatelessWidget {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-              if (headline.imageUrl != null)
-                Image.network(
-                  headline.imageUrl!,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return ColoredBox(
-                      color: colorScheme.surfaceContainerHighest,
-                      child: const Center(
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                  if (headline.imageUrl != null)
+                    Image.network(
+                      headline.imageUrl!,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return ColoredBox(
+                          color: colorScheme.surfaceContainerHighest,
+                          child: const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) => ColoredBox(
+                        color: colorScheme.surfaceContainerHighest,
+                        child: Icon(
+                          Icons.broken_image_outlined,
+                          color: colorScheme.onSurfaceVariant,
+                          size: AppSpacing.xxl,
+                        ),
                       ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) => ColoredBox(
-                    color: colorScheme.surfaceContainerHighest,
-                    child: Icon(
-                      Icons.broken_image_outlined,
-                      color: colorScheme.onSurfaceVariant,
-                      size: AppSpacing.xxl,
-                    ),
-                  ),
-                )
-              else
-                ColoredBox(color: colorScheme.surfaceContainerHighest),
-              Positioned.fill(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.transparent,
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.9),
-                      ],
-                      stops: const [0.0, 0.25, 0.5, 1.0],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: AppSpacing.md,
-                left: AppSpacing.md,
-                right: AppSpacing.md,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () async {
-                          await context
-                              .read<InterstitialAdManager>()
-                              .onPotentialAdTrigger();
-                          if (!context.mounted) return;
-                          await context.pushNamed(
-                            Routes.entityDetailsName,
-                            pathParameters: {
-                              'type': ContentType.source.name,
-                              'id': headline.source.id,
-                            },
-                          );
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (headline.source.logoUrl != null)
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  right: AppSpacing.xs,
-                                ),
-                                child: CircleAvatar(
-                                  radius: 10,
-                                  backgroundImage: NetworkImage(
-                                    headline.source.logoUrl!,
-                                  ),
-                                ),
-                              ),
-                            Flexible(
-                              child: Text(
-                                headline.source.name.getValue(context),
-                                style: textTheme.labelMedium?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                    )
+                  else
+                    ColoredBox(color: colorScheme.surfaceContainerHighest),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.8),
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.9),
                           ],
+                          stops: const [0.0, 0.25, 0.5, 1.0],
                         ),
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Text(
-                      formattedDate,
-                      style: textTheme.labelSmall?.copyWith(
-                        color: Colors.white.withOpacity(0.9),
-                      ),
+                  ),
+                  PositionedDirectional(
+                    top: AppSpacing.md,
+                    start: AppSpacing.md,
+                    end: AppSpacing.md,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () async {
+                              await context
+                                  .read<InterstitialAdManager>()
+                                  .onPotentialAdTrigger();
+                              if (!context.mounted) return;
+                              await context.pushNamed(
+                                Routes.entityDetailsName,
+                                pathParameters: {
+                                  'type': ContentType.source.name,
+                                  'id': headline.source.id,
+                                },
+                              );
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (headline.source.logoUrl != null)
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.only(
+                                      end: AppSpacing.sm,
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 10,
+                                      backgroundImage: NetworkImage(
+                                        headline.source.logoUrl!,
+                                      ),
+                                    ),
+                                  ),
+                                Flexible(
+                                  child: Text(
+                                    headline.source.name.getValue(context),
+                                    style: textTheme.labelMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(
+                          formattedDate,
+                          style: textTheme.labelSmall?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: AppSpacing.md,
-                left: AppSpacing.md,
-                right: AppSpacing.md,
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(text: headline.title.getValue(context)),
-                    ],
                   ),
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                  PositionedDirectional(
+                    bottom: AppSpacing.md,
+                    start: AppSpacing.md,
+                    end: AppSpacing.md,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: headline.title.getValue(context)),
+                        ],
+                      ),
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
-    ),
-    ),
     );
   }
 }

@@ -45,6 +45,7 @@ void main() {
     registerFallbackValue(
       PushNotificationSubscriptionDeliveryType.breakingOnly,
     );
+    registerFallbackValue(const PaginationOptions());
   });
   group('HeadlinesFilterPage', () {
     late AppBloc appBloc;
@@ -91,6 +92,7 @@ void main() {
         () => topicsRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
@@ -104,6 +106,7 @@ void main() {
         () => sourcesRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
@@ -117,6 +120,7 @@ void main() {
         () => countriesRepository.readAll(
           filter: any(named: 'filter'),
           sort: any(named: 'sort'),
+          pagination: any(named: 'pagination'),
         ),
       ).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
