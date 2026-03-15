@@ -31,7 +31,12 @@ void main() {
       name: {SupportedLanguage.en: 'Pinned Filter'},
       isPinned: true,
       deliveryTypes: {},
-      criteria: HeadlineFilterCriteria(topics: [], sources: [], countries: []),
+      criteria: HeadlineFilterCriteria(
+        topics: [],
+        sources: [],
+        countries: [],
+        persons: [],
+      ),
     );
 
     final userContentPreferences = UserContentPreferences(
@@ -49,6 +54,7 @@ void main() {
       ],
       followedSources: const [],
       followedCountries: const [],
+      followedPersons: const [],
       savedHeadlines: const [],
       savedHeadlineFilters: const [filter1],
     );
@@ -144,6 +150,7 @@ void main() {
             followedTopics: [],
             followedSources: [],
             followedCountries: [],
+            followedPersons: [],
             savedHeadlines: [],
             savedHeadlineFilters: [],
           ),
