@@ -9,6 +9,7 @@
       <img src="https://repository-images.githubusercontent.com/946589707/688fca55-528f-413b-9355-8d11036dc451" alt="Watch the veritai-news-dashboard-demo" width="80%">
     </a>
 </div>
+
 ---
 
 Part of the **[VeritAI News](https://github.com/veritai-news)**.
