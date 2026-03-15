@@ -123,12 +123,14 @@ void main() {
       updatedAt: DateTime(2023),
       status: ContentStatus.active,
     ),
-    eventCountry: const Country(
-      isoCode: 'US',
-      name: {SupportedLanguage.en: 'USA'},
-      flagUrl: 'f',
-      id: 'c',
-    ),
+    mentionedCountries: const [
+      Country(
+        isoCode: 'US',
+        name: {SupportedLanguage.en: 'USA'},
+        flagUrl: 'f',
+        id: 'c',
+      ),
+    ],
     topic: Topic(
       id: 't1',
       name: const {SupportedLanguage.en: 'Topic 1'},
@@ -305,6 +307,7 @@ void main() {
           followedCountries: [],
           followedSources: [],
           followedTopics: [],
+          followedPersons: [],
           savedHeadlines: [],
           savedHeadlineFilters: [],
         ),
@@ -440,6 +443,7 @@ void main() {
             topics: [],
             sources: [],
             countries: [],
+            persons: [],
           ),
           adThemeStyle: _adThemeStyle,
         ),
