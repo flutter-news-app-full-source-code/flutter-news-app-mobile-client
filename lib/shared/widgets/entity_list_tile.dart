@@ -39,6 +39,13 @@ class EntityListTile extends StatelessWidget {
         );
       case final Country country:
         return CircleAvatar(backgroundImage: NetworkImage(country.flagUrl));
+      case final Person person:
+        return CircleAvatar(
+          backgroundImage: person.imageUrl != null
+              ? NetworkImage(person.imageUrl!)
+              : null,
+          child: person.imageUrl == null ? const Icon(Icons.person) : null,
+        );
       default:
         return const Icon(Icons.question_mark);
     }
@@ -55,6 +62,8 @@ class EntityListTile extends StatelessWidget {
         title = source.name.getValue(context);
       case final Country country:
         title = country.name.getValue(context);
+      case final Person person:
+        title = person.name.getValue(context);
       default:
         title = 'Unknown Item';
     }
@@ -76,6 +85,9 @@ class EntityListTile extends StatelessWidget {
           case final Country country:
             entityId = country.id;
             contentType = ContentType.country;
+          case final Person person:
+            entityId = person.id;
+            contentType = ContentType.person;
           default:
             return;
         }
