@@ -24,7 +24,12 @@ void main() {
       name: {SupportedLanguage.en: 'Filter 1'},
       isPinned: true,
       deliveryTypes: {},
-      criteria: HeadlineFilterCriteria(topics: [], sources: [], countries: []),
+      criteria: HeadlineFilterCriteria(
+        topics: [],
+        sources: [],
+        countries: [],
+        persons: [],
+      ),
     );
     const filter2 = SavedHeadlineFilter(
       id: '2',
@@ -32,7 +37,12 @@ void main() {
       name: {SupportedLanguage.en: 'Filter 2'},
       isPinned: false,
       deliveryTypes: {},
-      criteria: HeadlineFilterCriteria(topics: [], sources: [], countries: []),
+      criteria: HeadlineFilterCriteria(
+        topics: [],
+        sources: [],
+        countries: [],
+        persons: [],
+      ),
     );
 
     const userContentPreferences = UserContentPreferences(
@@ -40,6 +50,7 @@ void main() {
       followedCountries: [],
       followedSources: [],
       followedTopics: [],
+      followedPersons: [],
       savedHeadlines: [],
       savedHeadlineFilters: [filter1, filter2],
     );
