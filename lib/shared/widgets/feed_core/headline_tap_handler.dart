@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:veritai_mobile/ads/services/interstitial_ad_manager.dart';
 import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/shared/widgets/headline_actions_bottom_sheet.dart';
 import 'package:veritai_mobile/shared/widgets/in_app_browser.dart';
 
 /// {@template headline_tap_handler}
@@ -31,9 +32,26 @@ abstract final class HeadlineTapHandler {
     BuildContext context,
     Headline headline,
   ) async {
+    // Now triggers the action sheet instead of direct navigation.
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<AppBloc>(),
+        child: HeadlineActionsBottomSheet(headline: headline),
+      ),
+    );
+  }
+
+  /// Logic separated to allow direct access from the Action Sheet.
+  static Future<void> openHeadlineUrl(
+    BuildContext context,
+    Headline headline,
+  ) async {
+    final analytics = context.read<AnalyticsService>();
+    final interstitial = context.read<InterstitialAdManager>();
     // Log the content view event immediately.
     unawaited(
-      context.read<AnalyticsService>().logEvent(
+      analytics.logEvent(
         AnalyticsEvent.contentViewed,
         payload: ContentViewedPayload(
           contentId: headline.id,
@@ -43,7 +61,7 @@ abstract final class HeadlineTapHandler {
     );
 
     // Notify the ad manager of an external navigation and await ad dismissal.
-    await context.read<InterstitialAdManager>().onExternalNavigationTrigger();
+    await interstitial.onExternalNavigationTrigger();
 
     // Check if the widget is still in the tree before navigating.
     if (!context.mounted) return;
