@@ -6,10 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:veritai_mobile/ads/services/interstitial_ad_manager.dart';
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
-import 'package:veritai_mobile/l10n/l10n.dart';
 import 'package:veritai_mobile/router/routes.dart';
 import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
 import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
+import 'package:veritai_mobile/shared/widgets/notification_indicator.dart';
 
 /// {@template headline_tile_immersive}
 /// A shared widget to display a headline item with a large image at the top.
@@ -41,7 +41,6 @@ class HeadlineTileImmersive extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
-    final l10n = AppLocalizationsX(context).l10n;
     final currentLocale = context.watch<AppBloc>().state.locale;
 
     final formattedDate = timeago.format(
@@ -49,22 +48,28 @@ class HeadlineTileImmersive extends StatelessWidget {
       locale: currentLocale.languageCode,
     );
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      color: Theme.of(context).colorScheme.surfaceContainerHigh,
-      margin: const EdgeInsets.symmetric(
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.paddingMedium,
         vertical: AppSpacing.xs,
       ),
-      child: InkWell(
-        onTap:
-            onHeadlineTap ??
-            () => HeadlineTapHandler.handleHeadlineTap(context, headline),
-        child: SizedBox(
-          height: 220,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
+      child: NotificationIndicator(
+        showIndicator: headline.isBreaking,
+        top: -6,
+        start: -6,
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          margin: EdgeInsets.zero,
+          child: InkWell(
+            onTap:
+                onHeadlineTap ??
+                () => HeadlineTapHandler.handleHeadlineTap(context, headline),
+            child: SizedBox(
+              height: 220,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
               if (headline.imageUrl != null)
                 Image.network(
                   headline.imageUrl!,
@@ -176,14 +181,6 @@ class HeadlineTileImmersive extends StatelessWidget {
                 child: Text.rich(
                   TextSpan(
                     children: [
-                      if (headline.isBreaking)
-                        TextSpan(
-                          text: '${l10n.breakingNewsPrefix} - ',
-                          style: textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: colorScheme.primaryContainer,
-                          ),
-                        ),
                       TextSpan(text: headline.title.getValue(context)),
                     ],
                   ),
@@ -199,6 +196,8 @@ class HeadlineTileImmersive extends StatelessWidget {
           ),
         ),
       ),
+    ),
+    ),
     );
   }
 }
