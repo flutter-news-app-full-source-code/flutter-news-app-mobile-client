@@ -11,12 +11,12 @@ import 'package:veritai_mobile/router/routes.dart';
 import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
 import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
 
-/// {@template headline_tile_image_start}
+/// {@template headline_tile_compact}
 /// A shared widget to display a headline item with a small image at the start.
 /// {@endtemplate}
-class HeadlineTileImageStart extends StatelessWidget {
+class HeadlineTileCompact extends StatelessWidget {
   /// {@macro headline_tile_image_start}
-  const HeadlineTileImageStart({
+  const HeadlineTileCompact({
     required this.headline,
     super.key,
     this.onHeadlineTap,
@@ -73,11 +73,32 @@ class HeadlineTileImageStart extends StatelessWidget {
                         child: Image.network(
                           headline.imageUrl!,
                           fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return ColoredBox(
+                              color: colorScheme.surfaceContainerHighest,
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) =>
+                              ColoredBox(
+                                color: colorScheme.surfaceContainerHighest,
+                                child: Icon(
+                                  Icons.broken_image_outlined,
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                              ),
                         ),
                       )
                     else
-                      const Positioned.fill(
-                        child: ColoredBox(color: Colors.grey),
+                      Positioned.fill(
+                        child: ColoredBox(
+                          color: colorScheme.surfaceContainerHighest,
+                        ),
                       ),
                     Positioned.fill(
                       child: DecoratedBox(

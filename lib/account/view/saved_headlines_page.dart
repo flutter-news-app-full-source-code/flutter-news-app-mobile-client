@@ -96,7 +96,7 @@ class SavedHeadlinesPage extends StatelessWidget {
                   switch (imageStyle) {
                     case FeedItemImageStyle.hidden:
                     case FeedItemImageStyle.smallThumbnail:
-                      return HeadlineTileImageStart(
+                      return HeadlineTileCompact(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(
@@ -105,7 +105,7 @@ class SavedHeadlinesPage extends StatelessWidget {
                             ),
                       );
                     case FeedItemImageStyle.largeThumbnail:
-                      return HeadlineTileImageTop(
+                      return HeadlineTileImmersive(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(

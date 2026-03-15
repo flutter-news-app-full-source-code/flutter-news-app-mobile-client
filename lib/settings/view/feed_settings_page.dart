@@ -70,7 +70,7 @@ class _LayoutStyleSelector extends StatelessWidget {
     final l10n = AppLocalizationsX(context).l10n;
 
     // Safe fallback in case the local storage still contains the deprecated 'hidden' state.
-    // TODO(refactor): Rename FeedItemImageStyle enums (largeThumbnail -> card, smallThumbnail -> compact) and remove 'hidden' from core package.
+    // TODO(refactor): Rename FeedItemImageStyle enums (largeThumbnail -> immersive, smallThumbnail -> compact) and remove 'hidden' from core package.
     final selectedStyle =
         settings.feedSettings.feedItemImageStyle == FeedItemImageStyle.hidden
         ? FeedItemImageStyle.smallThumbnail

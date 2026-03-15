@@ -104,7 +104,7 @@ class HeadlineSearchDelegate extends SearchDelegate<void> {
                     itemCount: state.headlines.length,
                     itemBuilder: (context, index) {
                       final headline = state.headlines[index];
-                      return HeadlineTileImageStart(
+                      return HeadlineTileCompact(
                         headline: headline,
                         onHeadlineTap: () =>
                             HeadlineTapHandler.handleHeadlineTap(

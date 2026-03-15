@@ -324,13 +324,13 @@ class __HeadlinesFeedViewState extends State<_HeadlinesFeedView>
           // TODO(refactor): Remove hidden from FeedItemImageStyle enum in core.
           return const SizedBox.shrink();
         case FeedItemImageStyle.smallThumbnail:
-          return HeadlineTileImageStart(
+          return HeadlineTileCompact(
             headline: item,
             onHeadlineTap: () =>
                 HeadlineTapHandler.handleHeadlineTap(context, item),
           );
         case FeedItemImageStyle.largeThumbnail:
-          return HeadlineTileImageTop(
+          return HeadlineTileImmersive(
             headline: item,
             onHeadlineTap: () =>
                 HeadlineTapHandler.handleHeadlineTap(context, item),

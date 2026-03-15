@@ -579,13 +579,13 @@ class _EntityDetailsViewState extends State<EntityDetailsView> {
             switch (imageStyle) {
               case FeedItemImageStyle.hidden:
               case FeedItemImageStyle.smallThumbnail:
-                tile = HeadlineTileImageStart(
+                tile = HeadlineTileCompact(
                   headline: item,
                   onHeadlineTap: () =>
                       HeadlineTapHandler.handleHeadlineTap(context, item),
                 );
               case FeedItemImageStyle.largeThumbnail:
-                tile = HeadlineTileImageTop(
+                tile = HeadlineTileImmersive(
                   headline: item,
                   onHeadlineTap: () =>
                       HeadlineTapHandler.handleHeadlineTap(context, item),
