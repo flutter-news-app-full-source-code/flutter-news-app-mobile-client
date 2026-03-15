@@ -4,8 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:veritai_mobile/analytics/services/analytics_service.dart';
 import 'package:veritai_mobile/app/bloc/app_bloc.dart';
+import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
 import 'package:veritai_mobile/l10n/l10n.dart';
 import 'package:veritai_mobile/shared/constants/app_layout.dart';
+import 'package:veritai_mobile/user_content/engagement/view/comments_bottom_sheet.dart';
 import 'package:veritai_mobile/user_content/reporting/view/report_content_bottom_sheet.dart';
 
 /// {@template headline_actions_bottom_sheet}
@@ -52,6 +55,32 @@ class _HeadlineActionsBottomSheetState
         ),
         child: Wrap(
           children: [
+            ListTile(
+              leading: const Icon(Icons.chrome_reader_mode_outlined),
+              title: Text(l10n.readActionLabel),
+              onTap: () {
+                Navigator.of(context).pop();
+                // We bypass the handler logic here to avoid re-opening the sheet.
+                // This uses the core navigation utility.
+                HeadlineTapHandler.openHeadlineUrl(context, widget.headline);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add_reaction_outlined),
+              title: Text(l10n.reactActionLabel),
+              onTap: () {
+                final feedBloc = context.read<HeadlinesFeedBloc>();
+                Navigator.of(context).pop();
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (_) => BlocProvider.value(
+                    value: feedBloc,
+                    child: CommentsBottomSheet(headlineId: widget.headline.id),
+                  ),
+                );
+              },
+            ),
             ListTile(
               leading: _isBookmarking
                   ? const SizedBox(
