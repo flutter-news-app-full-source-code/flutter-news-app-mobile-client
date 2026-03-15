@@ -228,13 +228,11 @@ class _StepCard extends StatelessWidget {
     required this.title,
     required this.selectedCount,
     required this.onTap,
-    this.icon = Icons.chevron_right,
   });
 
   final String title;
   final int selectedCount;
   final VoidCallback onTap;
-  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +252,6 @@ class _StepCard extends StatelessWidget {
                 ),
               ),
             const SizedBox(width: AppSpacing.sm),
-            Icon(icon),
           ],
         ),
         onTap: onTap,
