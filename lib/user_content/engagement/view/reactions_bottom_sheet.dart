@@ -51,88 +51,101 @@ class _ReactionsBottomSheetViewState extends State<_ReactionsBottomSheetView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizationsX(context).l10n;
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: DraggableScrollableSheet(
-        expand: false,
-        initialChildSize: 0.6,
-        minChildSize: 0.4,
-        maxChildSize: 0.9,
-        builder: (context, sheetScrollController) {
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: AppLayout.maxDialogContentWidth,
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.md,
-                      AppSpacing.md,
-                      AppSpacing.md,
-                      AppSpacing.xs,
-                    ),
-                    child: Text(
-                      l10n.engagementPageTitle,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Material(
+      color: colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.6,
+          minChildSize: 0.4,
+          maxChildSize: 0.9,
+          builder: (context, sheetScrollController) {
+            return SafeArea(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppLayout.maxDialogContentWidth,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.md,
-                    ),
-                    child: BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
-                      builder: (context, state) {
-                        final userId = context.select(
-                          (AppBloc bloc) => bloc.state.user?.id,
-                        );
-                        final engagements =
-                            state.engagementsMap[widget.headlineId] ?? [];
-                        final userEngagement = engagements.firstWhereOrNull(
-                          (e) => e.userId == userId,
-                        );
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppSpacing.sm,
-                          ),
-                          child: InlineReactionSelector(
-                            unselectedColor: Theme.of(
-                              context,
-                            ).colorScheme.onSurfaceVariant.withOpacity(0.6),
-                            selectedReaction:
-                                userEngagement?.reaction?.reactionType,
-                            onReactionSelected: (reaction) =>
-                                context.read<HeadlinesFeedBloc>().add(
-                                  HeadlinesFeedReactionUpdated(
-                                    widget.headlineId,
-                                    reaction,
-                                    context: context,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.xs,
+                        ),
+                        child: Text(
+                          l10n.engagementPageTitle,
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.md,
+                        ),
+                        child:
+                            BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
+                              builder: (context, state) {
+                                final userId = context.select(
+                                  (AppBloc bloc) => bloc.state.user?.id,
+                                );
+                                final engagements =
+                                    state.engagementsMap[widget.headlineId] ??
+                                    [];
+                                final userEngagement = engagements
+                                    .firstWhereOrNull(
+                                      (e) => e.userId == userId,
+                                    );
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: AppSpacing.sm,
                                   ),
-                                ),
-                          ),
-                        );
-                      },
-                    ),
+                                  child: InlineReactionSelector(
+                                    unselectedColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                    selectedReaction:
+                                        userEngagement?.reaction?.reactionType,
+                                    onReactionSelected: (reaction) =>
+                                        context.read<HeadlinesFeedBloc>().add(
+                                          HeadlinesFeedReactionUpdated(
+                                            widget.headlineId,
+                                            reaction,
+                                            context: context,
+                                          ),
+                                        ),
+                                  ),
+                                );
+                              },
+                            ),
+                      ),
+                      Divider(height: 1, color: colorScheme.outlineVariant),
+                      Expanded(
+                        child: _buildContent(context, sheetScrollController),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(AppSpacing.md),
+                        child: _CommentInputField(
+                          key: _ReactionsBottomSheetView._inputFieldKey,
+                          headlineId: widget.headlineId,
+                        ),
+                      ),
+                    ],
                   ),
-                  const Divider(height: 1),
-                  Expanded(
-                    child: _buildContent(context, sheetScrollController),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    child: _CommentInputField(
-                      key: _ReactionsBottomSheetView._inputFieldKey,
-                      headlineId: widget.headlineId,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -171,7 +184,8 @@ class _ReactionsBottomSheetViewState extends State<_ReactionsBottomSheetView> {
         return ListView.separated(
           controller: scrollController,
           itemCount: comments.length,
-          separatorBuilder: (context, index) => const Divider(height: 1),
+          separatorBuilder: (context, index) =>
+              Divider(height: 1, color: theme.colorScheme.outlineVariant),
           itemBuilder: (context, index) {
             final engagement = comments[index];
             final comment = engagement.comment!;
@@ -351,6 +365,8 @@ class __CommentInputFieldState extends State<_CommentInputField> {
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(24)),
                   ),
+                  filled: true,
+                  fillColor: theme.colorScheme.surface,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.md,
                   ),
