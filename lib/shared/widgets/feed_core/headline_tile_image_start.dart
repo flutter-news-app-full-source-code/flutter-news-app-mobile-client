@@ -2,12 +2,14 @@ import 'package:core/core.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:veritai_mobile/headlines_feed/bloc/headlines_feed_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:veritai_mobile/ads/services/interstitial_ad_manager.dart';
+import 'package:veritai_mobile/app/bloc/app_bloc.dart';
 import 'package:veritai_mobile/l10n/l10n.dart';
+import 'package:veritai_mobile/router/routes.dart';
 import 'package:veritai_mobile/shared/extensions/multilingual_map_extension.dart';
-import 'package:veritai_mobile/shared/widgets/feed_core/headline_source_row.dart';
 import 'package:veritai_mobile/shared/widgets/feed_core/headline_tap_handler.dart';
-import 'package:veritai_mobile/user_content/engagement/widgets/headline_actions_row.dart';
 
 /// {@template headline_tile_image_start}
 /// A shared widget to display a headline item with a small image at the start.
@@ -40,115 +42,153 @@ class HeadlineTileImageStart extends StatelessWidget {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
     final l10n = AppLocalizationsX(context).l10n;
+    final currentLocale = context.watch<AppBloc>().state.locale;
+
+    final formattedDate = timeago.format(
+      headline.createdAt,
+      locale: currentLocale.languageCode,
+    );
 
     return Card(
+      clipBehavior: Clip.antiAlias,
       color: Theme.of(context).colorScheme.surfaceContainerHigh,
       margin: const EdgeInsets.symmetric(
         horizontal: AppSpacing.paddingMedium,
         vertical: AppSpacing.xs,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.sm),
-            child: HeadlineSourceRow(headline: headline),
-          ),
-          InkWell(
-            onTap:
-                onHeadlineTap ??
-                () => HeadlineTapHandler.handleHeadlineTap(context, headline),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.md,
-                0,
-                AppSpacing.md,
-                0,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 72,
-                    height: 72,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(AppSpacing.sm),
-                      child: headline.imageUrl != null
-                          ? Image.network(
-                              headline.imageUrl!,
-                              fit: BoxFit.cover,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return ColoredBox(
-                                      color:
-                                          colorScheme.surfaceContainerHighest,
-                                      child: const Center(
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                              errorBuilder: (context, error, stackTrace) =>
-                                  ColoredBox(
-                                    color: colorScheme.surfaceContainerHighest,
-                                    child: Icon(
-                                      Icons.broken_image_outlined,
-                                      color: colorScheme.onSurfaceVariant,
-                                      size: AppSpacing.xl,
-                                    ),
-                                  ),
-                            )
-                          : ColoredBox(
-                              color: colorScheme.surfaceContainerHighest,
-                            ),
+      child: InkWell(
+        onTap:
+            onHeadlineTap ??
+            () => HeadlineTapHandler.handleHeadlineTap(context, headline),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                width: 120,
+                child: Stack(
+                  children: [
+                    if (headline.imageUrl != null)
+                      Positioned.fill(
+                        child: Image.network(
+                          headline.imageUrl!,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    else
+                      const Positioned.fill(
+                        child: ColoredBox(color: Colors.grey),
+                      ),
+                    Positioned.fill(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(0.7),
+                              Colors.transparent,
+                              Colors.transparent,
+                              Colors.black.withOpacity(0.7),
+                            ],
+                            stops: const [0.0, 0.3, 0.7, 1.0],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          if (headline.isBreaking)
-                            TextSpan(
-                              text: '${l10n.breakingNewsPrefix} - ',
-                              style: textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w500,
-                                color: colorScheme.primary,
+                    Positioned(
+                      top: AppSpacing.xs,
+                      left: AppSpacing.xs,
+                      right: AppSpacing.xs,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () async {
+                          await context
+                              .read<InterstitialAdManager>()
+                              .onPotentialAdTrigger();
+                          if (!context.mounted) return;
+                          await context.pushNamed(
+                            Routes.entityDetailsName,
+                            pathParameters: {
+                              'type': ContentType.source.name,
+                              'id': headline.source.id,
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            if (headline.source.logoUrl != null)
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  right: AppSpacing.xs,
+                                ),
+                                child: CircleAvatar(
+                                  radius: 8,
+                                  backgroundImage: NetworkImage(
+                                    headline.source.logoUrl!,
+                                  ),
+                                ),
+                              ),
+                            Expanded(
+                              child: Text(
+                                headline.source.name.getValue(context),
+                                style: textTheme.labelSmall?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          TextSpan(text: headline.title.getValue(context)),
-                        ],
+                          ],
+                        ),
                       ),
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                    Positioned(
+                      bottom: AppSpacing.xs,
+                      left: AppSpacing.xs,
+                      right: AppSpacing.xs,
+                      child: Text(
+                        formattedDate,
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.white.withOpacity(0.8),
+                          fontSize: 10,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        if (headline.isBreaking)
+                          TextSpan(
+                            text: '${l10n.breakingNewsPrefix} - ',
+                            style: textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: colorScheme.primary,
+                            ),
+                          ),
+                        TextSpan(text: headline.title.getValue(context)),
+                      ],
+                    ),
+                    style: textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.md,
-              0,
-              AppSpacing.md,
-              AppSpacing.sm,
-            ),
-            child: BlocBuilder<HeadlinesFeedBloc, HeadlinesFeedState>(
-              builder: (context, state) {
-                return HeadlineActionsRow(
-                  headline: headline,
-                  engagements: state.engagementsMap[headline.id] ?? [],
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
